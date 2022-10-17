@@ -1,7 +1,11 @@
 package com.example.onetoone.presentation;
 
 import com.example.onetoone.core.question.commands.CreateQuestionCommand;
+import com.example.onetoone.core.question.commands.GetFilteredAndSortedQuestionListCommand;
+import com.example.onetoone.core.question.results.QuestionResultModel;
 import com.example.onetoone.core.service.command_bus.CommandBus;
+import com.example.onetoone.core.service.common.ResultModelList;
+import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.QuestionViewMapper;
 import com.example.onetoone.presentation.request.CreateQuestionRequest;
 import com.example.onetoone.presentation.view.QuestionView;
@@ -9,6 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.stream.Collectors;
+
+import static com.example.onetoone.presentation.WebUtils.getCriteria;
 
 @RestController
 @RequestMapping("/v1/user/question")
@@ -27,5 +35,22 @@ public class QuestionController {
                 .answer(request.getAnswer())
                 .userId(request.getUserId())
                 .build()));
+    }
+
+    @GetMapping
+    public ListView<QuestionView> getAll(@RequestParam(required = false, defaultValue = "0") int page,
+                                         @RequestParam(required = false, defaultValue = "10") int size,
+                                         @RequestParam(required = false, defaultValue = "id,desc") String sort,
+                                         @RequestParam(required = false, value = "search") String search){
+       var searchCriteria = getCriteria(search);
+       ResultModelList<QuestionResultModel> resultList = commandBus.execute(GetFilteredAndSortedQuestionListCommand
+               .builder()
+               .page(page)
+               .sort(sort)
+               .size(size)
+               .criteria(searchCriteria)
+               .build());
+
+        return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(mapper::toView).collect(Collectors.toList()));
     }
 }
