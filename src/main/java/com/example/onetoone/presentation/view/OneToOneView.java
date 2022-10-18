@@ -12,4 +12,5 @@ public class OneToOneView {
     Long opponentId;
     String programmingLanguage;
     LocalDateTime dateTime;
+    String status;
 }

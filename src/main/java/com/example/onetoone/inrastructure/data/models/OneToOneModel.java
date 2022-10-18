@@ -18,4 +18,5 @@ public class OneToOneModel {
     private UserModel opponent;
     private Integer programmingLanguageId;
     private LocalDateTime dateTime;
+    private Integer statusId;
 }

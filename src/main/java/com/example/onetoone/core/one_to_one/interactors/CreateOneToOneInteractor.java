@@ -2,6 +2,7 @@ package com.example.onetoone.core.one_to_one.interactors;
 
 import com.example.onetoone.core.one_to_one.OneToOneMapper;
 import com.example.onetoone.core.one_to_one.commands.CreateOneToOneCommand;
+import com.example.onetoone.core.one_to_one.entities.OneToOneStatus;
 import com.example.onetoone.core.one_to_one.results.OneToOneResult;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
@@ -21,6 +22,7 @@ public class CreateOneToOneInteractor implements Interactor<CreateOneToOneComman
         var entity = mapper.toEntity(command);
         var initiator = users.get(command.getInitiatorId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND));
         entity.setInitiator(initiator);
+        entity.setStatus(OneToOneStatus.OPEN);
 
         return mapper.toResult(oneToOnes.put(entity));
     }

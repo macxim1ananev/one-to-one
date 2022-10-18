@@ -17,5 +17,6 @@ public interface OneToOneMapper {
 
     @Mapping(target = "initiatorId", source = "initiator.id")
     @Mapping(target = "opponentId", source = "opponent.id")
+    @Mapping(target = "status", source = "status")
     OneToOneResult toResult(OneToOne entity);
 }

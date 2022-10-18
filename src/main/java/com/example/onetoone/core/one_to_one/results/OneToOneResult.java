@@ -13,4 +13,5 @@ public class OneToOneResult {
     Long opponentId;
     String programmingLanguage;
     LocalDateTime dateTime;
+    String status;
 }

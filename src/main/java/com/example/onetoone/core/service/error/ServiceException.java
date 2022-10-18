@@ -23,7 +23,9 @@ public class ServiceException extends RuntimeException {
         USER_NOT_FOUND(1, "User not found"),
         ONE_TO_ONE_NOT_FOUND(2, "One to pne not found"),
         ONE_TO_ONE_NOT_VALID(3, "One to one not valid, you can't create one to one with yourself"),
-        FEEDBACK_NOT_VALID(4, "User can't write feedback for yourself");
+        FEEDBACK_NOT_VALID(4, "User can't write feedback for yourself"),
+        FEEDBACK_NOT_CREATE(5, "Feedback not created" ),
+        ONE_TO_ONE_CLOSE_IMPOSSIBLE(6, "Only one to one author can close one to one");
 
 
         Exception(int code, String message) {

@@ -2,6 +2,7 @@ package com.example.onetoone.core.one_to_one.interactors;
 
 import com.example.onetoone.core.one_to_one.OneToOneMapper;
 import com.example.onetoone.core.one_to_one.commands.AcceptOneToOneCommand;
+import com.example.onetoone.core.one_to_one.entities.OneToOneStatus;
 import com.example.onetoone.core.one_to_one.results.OneToOneResult;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
@@ -24,6 +25,7 @@ public class AcceptOneToOneInteractor implements Interactor<AcceptOneToOneComman
 
         entity.validate(command.getOpponentId());
         entity.setOpponent(opponent);
+        entity.setStatus(OneToOneStatus.ACCEPT);
         return mapper.toResult(oneToOnes.put(entity));
     }
 }

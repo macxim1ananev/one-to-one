@@ -11,5 +11,6 @@ CREATE TABLE one_to_one(
     opponent_id BIGINT,
     programming_language_id INTEGER,
     date_time TIMESTAMP,
+    status_id INTEGER,
     CONSTRAINT one_to_one_pkey PRIMARY KEY (id)
 );

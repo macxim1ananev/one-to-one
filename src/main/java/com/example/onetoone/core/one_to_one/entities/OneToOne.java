@@ -13,6 +13,7 @@ public class OneToOne {
     private User opponent;
     private ProgrammingLanguage programmingLanguage;
     private LocalDateTime dateTime;
+    private OneToOneStatus status;
 
     public boolean validate(long opponentId){
         if (initiator.getId() != opponentId){
