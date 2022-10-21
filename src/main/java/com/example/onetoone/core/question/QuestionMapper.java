@@ -1,12 +1,10 @@
 package com.example.onetoone.core.question;
 
 import com.example.onetoone.core.question.commands.CreateQuestionCommand;
+import com.example.onetoone.core.question.commands.UpdateQuestionCommand;
 import com.example.onetoone.core.question.entities.Question;
 import com.example.onetoone.core.question.results.QuestionResultModel;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -17,4 +15,6 @@ public interface QuestionMapper {
     Question toEntity(CreateQuestionCommand command);
 
     QuestionResultModel toResult(Question model);
+    @Mapping(target = "id", ignore = true)
+    Question update(@MappingTarget Question question, UpdateQuestionCommand command);
 }

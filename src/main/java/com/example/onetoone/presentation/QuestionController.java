@@ -2,12 +2,14 @@ package com.example.onetoone.presentation;
 
 import com.example.onetoone.core.question.commands.CreateQuestionCommand;
 import com.example.onetoone.core.question.commands.GetFilteredAndSortedQuestionListCommand;
+import com.example.onetoone.core.question.commands.UpdateQuestionCommand;
 import com.example.onetoone.core.question.results.QuestionResultModel;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.QuestionViewMapper;
 import com.example.onetoone.presentation.request.CreateQuestionRequest;
+import com.example.onetoone.presentation.request.UpdateQuestionRequest;
 import com.example.onetoone.presentation.view.QuestionView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,17 @@ public class QuestionController {
 
         return mapper.toView(commandBus.execute(CreateQuestionCommand
                 .builder()
+                .question(request.getQuestion())
+                .answer(request.getAnswer())
+                .userId(request.getUserId())
+                .build()));
+    }
+
+    @PutMapping("/{id}")
+    public QuestionView update(@PathVariable Long id, @Valid @RequestBody UpdateQuestionRequest request){
+        return mapper.toView(commandBus.execute(UpdateQuestionCommand
+                .builder()
+                .id(id)
                 .question(request.getQuestion())
                 .answer(request.getAnswer())
                 .userId(request.getUserId())

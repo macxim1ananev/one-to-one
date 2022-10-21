@@ -5,6 +5,7 @@ import com.example.onetoone.core.service.common.EntityList;
 import com.example.onetoone.core.service.common.ListFilter;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface Questions {
     Question put(Question entity);
@@ -12,4 +13,6 @@ public interface Questions {
     List<Question> getAllByUserId(long authorId);
 
     EntityList<Question> getAll(ListFilter filter);
+
+    Optional<Question> getById(long id);
 }

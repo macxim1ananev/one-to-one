@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -35,5 +36,10 @@ public class QuestionsAdapter extends FilteringAndSortingAdapter<QuestionModel> 
     public EntityList<Question> getAll(ListFilter filter) {
         var page = repository.findAll(getSpecification(filter), getPageable(filter));
         return new EntityList<>(page.getTotalElements(), page.map(mapper::toEntity).getContent());
+    }
+
+    @Override
+    public Optional<Question> getById(long id) {
+        return repository.findById(id).map(mapper::toEntity);
     }
 }
