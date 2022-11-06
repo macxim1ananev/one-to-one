@@ -7,6 +7,9 @@ import com.example.onetoone.inrastructure.data.repositories.UserAnswerRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 @RequiredArgsConstructor
 public class UserAnswerAdapter implements UserAnswers {
@@ -17,5 +20,11 @@ public class UserAnswerAdapter implements UserAnswers {
     public UserAnswer put(UserAnswer userAnswer) {
         var model = mapper.toModel(userAnswer);
         return mapper.toEntity(repository.save(model));
+    }
+
+    @Override
+    public List<UserAnswer> getAllByFeedbackId(Long feedbackId) {
+        var modelList = repository.getAllByFeedbackId(feedbackId);
+        return modelList.stream().map(mapper::toEntity).collect(Collectors.toList());
     }
 }

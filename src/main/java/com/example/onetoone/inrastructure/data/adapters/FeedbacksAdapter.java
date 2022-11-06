@@ -22,7 +22,11 @@ public class FeedbacksAdapter implements Feedbacks {
 
     @Override
     public Optional<Feedback> get(Long id) {
-
         return repository.findById(id).map(mapper::toEntity);
+    }
+
+    @Override
+    public Optional<Feedback> getByOneToOneIdAndRecipientId(Long oneToOneId, Long recipientId) {
+        return repository.getByOneToOneIdAndRecipientId(oneToOneId, recipientId).map(mapper::toEntity);
     }
 }

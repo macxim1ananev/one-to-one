@@ -9,4 +9,6 @@ public interface Feedbacks {
     Feedback put(Feedback feedback);
 
     Optional<Feedback> get(Long id);
+
+    Optional<Feedback> getByOneToOneIdAndRecipientId(Long oneToOneId, Long recipientId);
 }

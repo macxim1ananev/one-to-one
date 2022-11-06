@@ -55,6 +55,7 @@ public class QuestionController {
                                          @RequestParam(required = false, defaultValue = "10") int size,
                                          @RequestParam(required = false, defaultValue = "id,desc") String sort,
                                          @RequestParam(required = false, value = "search") String search){
+
        var searchCriteria = getCriteria(search);
        ResultModelList<QuestionResultModel> resultList = commandBus.execute(GetFilteredAndSortedQuestionListCommand
                .builder()
