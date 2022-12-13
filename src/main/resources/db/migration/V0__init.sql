@@ -6,10 +6,14 @@ CREATE SEQUENCE users_id_seq
     CACHE 1;
 
 CREATE TABLE users(
-                      id      BIGINT NOT NULL DEFAULT nextval('users_id_seq'::regclass),
+                      id      BIGINT DEFAULT nextval('users_id_seq'::regclass),
                       login VARCHAR(128),
                       email VARCHAR(128),
                       CONSTRAINT users_pkey PRIMARY KEY (id),
                       CONSTRAINT uq_login UNIQUE (login),
                       CONSTRAINT uq_email UNIQUE (email)
 );
+
+INSERT INTO users
+VALUES (nextval('users_id_seq'::regclass), 'maxim', 'maxim@mail.ru'),
+       (nextval('users_id_seq'::regclass), 'petr', 'petr@mail.ru');

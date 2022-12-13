@@ -43,3 +43,16 @@ CREATE TABLE user_answer(
                          response_level_id INTEGER NOT NULL,
                          CONSTRAINT user_answer_pkey PRIMARY KEY (id)
 );
+
+
+INSERT INTO questions
+VALUES (nextval('questions_id_seq'::regclass), 1, 'что такое spring', 'this is crazy framework'),
+       (nextval('questions_id_seq'::regclass), 2, 'что такое java', 'this is crazy language');
+
+INSERT INTO feedback
+VALUES (nextval('feedback_id_seq'::regclass), 1, 1, 2, 'feedback message long'),
+       (nextval('feedback_id_seq'::regclass), 2, 2, 1, 'very good answer');
+
+INSERT INTO user_answer
+VALUES (nextval('user_answer_id_seq'::regclass), 1, 1, 3),
+       (nextval('user_answer_id_seq'::regclass), 2, 2, 3);
