@@ -46,5 +46,4 @@ flyway {
 	driver=flyway.driver
 	outOfOrder=flyway.outOfOrder
 	table=flyway.table
-	locations='classpath.db.migrations'
 }
