@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <property name="LOG_DIR" value="/opt/one-to-one/logs" />
+    <property name="LOG_FILE" value="one_to_one" />
+    <property name="LOG_FILE_EX" value="one_to_one_exceptions" />
+    <property name="LOG_PATTERN" value="%date{dd.MM HH:mm:ss.SSS} [%thread][%-5level] %logger{36}: %msg%n%rEx" />
+    <property name="SHORT_LOG_PATTERN" value="[%thread][%-5level] %logger{36}: %msg%n%rEx" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>${LOG_PATTERN}</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="rfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Append>true</Append>
+        <encoder>
+            <charset>UTF-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/${LOG_FILE}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>72</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="rfileException" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <file>${LOG_DIR}/${LOG_FILE_EX}.log</file>
+        <encoder>
+            <charset>UTF-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/${LOG_FILE_EX}.%i.log</fileNamePattern>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <logger name="org.springframework" level="INFO"/>
+
+    <root level="INFO">
+        <appender-ref ref="rfile"/>
+        <appender-ref ref="rfileException"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
