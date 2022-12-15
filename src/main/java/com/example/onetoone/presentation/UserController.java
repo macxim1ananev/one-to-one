@@ -26,6 +26,7 @@ public class UserController {
         return mapper.toView(commandBus.execute(CreateUserCommand.builder()
                 .login(request.getLogin())
                 .email(request.getEmail())
+                .password(request.getPassword())
                 .build()));
     }
 }

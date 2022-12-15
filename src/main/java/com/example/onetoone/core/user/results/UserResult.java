@@ -9,4 +9,5 @@ public class UserResult {
     Long id;
     String login;
     String email;
+    String password;
 }
