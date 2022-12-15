@@ -9,4 +9,5 @@ import lombok.Value;
 public class CreateUserCommand implements Command {
     String login;
     String email;
+    String password;
 }
