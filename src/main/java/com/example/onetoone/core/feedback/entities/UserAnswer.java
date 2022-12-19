@@ -8,4 +8,5 @@ public class UserAnswer {
     private Question question;
     private Long feedbackId;
     private ResponseLevel responseLevel;
+    private String comment;
 }

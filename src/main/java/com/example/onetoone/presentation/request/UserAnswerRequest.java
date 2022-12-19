@@ -7,4 +7,5 @@ import lombok.Data;
 public class UserAnswerRequest {
     private QuestionView question;
     private Integer responseLevel;
+    private String comment;
 }
