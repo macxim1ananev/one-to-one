@@ -15,4 +15,5 @@ public class UserAnswerModel {
     @OneToOne
     private QuestionModel question;
     private Integer responseLevelId;
+    private String comment;
 }

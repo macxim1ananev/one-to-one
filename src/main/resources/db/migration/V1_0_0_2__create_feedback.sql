@@ -41,6 +41,7 @@ CREATE TABLE user_answer(
                          feedback_id   BIGINT NOT NULL REFERENCES feedback(id),
                          question_id       BIGINT NOT NULL REFERENCES questions(id),
                          response_level_id INTEGER NOT NULL,
+                         comment VARCHAR(1024),
                          CONSTRAINT user_answer_pkey PRIMARY KEY (id)
 );
 
@@ -54,5 +55,5 @@ VALUES (nextval('feedback_id_seq'::regclass), 1, 1, 2, 'feedback message long'),
        (nextval('feedback_id_seq'::regclass), 2, 2, 1, 'very good answer');
 
 INSERT INTO user_answer
-VALUES (nextval('user_answer_id_seq'::regclass), 1, 1, 3),
-       (nextval('user_answer_id_seq'::regclass), 2, 2, 3);
+VALUES (nextval('user_answer_id_seq'::regclass), 1, 1, 3, 'comment for user answer'),
+       (nextval('user_answer_id_seq'::regclass), 2, 2, 3, 'user answer was be very good');

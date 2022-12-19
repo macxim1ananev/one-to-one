@@ -9,4 +9,5 @@ import lombok.Value;
 public class UserAnswerResult {
     QuestionResultModel question;
     Integer responseLevel;
+    String comment;
 }
