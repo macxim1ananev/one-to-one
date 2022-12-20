@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import static com.example.onetoone.presentation.WebUtils.getCriteria;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/v1/one-to-one")
 @RequiredArgsConstructor
 public class OneToOneController {
