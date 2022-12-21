@@ -27,6 +27,13 @@ public class QuestionsAdapter extends FilteringAndSortingAdapter<QuestionModel> 
     }
 
     @Override
+    public Question put2(Question entity) {
+        var model = mapper.toModel2(entity);
+        var en = mapper.toEntity2(repository.save(model));
+        return en;
+    }
+
+    @Override
     public List<Question> getAllByUserId(long authorId) {
         List<QuestionModel> questions = repository.findAllByUserId(authorId);
         return questions.stream().map(mapper::toEntity).collect(Collectors.toList());

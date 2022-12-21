@@ -7,6 +7,8 @@ import com.example.onetoone.inrastructure.data.repositories.TechnologyRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class TechnologyAdapter implements Technologies {
@@ -17,5 +19,10 @@ public class TechnologyAdapter implements Technologies {
     public Technology put(Technology entity) {
         var model = mapper.toModel(entity);
         return mapper.toEntity(repository.save(model));
+    }
+
+    @Override
+    public Optional<Technology> get(Long id) {
+        return repository.findById(id).map(mapper::toEntity);
     }
 }

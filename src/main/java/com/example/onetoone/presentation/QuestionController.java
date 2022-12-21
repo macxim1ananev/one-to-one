@@ -1,6 +1,7 @@
 package com.example.onetoone.presentation;
 
 import com.example.onetoone.core.question.commands.CreateQuestionCommand;
+import com.example.onetoone.core.question.commands.CreateQuestionCommand2;
 import com.example.onetoone.core.question.commands.GetFilteredAndSortedQuestionListCommand;
 import com.example.onetoone.core.question.commands.UpdateQuestionCommand;
 import com.example.onetoone.core.question.results.QuestionResultModel;
@@ -9,13 +10,13 @@ import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.QuestionViewMapper;
 import com.example.onetoone.presentation.request.CreateQuestionRequest;
+import com.example.onetoone.presentation.request.CreateQuestionRequest2;
 import com.example.onetoone.presentation.request.UpdateQuestionRequest;
 import com.example.onetoone.presentation.view.QuestionView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 import java.util.stream.Collectors;
 
 import static com.example.onetoone.presentation.WebUtils.getCriteria;
@@ -30,13 +31,22 @@ public class QuestionController {
     private final CommandBus commandBus;
 
     @PostMapping("/create")
-    public QuestionView create(@Valid @RequestBody CreateQuestionRequest request){
+    public QuestionView addQuestion(@Valid @RequestBody CreateQuestionRequest request){
 
         return mapper.toView(commandBus.execute(CreateQuestionCommand
                 .builder()
                 .question(request.getQuestion())
                 .answer(request.getAnswer())
                 .userId(request.getUserId())
+                .build()));
+    }
+
+    @PostMapping("/{userId}/create-list")
+    public Object addListQuestions(@PathVariable("userId") Long userId, @Valid @RequestBody CreateQuestionRequest2 request){
+        return mapper.toView2(commandBus.execute(CreateQuestionCommand2
+                .builder()
+                .userId(userId)
+                .questions(request.getQuestions())
                 .build()));
     }
 
