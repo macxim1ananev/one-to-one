@@ -7,6 +7,7 @@ CREATE SEQUENCE questions_id_seq
 
 CREATE TABLE questions(
                           id             BIGINT NOT NULL DEFAULT nextval('questions_id_seq'::regclass),
+                          technology_id  BIGINT NOT NULL REFERENCES technologies(id),
                           user_id        BIGINT NOT NULL,
                           question       VARCHAR(2048) NOT NULL,
                           answer         VARCHAR(2048) NOT NULL,
@@ -47,8 +48,8 @@ CREATE TABLE user_answer(
 
 
 INSERT INTO questions
-VALUES (nextval('questions_id_seq'::regclass), 1, 'что такое spring', 'this is crazy framework'),
-       (nextval('questions_id_seq'::regclass), 2, 'что такое java', 'this is crazy language');
+VALUES (nextval('questions_id_seq'::regclass), 2, 1, 'что такое spring', 'this is crazy framework'),
+       (nextval('questions_id_seq'::regclass), 1, 2, 'что такое java', 'this is crazy language');
 
 INSERT INTO feedback
 VALUES (nextval('feedback_id_seq'::regclass), 1, 1, 2, 'feedback message long'),

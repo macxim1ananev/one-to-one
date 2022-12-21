@@ -10,3 +10,8 @@ CREATE TABLE technologies (
                  name            VARCHAR(64) NOT NULL UNIQUE,
                  CONSTRAINT technologies_pkey PRIMARY KEY (id),
                  CONSTRAINT uq_name UNIQUE (name));
+
+INSERT INTO technologies
+    VALUES(nextval('technologies_id_seq'::regclass), 'JAVA'),
+          (nextval('technologies_id_seq'::regclass), 'SPRING'),
+          (nextval('technologies_id_seq'::regclass), 'ORACLE')

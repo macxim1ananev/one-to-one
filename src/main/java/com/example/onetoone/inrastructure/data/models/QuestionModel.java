@@ -14,4 +14,6 @@ public class QuestionModel {
     private String question;
     private String answer;
     private Long userId;
+    @ManyToOne
+    private TechnologyModel technology;
 }
