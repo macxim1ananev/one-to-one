@@ -1,4 +1,4 @@
-package com.example.onetoone.inrastructure.data.models;
+package com.example.onetoone.inrastructure.data.adapters;
 
 import com.example.onetoone.core.question.entities.Question;
 import com.example.onetoone.core.service.common.EntityList;
@@ -6,6 +6,7 @@ import com.example.onetoone.core.service.common.ListFilter;
 import com.example.onetoone.core.service.interfaces.Questions;
 import com.example.onetoone.inrastructure.data.FilteringAndSortingAdapter;
 import com.example.onetoone.inrastructure.data.mappers.QuestionsModelMapper;
+import com.example.onetoone.inrastructure.data.models.QuestionModel;
 import com.example.onetoone.inrastructure.data.repositories.QuestionsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,13 +25,6 @@ public class QuestionsAdapter extends FilteringAndSortingAdapter<QuestionModel> 
     @Override
     public Question put(Question entity) {
         return mapper.toEntity(repository.save(mapper.toModel(entity)));
-    }
-
-    @Override
-    public Question put2(Question entity) {
-        var model = mapper.toModel2(entity);
-        var en = mapper.toEntity2(repository.save(model));
-        return en;
     }
 
     @Override

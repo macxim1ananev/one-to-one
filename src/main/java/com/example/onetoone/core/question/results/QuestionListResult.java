@@ -7,7 +7,7 @@ import java.util.List;
 
 @Value
 @Builder
-public class QuestionListResult2 {
+public class QuestionListResult {
     Long userId;
-    List<QuestionResult2> questions;
+    List<QuestionResult> questions;
 }
