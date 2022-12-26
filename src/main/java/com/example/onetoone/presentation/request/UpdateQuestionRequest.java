@@ -7,10 +7,13 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class UpdateQuestionRequest {
+    @NotNull
     @NotBlank
     private String question;
+    @NotNull
     @NotBlank
     private String answer;
     @NotNull
+    @NotBlank
     private Long userId;
 }

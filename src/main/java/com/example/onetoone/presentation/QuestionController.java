@@ -9,7 +9,7 @@ import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.QuestionViewMapper;
-import com.example.onetoone.presentation.request.CreateQuestionRequest2;
+import com.example.onetoone.presentation.request.CreateQuestionRequest;
 import com.example.onetoone.presentation.view.QuestionListView;
 import com.example.onetoone.presentation.view.QuestionView;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class QuestionController {
     private final CommandBus commandBus;
 
     @PostMapping("/create")
-    public QuestionListView addListQuestions(@PathVariable("userId") Long userId, @Valid @RequestBody CreateQuestionRequest2 request){
+    public QuestionListView addListQuestions(@PathVariable("userId") Long userId, @Valid @RequestBody CreateQuestionRequest request){
         return mapper.toListView(commandBus.execute(CreateQuestionCommand
                 .builder()
                 .userId(userId)
