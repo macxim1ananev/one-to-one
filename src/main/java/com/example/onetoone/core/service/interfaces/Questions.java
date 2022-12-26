@@ -15,6 +15,4 @@ public interface Questions {
     EntityList<Question> getAll(ListFilter filter);
 
     Optional<Question> getById(long id);
-
-    Question put2(Question question);
 }

@@ -1,17 +1,16 @@
 package com.example.onetoone.presentation;
 
 import com.example.onetoone.core.question.commands.CreateQuestionCommand;
-import com.example.onetoone.core.question.commands.CreateQuestionCommand2;
 import com.example.onetoone.core.question.commands.GetFilteredAndSortedQuestionListCommand;
+import com.example.onetoone.core.question.commands.QuestionRequest;
 import com.example.onetoone.core.question.commands.UpdateQuestionCommand;
-import com.example.onetoone.core.question.results.QuestionResultModel;
+import com.example.onetoone.core.question.results.QuestionResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.QuestionViewMapper;
-import com.example.onetoone.presentation.request.CreateQuestionRequest;
 import com.example.onetoone.presentation.request.CreateQuestionRequest2;
-import com.example.onetoone.presentation.request.UpdateQuestionRequest;
+import com.example.onetoone.presentation.view.QuestionListView;
 import com.example.onetoone.presentation.view.QuestionView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ import static com.example.onetoone.presentation.WebUtils.getCriteria;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/v1/user/question")
+@RequestMapping("/v1/user/{userId}/question")
 @RequiredArgsConstructor
 public class QuestionController {
 
@@ -31,19 +30,8 @@ public class QuestionController {
     private final CommandBus commandBus;
 
     @PostMapping("/create")
-    public QuestionView addQuestion(@Valid @RequestBody CreateQuestionRequest request){
-
-        return mapper.toView(commandBus.execute(CreateQuestionCommand
-                .builder()
-                .question(request.getQuestion())
-                .answer(request.getAnswer())
-                .userId(request.getUserId())
-                .build()));
-    }
-
-    @PostMapping("/{userId}/create-list")
-    public Object addListQuestions(@PathVariable("userId") Long userId, @Valid @RequestBody CreateQuestionRequest2 request){
-        return mapper.toView2(commandBus.execute(CreateQuestionCommand2
+    public QuestionListView addListQuestions(@PathVariable("userId") Long userId, @Valid @RequestBody CreateQuestionRequest2 request){
+        return mapper.toListView(commandBus.execute(CreateQuestionCommand
                 .builder()
                 .userId(userId)
                 .questions(request.getQuestions())
@@ -51,13 +39,13 @@ public class QuestionController {
     }
 
     @PutMapping("/{id}")
-    public QuestionView update(@PathVariable Long id, @Valid @RequestBody UpdateQuestionRequest request){
+    public QuestionView update(@PathVariable Long id, @PathVariable Long userId, @Valid @RequestBody QuestionRequest request){
         return mapper.toView(commandBus.execute(UpdateQuestionCommand
                 .builder()
                 .id(id)
                 .question(request.getQuestion())
                 .answer(request.getAnswer())
-                .userId(request.getUserId())
+                .technologyId(request.getTechnologyId())
                 .build()));
     }
 
@@ -68,7 +56,7 @@ public class QuestionController {
                                          @RequestParam(required = false, value = "search") String search){
 
        var searchCriteria = getCriteria(search);
-       ResultModelList<QuestionResultModel> resultList = commandBus.execute(GetFilteredAndSortedQuestionListCommand
+       ResultModelList<QuestionResult> resultList = commandBus.execute(GetFilteredAndSortedQuestionListCommand
                .builder()
                .page(page)
                .sort(sort)

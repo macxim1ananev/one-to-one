@@ -3,7 +3,7 @@ package com.example.onetoone.core.question.interactors;
 import com.example.onetoone.core.question.QuestionMapper;
 import com.example.onetoone.core.question.commands.GetFilteredAndSortedQuestionListCommand;
 import com.example.onetoone.core.question.entities.Question;
-import com.example.onetoone.core.question.results.QuestionResultModel;
+import com.example.onetoone.core.question.results.QuestionResult;
 import com.example.onetoone.core.service.common.GetListInteractor;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.common.ResultModelList;
@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class GetQuestionListInteractor extends GetListInteractor
-        implements Interactor<GetFilteredAndSortedQuestionListCommand, ResultModelList<QuestionResultModel>> {
+        implements Interactor<GetFilteredAndSortedQuestionListCommand, ResultModelList<QuestionResult>> {
 
     private final Questions questions;
     private final QuestionMapper mapper;
 
     @Override
-    public ResultModelList<QuestionResultModel> execute(GetFilteredAndSortedQuestionListCommand command) {
+    public ResultModelList<QuestionResult> execute(GetFilteredAndSortedQuestionListCommand command) {
         var filter = getListFilter(command, Question.class);
             var entityList = questions.getAll(filter);
         return new ResultModelList<>(

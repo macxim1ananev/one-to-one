@@ -6,8 +6,9 @@ import lombok.Value;
 @Value
 @Builder
 public class QuestionView {
-    long id;
+    Long id;
     String question;
     String answer;
+    TechnologyView technology;
     Long userId;
 }
