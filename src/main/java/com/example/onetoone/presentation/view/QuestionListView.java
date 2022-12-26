@@ -7,7 +7,7 @@ import java.util.List;
 
 @Value
 @Builder
-public class QuestionListView2 {
+public class QuestionListView {
     Long userId;
-    List<QuestionView2> questions;
+    List<QuestionView> questions;
 }

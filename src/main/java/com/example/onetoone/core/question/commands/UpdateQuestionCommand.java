@@ -10,5 +10,5 @@ public class UpdateQuestionCommand implements Command {
     Long id;
     String question;
     String answer;
-    Long userId;
+    Long technologyId;
 }

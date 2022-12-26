@@ -15,8 +15,4 @@ public interface QuestionsModelMapper {
     QuestionModel toModel(Question entity);
 
     Question toEntity(QuestionModel model);
-
-    QuestionModel toModel2(Question entity);
-
-    Question toEntity2(QuestionModel save);
 }
