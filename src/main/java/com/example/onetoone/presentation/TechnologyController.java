@@ -6,14 +6,12 @@ import com.example.onetoone.presentation.mapper.TechnologyViewMapper;
 import com.example.onetoone.presentation.request.AddTechnologyRequest;
 import com.example.onetoone.presentation.view.TechnologyView;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/v1/technology")
 @RequiredArgsConstructor
 public class TechnologyController {
