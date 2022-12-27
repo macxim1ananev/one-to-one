@@ -14,9 +14,7 @@ public class QuestionRequest {
     @NotBlank
     private String answer;
     @NotNull
-    @NotBlank
     private Long technologyId;
     @NotNull
-    @NotBlank
     private Long userId;
 }
