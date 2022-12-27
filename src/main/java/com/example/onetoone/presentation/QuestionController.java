@@ -1,9 +1,6 @@
 package com.example.onetoone.presentation;
 
-import com.example.onetoone.core.question.commands.CreateQuestionCommand;
-import com.example.onetoone.core.question.commands.GetFilteredAndSortedQuestionListCommand;
-import com.example.onetoone.core.question.commands.QuestionRequest;
-import com.example.onetoone.core.question.commands.UpdateQuestionCommand;
+import com.example.onetoone.core.question.commands.*;
 import com.example.onetoone.core.question.results.QuestionResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
@@ -35,6 +32,14 @@ public class QuestionController {
                 .builder()
                 .userId(userId)
                 .questions(request.getQuestions())
+                .build()));
+    }
+
+    @GetMapping("/{id}")
+    public QuestionView get(@PathVariable Long id){
+        return mapper.toView(commandBus.execute(GetQuestionCommand
+                .builder()
+                .id(id)
                 .build()));
     }
 
