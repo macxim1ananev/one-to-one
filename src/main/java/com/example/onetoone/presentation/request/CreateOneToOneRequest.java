@@ -10,7 +10,8 @@ public class CreateOneToOneRequest {
     @NotNull
     private long initiatorId;
     @NotNull
-    private String programmingLanguage;
+    private Long technologyId;
     @NotNull
     private LocalDateTime dateTime;
+    private String comment;
 }
