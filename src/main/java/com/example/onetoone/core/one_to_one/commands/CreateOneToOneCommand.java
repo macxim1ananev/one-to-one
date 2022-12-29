@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class CreateOneToOneCommand implements Command {
     long initiatorId;
-    String programmingLanguage;
+    Long technologyId;
     LocalDateTime dateTime;
+    String comment;
 }

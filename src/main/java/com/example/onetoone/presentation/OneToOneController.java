@@ -34,8 +34,9 @@ public class OneToOneController {
     public OneToOneView create(@Valid @RequestBody CreateOneToOneRequest request){
         return mapper.toView(commandBus.execute(CreateOneToOneCommand.builder()
                 .initiatorId(request.getInitiatorId())
-                .programmingLanguage(request.getProgrammingLanguage())
-                        .dateTime(request.getDateTime())
+                .technologyId(request.getTechnologyId())
+                .dateTime(request.getDateTime())
+                .comment(request.getComment())
                 .build()));
     }
 

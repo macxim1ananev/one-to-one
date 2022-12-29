@@ -16,7 +16,9 @@ public class OneToOneModel {
     private UserModel initiator;
     @OneToOne
     private UserModel opponent;
-    private Integer programmingLanguageId;
+    @OneToOne
+    private TechnologyModel technology;
     private LocalDateTime dateTime;
     private Integer statusId;
+    private String comment;
 }

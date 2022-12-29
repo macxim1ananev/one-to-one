@@ -10,7 +10,8 @@ public class OneToOneView {
     long id;
     long initiatorId;
     Long opponentId;
-    String programmingLanguage;
+    TechnologyView technology;
     LocalDateTime dateTime;
     String status;
+    String comment;
 }
