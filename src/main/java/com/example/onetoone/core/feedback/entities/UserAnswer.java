@@ -7,6 +7,6 @@ import lombok.Data;
 public class UserAnswer {
     private Question question;
     private Long feedbackId;
-    private ResponseLevel responseLevel;
+    private Integer responseLevel;
     private String comment;
 }
