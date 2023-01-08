@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 @Data
 public class UserAnswerRequest {
     private QuestionView question;
-    @Min(0)
+    @Min(1)
     @Max(5)
     private Integer responseLevel;
     private String comment;
