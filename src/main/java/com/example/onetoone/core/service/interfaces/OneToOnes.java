@@ -12,4 +12,6 @@ public interface OneToOnes {
     Optional<OneToOne>get(long id);
 
     EntityList<OneToOne> getAll(ListFilter filter);
+
+    Integer getCountByUserId(Long id);
 }

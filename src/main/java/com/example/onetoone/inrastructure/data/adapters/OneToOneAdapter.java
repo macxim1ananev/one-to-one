@@ -36,4 +36,9 @@ public class OneToOneAdapter extends FilteringAndSortingAdapter<OneToOneModel> i
         var page = repository.findAll(getSpecification(filter), getPageable(filter));
         return new EntityList<>(page.getTotalElements(), page.map(mapper::toEntity).getContent());
     }
+
+    @Override
+    public Integer getCountByUserId(Long id) {
+        return repository.countByOpponentId(id);
+    }
 }

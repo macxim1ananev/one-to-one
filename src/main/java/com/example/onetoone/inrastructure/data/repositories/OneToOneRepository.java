@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface OneToOneRepository extends JpaRepository<OneToOneModel, Long> {
     Page<OneToOneModel> findAll(Specification<OneToOneModel> specification,
                                 Pageable pageable);
+
+    Integer countByOpponentId(Long opponentId);
 }
