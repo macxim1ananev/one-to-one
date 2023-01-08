@@ -41,7 +41,7 @@ CREATE TABLE user_answer(
                          id              BIGINT NOT NULL DEFAULT nextval('user_answer_id_seq'::regclass),
                          feedback_id   BIGINT NOT NULL REFERENCES feedback(id),
                          question_id       BIGINT NOT NULL REFERENCES questions(id),
-                         response_level_id INTEGER NOT NULL,
+                         response_level INTEGER NOT NULL,
                          comment VARCHAR(1024),
                          CONSTRAINT user_answer_pkey PRIMARY KEY (id)
 );

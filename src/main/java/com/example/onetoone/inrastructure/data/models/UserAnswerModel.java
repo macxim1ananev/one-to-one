@@ -14,6 +14,6 @@ public class UserAnswerModel {
     private Long feedbackId;
     @OneToOne
     private QuestionModel question;
-    private Integer responseLevelId;
+    private Integer responseLevel;
     private String comment;
 }
