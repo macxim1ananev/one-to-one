@@ -7,8 +7,8 @@ public class UserTechnologyStatistics {
     Long id;
     Long UserStatisticsId;
     Long technologyId;
-    Integer questionCount;
-    Integer totalPoint;
+    int questionCount;
+    int totalPoint;
 
     public void incrementQuestionCount(){
         questionCount+=1;

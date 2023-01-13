@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class QuestionRequest {
+    private Long id;
     @NotNull
     @NotBlank
     private String question;

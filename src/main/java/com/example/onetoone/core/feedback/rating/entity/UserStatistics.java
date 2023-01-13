@@ -4,13 +4,14 @@ import com.example.onetoone.core.user.entities.User;
 import lombok.Data;
 
 import java.util.List;
+
 @Data
 public class UserStatistics {
     Long id;
     User user;
-    Integer totalOneToOneCount;
-    Integer totalQuestionCount;
-    Integer totalPoint;
+    int totalOneToOneCount;
+    int totalQuestionCount;
+    int totalPoint;
     List<UserTechnologyStatistics> technologyStatistics;
 
     public void plusTotalPoint(Integer point){
