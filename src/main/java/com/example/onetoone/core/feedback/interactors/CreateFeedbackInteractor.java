@@ -10,10 +10,11 @@ import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CreateFeedbackInteractor implements Interactor<CreateFeedbackCommand, FeedbackResult> {
@@ -25,6 +26,8 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
     private final UserAnswerMapper userAnswerMapper;
     @Override
     public FeedbackResult execute(CreateFeedbackCommand command) {
+        log.info("Executing command {}", command);
+
         var author = users.get(command.getAuthorId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND));
         var recipient = users.get(command.getRecipientId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND));
         var oneToOne = oneToOnes.get(command.getOneToOneId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND));

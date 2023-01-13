@@ -9,12 +9,13 @@ import com.example.onetoone.presentation.mapper.FeedbackViewMapper;
 import com.example.onetoone.presentation.request.CreateFeedbackRequest;
 import com.example.onetoone.presentation.view.FeedbackView;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/v1/user/one-to-one/feedback")
@@ -26,6 +27,8 @@ public class FeedbackController {
 
     @PostMapping("/create")
     public FeedbackView create(@Valid @RequestBody CreateFeedbackRequest request) {
+        log.info("Request for create feedback");
+
         List<UserAnswer> userAnswers = request.getQuestions().stream().map(requestMapper::toEntity).collect(Collectors.toList());
 
         return mapper.toView(commandBus.execute(CreateFeedbackCommand
@@ -40,6 +43,7 @@ public class FeedbackController {
 
     @GetMapping("/{recipientId}/{oneToOneId}")
     public FeedbackView getByOneToOneAndRecipientId(@PathVariable Long recipientId, @PathVariable Long oneToOneId) {
+        log.info("Request for get feedback by one to one and recipient id");
 
         return mapper.toView(commandBus.execute(GetByOneToOneAndRecipientIdCommand
                 .builder()

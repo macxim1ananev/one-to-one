@@ -25,6 +25,8 @@ public class GetQuestionListInteractor extends GetListInteractor
 
     @Override
     public ResultModelList<QuestionResult> execute(GetFilteredAndSortedQuestionListCommand command) {
+        log.info("Executing command {}", command);
+
         var filter = getListFilter(command, Question.class);
             var entityList = questions.getAll(filter);
         return new ResultModelList<>(

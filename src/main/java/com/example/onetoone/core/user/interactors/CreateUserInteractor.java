@@ -6,9 +6,10 @@ import com.example.onetoone.core.user.UserMapper;
 import com.example.onetoone.core.user.commands.CreateUserCommand;
 import com.example.onetoone.core.user.results.UserResult;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CreateUserInteractor implements Interactor<CreateUserCommand, UserResult> {
@@ -17,6 +18,8 @@ public class CreateUserInteractor implements Interactor<CreateUserCommand, UserR
     private final PasswordEncoder passwordEncoder;
     @Override
     public UserResult execute(CreateUserCommand command) {
+        log.info("Executing command {}", command);
+
         var entity = mapper.toEntity(command);
         entity.setPassword(passwordEncoder.encode(command.getPassword()));
         return mapper.toResult(users.put(entity));

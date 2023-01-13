@@ -25,6 +25,8 @@ public class GetOneToOneListInteractor extends GetListInteractor
 
     @Override
     public ResultModelList<OneToOneResult> execute(GetFilteredAndSortedOneToOneListCommand command) {
+        log.info("Executing command {}", command);
+
         var filter = getListFilter(command, OneToOne.class);
         var entityList = oneToOnes.getAll(filter);
         return new ResultModelList<>(

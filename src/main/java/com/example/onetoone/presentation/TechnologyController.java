@@ -10,13 +10,14 @@ import com.example.onetoone.presentation.mapper.TechnologyViewMapper;
 import com.example.onetoone.presentation.request.AddTechnologyRequest;
 import com.example.onetoone.presentation.view.TechnologyView;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 import static com.example.onetoone.presentation.WebUtils.getCriteria;
-
+@Slf4j
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/v1/technology")
@@ -27,6 +28,8 @@ public class TechnologyController {
 
     @PostMapping
     public TechnologyView add(@Valid @RequestBody AddTechnologyRequest request){
+        log.info("Request for crate technology");
+
         return mapper.toView(commandBus.execute(AddTechnologyCommand
                 .builder()
                 .name(request.getName())
@@ -38,6 +41,7 @@ public class TechnologyController {
                                            @RequestParam(required = false, defaultValue = "10") int size,
                                            @RequestParam(required = false, defaultValue = "id,desc") String sort,
                                            @RequestParam(required = false, value = "search") String search){
+        log.info("Request for get all technolgy");
         var searchCriteria = getCriteria(search);
 
         ResultModelList<TechnologyResult> resultList = commandBus.execute(GetFilteredAndSortedTechnologyListCommand

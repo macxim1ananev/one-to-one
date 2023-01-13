@@ -25,6 +25,8 @@ public class GetTechnologyListInteractor extends GetListInteractor
 
     @Override
     public ResultModelList<TechnologyResult> execute(GetFilteredAndSortedTechnologyListCommand command) {
+        log.info("Executing command {}", command);
+
         var filter = getListFilter(command, Technology.class);
 
         var entityList = technologies.getAll(filter);
