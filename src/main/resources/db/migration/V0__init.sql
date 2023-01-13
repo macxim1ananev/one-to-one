@@ -10,11 +10,13 @@ CREATE TABLE users(
                       login VARCHAR(128),
                       email VARCHAR(128),
                       password VARCHAR(256) NOT NULL,
+                      name VARCHAR(64) NOT NULL,
+                      sur_name VARCHAR(64) NOT NULL,
                       CONSTRAINT users_pkey PRIMARY KEY (id),
                       CONSTRAINT uq_login UNIQUE (login),
                       CONSTRAINT uq_email UNIQUE (email)
 );
 
 INSERT INTO users
-VALUES (nextval('users_id_seq'::regclass), 'maxim', 'maxim@mail.ru', 'maxim-password'),
-       (nextval('users_id_seq'::regclass), 'petr', 'petr@mail.ru', 'petr-password');
+VALUES (nextval('users_id_seq'::regclass), 'maxim', 'maxim@mail.ru', 'maxim-password', 'Maxim', 'Ananev'),
+       (nextval('users_id_seq'::regclass), 'petr', 'petr@mail.ru', 'petr-password', 'Petr', 'Petrov');

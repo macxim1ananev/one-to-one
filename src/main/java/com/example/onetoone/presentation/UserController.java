@@ -25,6 +25,8 @@ public class UserController {
                 .login(request.getLogin())
                 .email(request.getEmail())
                 .password(request.getPassword())
+                .name(request.getName())
+                .surName(request.getSurName())
                 .build()));
     }
 }
