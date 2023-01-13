@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class CreateOneToOneCommand implements Command {
     long initiatorId;
     Long technologyId;
+    Integer levelId;
     LocalDateTime dateTime;
     String comment;
 }

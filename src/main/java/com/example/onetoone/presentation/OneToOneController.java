@@ -35,6 +35,7 @@ public class OneToOneController {
         return mapper.toView(commandBus.execute(CreateOneToOneCommand.builder()
                 .initiatorId(request.getInitiatorId())
                 .technologyId(request.getTechnologyId())
+                .levelId(request.getLevelId())
                 .dateTime(request.getDateTime())
                 .comment(request.getComment())
                 .build()));

@@ -16,8 +16,10 @@ import org.mapstruct.ReportingPolicy;
 public interface OneToOneModelMapper {
     @Mapping(target = "id", source = "id", nullValuePropertyMappingStrategy =NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "statusId", source = "status.id")
+    @Mapping(target = "levelId", source = "level.id")
     OneToOneModel toModel(OneToOne entity);
 
     @Mapping(target = "status", expression = "java(OneToOneStatus.fromId(model.getStatusId()).orElse(null))")
+    @Mapping(target = "level", expression = "java(OneToOneLevel.fromId(model.getLevelId()).orElse(null))")
     OneToOne toEntity(OneToOneModel model);
 }

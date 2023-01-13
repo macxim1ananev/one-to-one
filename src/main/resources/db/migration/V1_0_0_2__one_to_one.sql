@@ -11,6 +11,7 @@ CREATE TABLE one_to_one
     initiator_id  BIGINT  NOT NULL REFERENCES users (id),
     opponent_id   BIGINT,
     technology_id INTEGER NOT NULL REFERENCES technologies (id),
+    level_id      INTEGER NOT NULL,
     date_time     TIMESTAMP,
     status_id     INTEGER,
     comment       VARCHAR(512),
@@ -18,5 +19,5 @@ CREATE TABLE one_to_one
 );
 
 INSERT INTO one_to_one
-VALUES (nextval('one_to_one_id_seq'::regclass), 1, 2, 1, '2022-12-12 20:41:03.000000', 3, 'comment'),
-       (nextval('one_to_one_id_seq'::regclass), 2, 1, 2, '2022-11-12 20:41:03.000000', 3, 'comment');
+VALUES (nextval('one_to_one_id_seq'::regclass), 1, 2, 1, 1, '2022-12-12 20:41:03.000000', 3, 'comment'),
+       (nextval('one_to_one_id_seq'::regclass), 2, 1, 2, 2, '2022-11-12 20:41:03.000000', 3, 'comment');
