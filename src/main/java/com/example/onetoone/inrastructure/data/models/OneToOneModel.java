@@ -19,6 +19,7 @@ public class OneToOneModel {
     @OneToOne
     private TechnologyModel technology;
     private LocalDateTime dateTime;
+    private Integer levelId;
     private Integer statusId;
     private String comment;
 }

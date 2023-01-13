@@ -13,6 +13,7 @@ public class OneToOneResult {
     long initiatorId;
     Long opponentId;
     TechnologyResult technology;
+    String level;
     LocalDateTime dateTime;
     String status;
     String comment;
