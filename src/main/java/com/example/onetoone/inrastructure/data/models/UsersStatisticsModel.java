@@ -3,7 +3,6 @@ package com.example.onetoone.inrastructure.data.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -17,6 +16,4 @@ public class UsersStatisticsModel {
     private Integer totalOneToOneCount;
     private Integer totalQuestionCount;
     private Integer totalPoint;
-    @OneToMany(cascade = CascadeType.ALL)
-    List<UserTechnologyStatisticsModel> technologyStatistics;
 }

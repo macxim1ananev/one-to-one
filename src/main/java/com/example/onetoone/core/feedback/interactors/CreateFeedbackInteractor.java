@@ -6,7 +6,6 @@ import com.example.onetoone.core.feedback.commands.CreateFeedbackCommand;
 import com.example.onetoone.core.feedback.entities.Feedback;
 import com.example.onetoone.core.feedback.entities.UserAnswer;
 import com.example.onetoone.core.feedback.rating.entity.UserStatistics;
-import com.example.onetoone.core.feedback.rating.entity.UserTechnologyStatistics;
 import com.example.onetoone.core.feedback.results.FeedbackResult;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
@@ -50,9 +49,34 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
 
     private void saveStatistics(UserStatistics statistics) {
         UserStatistics userStatistics = usersStatistics.save(statistics);
-        userStatistics.getTechnologyStatistics().stream()
-                .peek(uts -> uts.setUserStatisticsId(userStatistics.getId()))
-                .forEach(usersTechnologyStatistics::save);
+
+    }
+
+    private UserStatistics updateStatistics(User user, List<UserAnswer> userAnswers) {
+        var userStatistics = usersStatistics.get(user.getId());
+
+        if (userStatistics.isEmpty()) {
+            var newUserStatistics = new UserStatistics();
+            newUserStatistics.setUser(user);
+            newUserStatistics.setTotalOneToOneCount(1);
+            newUserStatistics.setTotalQuestionCount(userAnswers.size());
+            newUserStatistics.setTotalPoint(getTotalPoint(userAnswers));
+            return newUserStatistics;
+        } else {
+            var currentUserStatistics = userStatistics.get();
+            currentUserStatistics.incrementOneToOneCount();
+            currentUserStatistics.incrementTotalQuestionCount(userAnswers.size());
+            currentUserStatistics.plusTotalPoint(getTotalPoint(userAnswers));
+            return currentUserStatistics;
+        }
+    }
+
+    private Integer getTotalPoint(List<UserAnswer> userAnswers){
+        Integer totalPoint = 0;
+        for (UserAnswer ua : userAnswers){
+            totalPoint+=ua.getResponseLevel();
+        }
+        return totalPoint;
     }
 
     private List<UserAnswer> toUserAnswer(List<UserAnswerRequest> questions) {
@@ -76,65 +100,46 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
         return feedbacks.put(feedback);
     }
 
-    private UserStatistics updateStatistics(User user, List<UserAnswer> userAnswers) {
-        var userStatistics = usersStatistics.get(user.getId());
-
-        if (userStatistics.isEmpty()) {
-            var newUserStatistics = new UserStatistics();
-            newUserStatistics.setUser(user);
-            newUserStatistics.setTotalOneToOneCount(1);
-            newUserStatistics.setTotalQuestionCount(userAnswers.size());
-            newUserStatistics.setTechnologyStatistics(updateTechnologyStatistics(userAnswers, newUserStatistics));
-            return newUserStatistics;
-        } else {
-            var currentUserStatistics = userStatistics.get();
-            currentUserStatistics.incrementOneToOneCount();
-            currentUserStatistics.incrementTotalQuestionCount(userAnswers.size());
-            currentUserStatistics.setTechnologyStatistics(updateTechnologyStatistics(userAnswers, currentUserStatistics));
-            return currentUserStatistics;
-        }
-    }
-
-    private List<UserTechnologyStatistics> updateTechnologyStatistics(List<UserAnswer> userAnswers,
-                                                                      UserStatistics userStatistics) {
-
-        var userTechnologyStatistics = userStatistics.getTechnologyStatistics();
-
-        var totalPoint = userStatistics.getTotalPoint();
-        if (userTechnologyStatistics == null) {
-            userTechnologyStatistics = new ArrayList<>();
-            for (UserAnswer ua : userAnswers) {
-                var technologyId = ua.getQuestion().getTechnology().getId();
-                totalPoint += ua.getResponseLevel();
-                var uts = new UserTechnologyStatistics();
-                uts.setTechnologyId(technologyId);
-                uts.incrementQuestionCount();
-                uts.plusTotalPoint(ua.getResponseLevel());
-                userTechnologyStatistics.add(uts);
-            }
-        } else {
-
-            UA:
-            for (UserAnswer ua : userAnswers) {
-                var technologyId = ua.getQuestion().getTechnology().getId();
-                totalPoint += ua.getResponseLevel();
-                UTS:
-                for (UserTechnologyStatistics uts : userTechnologyStatistics) {
-                    if (technologyId == uts.getTechnologyId()) {
-                        uts.incrementQuestionCount();
-                        uts.plusTotalPoint(ua.getResponseLevel());
-                        break UTS;
-                    }
-                }
-
-                var newUts = new UserTechnologyStatistics();
-                newUts.setQuestionCount(1);
-                newUts.setTechnologyId(ua.getQuestion().getTechnology().getId());
-                newUts.setTotalPoint(ua.getResponseLevel());
-                userTechnologyStatistics.add(newUts);
-            }
-        }
-        userStatistics.plusTotalPoint(totalPoint);
-        return userTechnologyStatistics;
-    }
+//    private List<UserTechnologyStatistics> updateTechnologyStatistics(List<UserAnswer> userAnswers,
+//                                                                      UserStatistics userStatistics) {
+//
+//        var userTechnologyStatistics;
+//
+//        var totalPoint = userStatistics.getTotalPoint();
+//        if (userTechnologyStatistics == null) {
+//            userTechnologyStatistics = new ArrayList<>();
+//            for (UserAnswer ua : userAnswers) {
+//                var technologyId = ua.getQuestion().getTechnology().getId();
+//                totalPoint += ua.getResponseLevel();
+//                var uts = new UserTechnologyStatistics();
+//                uts.setTechnologyId(technologyId);
+//                uts.incrementQuestionCount();
+//                uts.plusTotalPoint(ua.getResponseLevel());
+//                userTechnologyStatistics.add(uts);
+//            }
+//        } else {
+//
+//            UA:
+//            for (UserAnswer ua : userAnswers) {
+//                var technologyId = ua.getQuestion().getTechnology().getId();
+//                totalPoint += ua.getResponseLevel();
+//                UTS:
+//                for (UserTechnologyStatistics uts : userTechnologyStatistics) {
+//                    if (technologyId == uts.getTechnologyId()) {
+//                        uts.incrementQuestionCount();
+//                        uts.plusTotalPoint(ua.getResponseLevel());
+//                        break UTS;
+//                    }
+//                }
+//
+//                var newUts = new UserTechnologyStatistics();
+//                newUts.setQuestionCount(1);
+//                newUts.setTechnologyId(ua.getQuestion().getTechnology().getId());
+//                newUts.setTotalPoint(ua.getResponseLevel());
+//                userTechnologyStatistics.add(newUts);
+//            }
+//        }
+//        userStatistics.plusTotalPoint(totalPoint);
+//        return userTechnologyStatistics;
+//    }
 }
