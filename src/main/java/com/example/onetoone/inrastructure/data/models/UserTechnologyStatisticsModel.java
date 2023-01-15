@@ -12,7 +12,7 @@ public class UserTechnologyStatisticsModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private UsersStatisticsModel UserStatistics;
+    private UsersStatisticsModel userStatistics;
     private Long technologyId;
     private Integer totalPoint;
     private Integer questionCount;

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class UserTechnologyStatistics {
     Long id;
-    Long UserStatisticsId;
+    UserStatistics userStatistics;
     Long technologyId;
     int questionCount;
     int totalPoint;

@@ -8,7 +8,8 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        imports = {UsersStatisticsMapper.class}
 )
 public interface UsersTechnologyStatisticsMapper {
     UserTechnologyStatisticsModel toModel(UserTechnologyStatistics statistics);

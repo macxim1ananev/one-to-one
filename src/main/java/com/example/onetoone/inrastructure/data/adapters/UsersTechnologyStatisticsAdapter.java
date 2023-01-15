@@ -7,6 +7,9 @@ import com.example.onetoone.inrastructure.data.repositories.UsersTechnologyStati
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 @RequiredArgsConstructor
 public class UsersTechnologyStatisticsAdapter implements UsersTechnologyStatistics {
@@ -17,5 +20,10 @@ public class UsersTechnologyStatisticsAdapter implements UsersTechnologyStatisti
     public UserTechnologyStatistics save(UserTechnologyStatistics statistics) {
         var model = mapper.toModel(statistics);
         return mapper.toEntity(repository.save(model));
+    }
+
+    @Override
+    public List<UserTechnologyStatistics> getById(Long id) {
+        return repository.findAllByUserStatisticsId(id).stream().map(mapper::toEntity).collect(Collectors.toList());
     }
 }
