@@ -1,6 +1,6 @@
 package com.example.onetoone.presentation.request;
 
-import com.example.onetoone.presentation.view.QuestionView;
+import com.example.onetoone.core.question.commands.QuestionRequest;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
@@ -8,7 +8,7 @@ import javax.validation.constraints.Min;
 
 @Data
 public class UserAnswerRequest {
-    private QuestionView question;
+    private QuestionRequest question;
     @Min(1)
     @Max(5)
     private Integer responseLevel;

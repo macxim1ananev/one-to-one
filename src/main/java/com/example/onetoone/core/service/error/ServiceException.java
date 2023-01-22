@@ -27,7 +27,8 @@ public class ServiceException extends RuntimeException {
         FEEDBACK_NOT_CREATE(5, "Feedback not created" ),
         ONE_TO_ONE_CLOSE_IMPOSSIBLE(6, "Only one to one author can close one to one"),
         QUESTION_NOT_FOUND(7, "Question not found"),
-        TECHNOLOGY_NOT_FOUND(8, "Technology not found");
+        TECHNOLOGY_NOT_FOUND(8, "Technology not found"),
+        USER_STATISTICS_NOT_FOUND(9, "User statistics not found" );
 
 
         Exception(int code, String message) {
