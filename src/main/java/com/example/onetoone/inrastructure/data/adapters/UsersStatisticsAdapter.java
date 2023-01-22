@@ -8,14 +8,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class UsersStatisticsAdapter implements UsersStatistics {
     private final UsersStatisticsRepository repository;
     private final UsersStatisticsMapper mapper;
+
     @Override
     public Optional<UserStatistics> get(Long id) {
-        return repository.findById(id).map(mapper::toEntity);
+        return repository.findByUserId(id).map(mapper::toEntity);
     }
 
     @Override

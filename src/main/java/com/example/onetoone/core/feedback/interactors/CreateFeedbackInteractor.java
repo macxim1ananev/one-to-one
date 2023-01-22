@@ -17,7 +17,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -45,7 +49,7 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
         var entityList = saveUserAnswer(answers, feedback);
 
         var userStatistics = saveStatistics(updateStatistics(recipient, entityList));
-        saveUserTechnologyStatistics(updateUserTechnologyStatistics(recipient, entityList, userStatistics));
+        saveUserTechnologyStatistics(updateUserTechnologyStatistics(entityList, userStatistics));
         return mapper.toResult(feedback, entityList);
     }
 
@@ -77,51 +81,58 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
         }
     }
 
-    private Integer getTotalPoint(List<UserAnswer> userAnswers){
+    private Integer getTotalPoint(List<UserAnswer> userAnswers) {
         Integer totalPoint = 0;
-        for (UserAnswer ua : userAnswers){
-            totalPoint+=ua.getResponseLevel();
+        for (UserAnswer ua : userAnswers) {
+            totalPoint += ua.getResponseLevel();
         }
         return totalPoint;
     }
 
-    private List<UserTechnologyStatistics> updateUserTechnologyStatistics(User recipient, List<UserAnswer> userAnswers, UserStatistics userStatistics) {
-        var statistics = usersTechnologyStatistics.getById(recipient.getId());
+    private List<UserTechnologyStatistics> updateUserTechnologyStatistics(List<UserAnswer> userAnswers, UserStatistics userStatistics) {
+        var statistics = usersTechnologyStatistics.getById(userStatistics.getId());
 
         if (statistics.isEmpty()) {
-            List<UserTechnologyStatistics> newStatistics = new ArrayList<>();
+            Map<Long, UserTechnologyStatistics> map = new HashMap<>();
             for (UserAnswer ua : userAnswers) {
                 var technologyId = ua.getQuestion().getTechnology().getId();
-                var uts = new UserTechnologyStatistics();
-                uts.setUserStatistics(userStatistics);
-                uts.setTechnologyId(technologyId);
-                uts.incrementQuestionCount();
-                uts.plusTotalPoint(ua.getResponseLevel());
-                newStatistics.add(uts);
-            }
-            return newStatistics;
-        } else {
-            UA:
-            for (UserAnswer ua : userAnswers) {
-                var technologyId = ua.getQuestion().getTechnology().getId();
-                UTS:
-                for (UserTechnologyStatistics uts : statistics) {
-                    if (technologyId == uts.getTechnologyId()) {
-                        uts.incrementQuestionCount();
-                        uts.plusTotalPoint(ua.getResponseLevel());
-                        break UTS;
-                    }
+                var uts = map.get(technologyId);
+                if (uts == null) {
+                    uts = new UserTechnologyStatistics();
+                    uts.setUserStatistics(userStatistics);
+                    uts.setTechnologyId(technologyId);
+                    uts.incrementQuestionCount();
+                    uts.plusTotalPoint(ua.getResponseLevel());
+                    map.put(technologyId, uts);
+                } else {
+                    uts.incrementQuestionCount();
+                    uts.plusTotalPoint(ua.getResponseLevel());
                 }
-
-                var newUts = new UserTechnologyStatistics();
-                newUts.setUserStatistics(userStatistics);
-                newUts.setQuestionCount(1);
-                newUts.setTechnologyId(ua.getQuestion().getTechnology().getId());
-                newUts.setTotalPoint(ua.getResponseLevel());
-                statistics.add(newUts);
             }
+            return map.values().stream().toList();
+        } else {
+            Map<Long, UserTechnologyStatistics> map = statistics
+                    .stream()
+                    .collect(Collectors.toMap(
+                            UserTechnologyStatistics::getTechnologyId, Function.identity()));
+
+            for (UserAnswer ua : userAnswers) {
+                var technologyId = ua.getQuestion().getTechnology().getId();
+                var uts = map.get(technologyId);
+                if (uts != null) {
+                    uts.incrementQuestionCount();
+                    uts.plusTotalPoint(ua.getResponseLevel());
+                } else {
+                    var newUts = new UserTechnologyStatistics();
+                    newUts.setUserStatistics(userStatistics);
+                    newUts.setQuestionCount(1);
+                    newUts.setTechnologyId(ua.getQuestion().getTechnology().getId());
+                    newUts.setTotalPoint(ua.getResponseLevel());
+                    statistics.add(newUts);
+                }
+            }
+            return map.values().stream().toList();
         }
-        return statistics;
     }
 
     private List<UserAnswer> toUserAnswer(List<UserAnswerRequest> questions) {

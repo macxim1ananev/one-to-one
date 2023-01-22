@@ -9,5 +9,5 @@ import java.util.List;
 public interface UsersTechnologyStatisticsRepository extends JpaRepository<UserTechnologyStatisticsModel, Long> {
     @Query(value = "SELECT * FROM user_technology_statistics where user_technology_statistics.user_statistics_id=?1",
             nativeQuery = true)
-    List<UserTechnologyStatisticsModel> findAllByUserStatisticsId(Long id);
+    List<UserTechnologyStatisticsModel> findAllByUserStatisticsId(Long userStatisticsId);
 }
