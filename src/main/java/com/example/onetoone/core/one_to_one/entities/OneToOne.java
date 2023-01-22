@@ -14,6 +14,7 @@ public class OneToOne {
     private User opponent;
     private Technology technology;
     private LocalDateTime dateTime;
+    private OneToOneLevel level;
     private OneToOneStatus status;
     private String comment;
 

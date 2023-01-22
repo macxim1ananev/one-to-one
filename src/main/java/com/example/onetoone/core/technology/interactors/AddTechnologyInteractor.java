@@ -6,8 +6,9 @@ import com.example.onetoone.core.technology.TechnologyMapper;
 import com.example.onetoone.core.technology.commands.AddTechnologyCommand;
 import com.example.onetoone.core.technology.results.TechnologyResult;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class AddTechnologyInteractor implements Interactor<AddTechnologyCommand, TechnologyResult> {
@@ -17,6 +18,8 @@ public class AddTechnologyInteractor implements Interactor<AddTechnologyCommand,
 
     @Override
     public TechnologyResult execute(AddTechnologyCommand command) {
+        log.info("Executing command {}", command);
+
         var entity = mapper.toEntity(command);
         return mapper.toResult(technologies.put(entity));
     }

@@ -12,6 +12,7 @@ public class OneToOneView {
     Long opponentId;
     TechnologyView technology;
     LocalDateTime dateTime;
+    String level;
     String status;
     String comment;
 }

@@ -12,6 +12,8 @@ public class CreateOneToOneRequest {
     @NotNull
     private Long technologyId;
     @NotNull
+    private Integer levelId;
+    @NotNull
     private LocalDateTime dateTime;
     private String comment;
 }

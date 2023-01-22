@@ -6,11 +6,12 @@ import com.example.onetoone.presentation.mapper.UserViewMapper;
 import com.example.onetoone.presentation.request.CreateUserRequest;
 import com.example.onetoone.presentation.view.UserView;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-
+@Slf4j
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/v1/user")
@@ -21,10 +22,14 @@ public class UserController {
 
     @PostMapping()
     public UserView create(@Valid @RequestBody CreateUserRequest request){
+        log.info("Request for crate user");
+
         return mapper.toView(commandBus.execute(CreateUserCommand.builder()
                 .login(request.getLogin())
                 .email(request.getEmail())
                 .password(request.getPassword())
+                .name(request.getName())
+                .surName(request.getSurName())
                 .build()));
     }
 }

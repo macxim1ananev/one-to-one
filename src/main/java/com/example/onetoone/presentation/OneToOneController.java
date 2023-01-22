@@ -14,13 +14,14 @@ import com.example.onetoone.presentation.request.CloseOneToOneRequest;
 import com.example.onetoone.presentation.request.CreateOneToOneRequest;
 import com.example.onetoone.presentation.view.OneToOneView;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 import static com.example.onetoone.presentation.WebUtils.getCriteria;
-
+@Slf4j
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/v1/one-to-one")
@@ -32,9 +33,12 @@ public class OneToOneController {
 
     @PostMapping()
     public OneToOneView create(@Valid @RequestBody CreateOneToOneRequest request){
+        log.info("Request for crate one to one");
+
         return mapper.toView(commandBus.execute(CreateOneToOneCommand.builder()
                 .initiatorId(request.getInitiatorId())
                 .technologyId(request.getTechnologyId())
+                .levelId(request.getLevelId())
                 .dateTime(request.getDateTime())
                 .comment(request.getComment())
                 .build()));
@@ -42,6 +46,8 @@ public class OneToOneController {
 
     @PutMapping()
     public OneToOneView accept(@Valid @RequestBody AcceptOneToOneRequest request){
+        log.info("Request for accept one to one");
+
         return mapper.toView(commandBus.execute(AcceptOneToOneCommand.builder()
                 .opponentId(request.getOpponentId())
                 .oneToOneId(request.getOneToOneId())
@@ -50,6 +56,7 @@ public class OneToOneController {
 
     @PutMapping("/{id}/close")
     public OneToOneView close(@PathVariable long id, @Valid @RequestBody CloseOneToOneRequest request){
+        log.info("Request for close one to one");
 
         return mapper.toView(commandBus.execute(CloseOneToOneCommand.builder()
                 .id(id)
@@ -63,6 +70,8 @@ public class OneToOneController {
                                          @RequestParam(required = false, defaultValue = "10") int size,
                                          @RequestParam(required = false, defaultValue = "id,desc") String sort,
                                          @RequestParam(required = false, value = "search") String search){
+        log.info("Request for get all one to one");
+
         var searchCriteria = getCriteria(search);
         ResultModelList<OneToOneResult> resultList = commandBus.execute(GetFilteredAndSortedOneToOneListCommand
                 .builder()

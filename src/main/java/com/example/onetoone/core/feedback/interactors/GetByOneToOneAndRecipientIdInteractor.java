@@ -9,10 +9,11 @@ import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.Feedbacks;
 import com.example.onetoone.core.service.interfaces.UserAnswers;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class GetByOneToOneAndRecipientIdInteractor implements Interactor<GetByOneToOneAndRecipientIdCommand, FeedbackResult> {
@@ -23,6 +24,8 @@ public class GetByOneToOneAndRecipientIdInteractor implements Interactor<GetByOn
 
     @Override
     public FeedbackResult execute(GetByOneToOneAndRecipientIdCommand command) {
+        log.info("Executing command {}", command);
+
         var feedback = feedbacks.getByOneToOneIdAndRecipientId(command.getOneToOneId(), command.getRecipientId())
                 .orElseThrow(() -> new ServiceException(ServiceException.Exception.FEEDBACK_NOT_CREATE));
 

@@ -8,4 +8,6 @@ public class User {
     private String login;
     private String email;
     private String password;
+    private String name;
+    private String surName;
 }
