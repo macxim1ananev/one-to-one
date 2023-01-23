@@ -34,12 +34,12 @@ public class UserController {
                 .build()));
     }
 
-    @GetMapping("/{userId}")
-    public UserView get(@PathVariable Long userId){
+    @GetMapping("/{id}")
+    public UserView get(@PathVariable Long id){
         log.info("Request for get user by id");
 
         return mapper.toView(commandBus.execute(GetUserCommand.builder()
-                .id(userId)
+                .id(id)
                 .build()));
     }
 }
