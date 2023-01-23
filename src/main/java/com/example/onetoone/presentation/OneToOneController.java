@@ -1,9 +1,6 @@
 package com.example.onetoone.presentation;
 
-import com.example.onetoone.core.one_to_one.commands.AcceptOneToOneCommand;
-import com.example.onetoone.core.one_to_one.commands.CloseOneToOneCommand;
-import com.example.onetoone.core.one_to_one.commands.CreateOneToOneCommand;
-import com.example.onetoone.core.one_to_one.commands.GetFilteredAndSortedOneToOneListCommand;
+import com.example.onetoone.core.one_to_one.commands.*;
 import com.example.onetoone.core.one_to_one.results.OneToOneResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
@@ -41,6 +38,16 @@ public class OneToOneController {
                 .levelId(request.getLevelId())
                 .dateTime(request.getDateTime())
                 .comment(request.getComment())
+                .build()));
+    }
+
+    @GetMapping("/{id}")
+    public OneToOneView get(@PathVariable Long id){
+        log.info("Request for get one to one");
+
+        return mapper.toView(commandBus.execute(GetOneToOneCommand
+                .builder()
+                .id(id)
                 .build()));
     }
 
