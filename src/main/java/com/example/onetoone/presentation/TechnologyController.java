@@ -4,6 +4,7 @@ import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.core.technology.commands.AddTechnologyCommand;
 import com.example.onetoone.core.technology.commands.GetFilteredAndSortedTechnologyListCommand;
+import com.example.onetoone.core.technology.commands.GetTechnologyCommand;
 import com.example.onetoone.core.technology.results.TechnologyResult;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.TechnologyViewMapper;
@@ -36,6 +37,16 @@ public class TechnologyController {
                 .build()));
     }
 
+    @GetMapping("/{id}")
+    public TechnologyView get(@PathVariable Long id){
+        log.info("Request for get technology");
+
+        return mapper.toView(commandBus.execute(GetTechnologyCommand
+                .builder()
+                .id(id)
+                .build()));
+    }
+
     @GetMapping
     public ListView<TechnologyView> getAll(@RequestParam(required = false, defaultValue = "0") int page,
                                            @RequestParam(required = false, defaultValue = "10") int size,
@@ -52,7 +63,7 @@ public class TechnologyController {
                 .criteria(searchCriteria)
                 .build());
 
-        return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(mapper::toView).collect(Collectors.toList()));
-
+        return new ListView<>(resultList.getTotalItems(),
+                resultList.getItems().stream().map(mapper::toView).collect(Collectors.toList()));
     }
 }
