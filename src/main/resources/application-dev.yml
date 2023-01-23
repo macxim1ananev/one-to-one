@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  servlet:
+    context-path: ${SERVLET_CONTEXT_PATH:/one-to-one/api}
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/one_to_one
+    username: ${DB_USERNAME:one_to_one}
+    password: ${DB_PASSWORD:onetoone}
+
+  security:
+    basic:
+      enabled: false
+    management:
+      security: false
+  autoconfigure:
+    exclude[0]: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration,
+    exclude[1]: org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
+  jpa:
+    generate-ddl: false
+    #    show-sql: true
