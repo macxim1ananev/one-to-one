@@ -5,11 +5,11 @@ import lombok.Data;
 
 @Data
 public class UserStatistics {
-    Long id;
-    User user;
-    int totalOneToOneCount;
-    int totalQuestionCount;
-    int totalPoint;
+    private Long id;
+    private User user;
+    private int totalOneToOneCount;
+    private int totalQuestionCount;
+    private int totalPoint;
 
     public void plusTotalPoint(Integer point){
         totalPoint += point;
