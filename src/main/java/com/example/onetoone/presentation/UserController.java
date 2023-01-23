@@ -2,6 +2,7 @@ package com.example.onetoone.presentation;
 
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.user.commands.CreateUserCommand;
+import com.example.onetoone.core.user.commands.GetUserCommand;
 import com.example.onetoone.presentation.mapper.UserViewMapper;
 import com.example.onetoone.presentation.request.CreateUserRequest;
 import com.example.onetoone.presentation.view.UserView;
@@ -30,6 +31,15 @@ public class UserController {
                 .password(request.getPassword())
                 .name(request.getName())
                 .surName(request.getSurName())
+                .build()));
+    }
+
+    @GetMapping("/{userId}")
+    public UserView get(@PathVariable Long userId){
+        log.info("Request for get user by id");
+
+        return mapper.toView(commandBus.execute(GetUserCommand.builder()
+                .id(userId)
                 .build()));
     }
 }
