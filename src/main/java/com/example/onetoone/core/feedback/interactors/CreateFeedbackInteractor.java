@@ -5,8 +5,8 @@ import com.example.onetoone.core.feedback.UserAnswerMapper;
 import com.example.onetoone.core.feedback.commands.CreateFeedbackCommand;
 import com.example.onetoone.core.feedback.entities.Feedback;
 import com.example.onetoone.core.feedback.entities.UserAnswer;
-import com.example.onetoone.core.feedback.rating.entity.UserStatistics;
-import com.example.onetoone.core.feedback.rating.entity.UserTechnologyStatistics;
+import com.example.onetoone.core.feedback.entities.statistics.UserStatistics;
+import com.example.onetoone.core.feedback.entities.statistics.UserTechnologyStatistics;
 import com.example.onetoone.core.feedback.results.FeedbackResult;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
@@ -14,6 +14,7 @@ import com.example.onetoone.core.service.interfaces.*;
 import com.example.onetoone.core.user.entities.User;
 import com.example.onetoone.presentation.request.UserAnswerRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CreateFeedbackInteractor implements Interactor<CreateFeedbackCommand, FeedbackResult> {
@@ -38,6 +39,8 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
 
     @Override
     public FeedbackResult execute(CreateFeedbackCommand command) {
+        log.info("Executing command {}", command);
+
         var author = users.get(command.getAuthorId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND));
         var recipient = users.get(command.getRecipientId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND));
         var oneToOne = oneToOnes.get(command.getOneToOneId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND));
@@ -100,7 +103,8 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
                 if (uts == null) {
                     uts = new UserTechnologyStatistics();
                     uts.setUserStatistics(userStatistics);
-                    uts.setTechnologyId(technologyId);
+                    uts.setTechnology(technologies.get(technologyId).orElseThrow(
+                            ()-> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND)));
                     uts.incrementQuestionCount();
                     uts.plusTotalPoint(ua.getResponseLevel());
                     map.put(technologyId, uts);
@@ -114,7 +118,7 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
             Map<Long, UserTechnologyStatistics> map = statistics
                     .stream()
                     .collect(Collectors.toMap(
-                            UserTechnologyStatistics::getTechnologyId, Function.identity()));
+                            ust -> ust.getTechnology().getId(), Function.identity()));
 
             for (UserAnswer ua : userAnswers) {
                 var technologyId = ua.getQuestion().getTechnology().getId();
@@ -126,7 +130,8 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
                     var newUts = new UserTechnologyStatistics();
                     newUts.setUserStatistics(userStatistics);
                     newUts.setQuestionCount(1);
-                    newUts.setTechnologyId(ua.getQuestion().getTechnology().getId());
+                    newUts.setTechnology(technologies.get(technologyId).orElseThrow(
+                            () -> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND)));
                     newUts.setTotalPoint(ua.getResponseLevel());
                     statistics.add(newUts);
                 }

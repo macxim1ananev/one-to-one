@@ -13,7 +13,8 @@ public class UserTechnologyStatisticsModel {
     private Long id;
     @ManyToOne
     private UsersStatisticsModel userStatistics;
-    private Long technologyId;
+    @OneToOne
+    private TechnologyModel technology;
     private Integer totalPoint;
     private Integer questionCount;
 }

@@ -1,6 +1,6 @@
 package com.example.onetoone.core.service.interfaces;
 
-import com.example.onetoone.core.feedback.rating.entity.UserTechnologyStatistics;
+import com.example.onetoone.core.feedback.entities.statistics.UserTechnologyStatistics;
 
 import java.util.List;
 
