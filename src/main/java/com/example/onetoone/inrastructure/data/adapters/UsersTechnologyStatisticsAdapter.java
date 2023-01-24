@@ -1,6 +1,6 @@
 package com.example.onetoone.inrastructure.data.adapters;
 
-import com.example.onetoone.core.feedback.rating.entity.UserTechnologyStatistics;
+import com.example.onetoone.core.feedback.entities.statistics.UserTechnologyStatistics;
 import com.example.onetoone.core.service.interfaces.UsersTechnologyStatistics;
 import com.example.onetoone.inrastructure.data.mappers.UsersTechnologyStatisticsMapper;
 import com.example.onetoone.inrastructure.data.repositories.UsersTechnologyStatisticsRepository;
@@ -24,7 +24,6 @@ public class UsersTechnologyStatisticsAdapter implements UsersTechnologyStatisti
 
     @Override
     public List<UserTechnologyStatistics> getById(Long id) {
-        var res = repository.findAllByUserStatisticsId(id).stream().map(mapper::toEntity).collect(Collectors.toList());
-        return res;
+        return repository.findAllByUserStatisticsId(id).stream().map(mapper::toEntity).collect(Collectors.toList());
     }
 }

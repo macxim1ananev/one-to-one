@@ -1,7 +1,7 @@
-package com.example.onetoone.core.feedback.interactors;
+package com.example.onetoone.core.feedback.interactors.statistics;
 
-import com.example.onetoone.core.feedback.commands.GetUserStatisticsCommand;
-import com.example.onetoone.core.feedback.results.UserStatisticsResult;
+import com.example.onetoone.core.feedback.commands.statistics.GetUserStatisticsCommand;
+import com.example.onetoone.core.feedback.results.statistics.UserStatisticsResult;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.UsersStatistics;

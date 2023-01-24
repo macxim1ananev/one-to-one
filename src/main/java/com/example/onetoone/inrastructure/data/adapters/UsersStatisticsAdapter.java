@@ -1,6 +1,6 @@
 package com.example.onetoone.inrastructure.data.adapters;
 
-import com.example.onetoone.core.feedback.rating.entity.UserStatistics;
+import com.example.onetoone.core.feedback.entities.statistics.UserStatistics;
 import com.example.onetoone.core.service.interfaces.UsersStatistics;
 import com.example.onetoone.inrastructure.data.mappers.UsersStatisticsMapper;
 import com.example.onetoone.inrastructure.data.repositories.UsersStatisticsRepository;

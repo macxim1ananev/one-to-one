@@ -1,7 +1,7 @@
-package com.example.onetoone.core.feedback.interactors;
+package com.example.onetoone.core.feedback.interactors.statistics;
 
-import com.example.onetoone.core.feedback.commands.GetUserTechnologyStatisticsCommand;
-import com.example.onetoone.core.feedback.results.UserTechnologyStatisticsResult;
+import com.example.onetoone.core.feedback.commands.statistics.GetFullUserStatisticsCommand;
+import com.example.onetoone.core.feedback.results.statistics.FullUserStatisticsResult;
 import com.example.onetoone.core.service.common.EntityList;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.common.ResultModelList;
@@ -18,15 +18,15 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class GetUsersTechnologyStatisticsInteractor implements Interactor<GetUserTechnologyStatisticsCommand,
-        ResultModelList<UserTechnologyStatisticsResult>> {
+public class GetFullUsersStatisticsInteractor implements Interactor<GetFullUserStatisticsCommand,
+        ResultModelList<FullUserStatisticsResult>> {
 
     private final UsersTechnologyStatistics usersTechnologyStatistics;
     private final UsersStatistics usersStatistics;
     private final UsersTechnologyStatisticsMapper mapper;
 
     @Override
-    public ResultModelList<UserTechnologyStatisticsResult> execute(GetUserTechnologyStatisticsCommand command) {
+    public ResultModelList<FullUserStatisticsResult> execute(GetFullUserStatisticsCommand command) {
         log.info("Executing command {}", command);
 
         var userStatistics = usersStatistics.get(command.getId())
