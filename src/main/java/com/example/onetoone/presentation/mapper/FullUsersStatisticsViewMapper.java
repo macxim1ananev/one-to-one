@@ -1,7 +1,9 @@
 package com.example.onetoone.presentation.mapper;
 
 import com.example.onetoone.core.feedback.results.statistics.FullUserStatisticsResult;
+import com.example.onetoone.core.feedback.results.statistics.UserTechnologyStatisticsResult;
 import com.example.onetoone.presentation.view.FullUserStatisticsView;
+import com.example.onetoone.presentation.view.UserTechnologyStatisticsView;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
@@ -12,4 +14,6 @@ import org.mapstruct.ReportingPolicy;
         imports = FullUsersStatisticsViewMapper.class)
 public interface FullUsersStatisticsViewMapper {
     FullUserStatisticsView toView(FullUserStatisticsResult result);
+
+    UserTechnologyStatisticsView toTechnologyStatisticsView(UserTechnologyStatisticsResult result);
 }

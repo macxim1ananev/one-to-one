@@ -4,7 +4,9 @@ import com.example.onetoone.core.feedback.commands.CreateFeedbackCommand;
 import com.example.onetoone.core.feedback.commands.GetByOneToOneAndRecipientIdCommand;
 import com.example.onetoone.core.feedback.commands.statistics.GetUserStatisticsCommand;
 import com.example.onetoone.core.feedback.commands.statistics.GetFullUserStatisticsCommand;
+import com.example.onetoone.core.feedback.commands.statistics.GetUserTechnologyStatisticsCommand;
 import com.example.onetoone.core.feedback.results.statistics.FullUserStatisticsResult;
+import com.example.onetoone.core.feedback.results.statistics.UserTechnologyStatisticsResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.presentation.common.ListView;
@@ -15,6 +17,7 @@ import com.example.onetoone.presentation.request.CreateFeedbackRequest;
 import com.example.onetoone.presentation.view.FeedbackView;
 import com.example.onetoone.presentation.view.FullUserStatisticsView;
 import com.example.onetoone.presentation.view.UserStatisticsView;
+import com.example.onetoone.presentation.view.UserTechnologyStatisticsView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,13 +67,30 @@ public class FeedbackController {
     }
 
     @GetMapping("/{userId}/full-statistics")
-    public ListView<FullUserStatisticsView> getUserTechnologyStatistics(@PathVariable Long userId){
+    public ListView<FullUserStatisticsView> getFullUserStatistics(@PathVariable Long userId){
 
         ResultModelList<FullUserStatisticsResult> resultList = commandBus.execute(GetFullUserStatisticsCommand
                 .builder()
                 .id(userId)
                 .build());
 
-        return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(fullStatisticsViewMapper::toView).collect(Collectors.toList()));
+        return new ListView<>(resultList.getTotalItems(), resultList.getItems()
+                .stream()
+                .map(fullStatisticsViewMapper::toView)
+                .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{userId}/technology-statistics")
+    public ListView<UserTechnologyStatisticsView> getUserTechnologyStatistics(@PathVariable Long userId){
+
+        ResultModelList<UserTechnologyStatisticsResult> resultList = commandBus.execute(GetUserTechnologyStatisticsCommand
+                        .builder()
+                        .id(userId)
+                        .build());
+
+        return new ListView<>(resultList.getTotalItems(), resultList.getItems()
+                .stream()
+                .map(fullStatisticsViewMapper::toTechnologyStatisticsView)
+                .collect(Collectors.toList()));
     }
 }
