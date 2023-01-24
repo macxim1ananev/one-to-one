@@ -3,12 +3,15 @@ package com.example.onetoone.presentation;
 import com.example.onetoone.core.feedback.commands.CreateFeedbackCommand;
 import com.example.onetoone.core.feedback.commands.GetByOneToOneAndRecipientIdCommand;
 import com.example.onetoone.core.feedback.commands.GetUserStatisticsCommand;
+import com.example.onetoone.core.feedback.commands.GetUserTechnologyStatisticsCommand;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.presentation.mapper.FeedbackViewMapper;
 import com.example.onetoone.presentation.mapper.UsersStatisticsViewMapper;
+import com.example.onetoone.presentation.mapper.UsersTechnologyStatisticsViewMapper;
 import com.example.onetoone.presentation.request.CreateFeedbackRequest;
 import com.example.onetoone.presentation.view.FeedbackView;
 import com.example.onetoone.presentation.view.UserStatisticsView;
+import com.example.onetoone.presentation.view.UserTechnologyStatisticsView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,7 @@ public class FeedbackController {
     private final FeedbackViewMapper mapper;
     private final CommandBus commandBus;
     private final UsersStatisticsViewMapper statisticsViewMapper;
+    private final UsersTechnologyStatisticsViewMapper technologyStatisticsViewMapper;
 
     @PostMapping("/create")
     public FeedbackView create(@Valid @RequestBody CreateFeedbackRequest request) {
@@ -50,6 +54,15 @@ public class FeedbackController {
     public UserStatisticsView getUserStatistics(@PathVariable Long userId){
 
         return statisticsViewMapper.toView(commandBus.execute(GetUserStatisticsCommand
+                .builder()
+                .id(userId)
+                .build()));
+    }
+
+    @GetMapping("/{userId}/technology-statistics")
+    public UserTechnologyStatisticsView getUserTechnologyStatistics(@PathVariable Long userId){
+
+        return technologyStatisticsViewMapper.toView(commandBus.execute(GetUserTechnologyStatisticsCommand
                 .builder()
                 .id(userId)
                 .build()));
