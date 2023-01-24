@@ -1,12 +1,13 @@
 package com.example.onetoone.core.feedback.rating.entity;
 
+import com.example.onetoone.core.technology.entities.Technology;
 import lombok.Data;
 
 @Data
 public class UserTechnologyStatistics {
     Long id;
     UserStatistics userStatistics;
-    Long technologyId;
+    Technology technology;
     int questionCount;
     int totalPoint;
 

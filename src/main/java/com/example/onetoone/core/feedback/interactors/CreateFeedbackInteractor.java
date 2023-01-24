@@ -103,7 +103,8 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
                 if (uts == null) {
                     uts = new UserTechnologyStatistics();
                     uts.setUserStatistics(userStatistics);
-                    uts.setTechnologyId(technologyId);
+                    uts.setTechnology(technologies.get(technologyId).orElseThrow(
+                            ()-> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND)));
                     uts.incrementQuestionCount();
                     uts.plusTotalPoint(ua.getResponseLevel());
                     map.put(technologyId, uts);
@@ -117,7 +118,7 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
             Map<Long, UserTechnologyStatistics> map = statistics
                     .stream()
                     .collect(Collectors.toMap(
-                            UserTechnologyStatistics::getTechnologyId, Function.identity()));
+                            ust -> ust.getTechnology().getId(), Function.identity()));
 
             for (UserAnswer ua : userAnswers) {
                 var technologyId = ua.getQuestion().getTechnology().getId();
@@ -129,7 +130,8 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
                     var newUts = new UserTechnologyStatistics();
                     newUts.setUserStatistics(userStatistics);
                     newUts.setQuestionCount(1);
-                    newUts.setTechnologyId(ua.getQuestion().getTechnology().getId());
+                    newUts.setTechnology(technologies.get(technologyId).orElseThrow(
+                            () -> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND)));
                     newUts.setTotalPoint(ua.getResponseLevel());
                     statistics.add(newUts);
                 }
