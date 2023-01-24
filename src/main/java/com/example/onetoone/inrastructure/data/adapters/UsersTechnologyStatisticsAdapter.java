@@ -24,6 +24,7 @@ public class UsersTechnologyStatisticsAdapter implements UsersTechnologyStatisti
 
     @Override
     public List<UserTechnologyStatistics> getById(Long id) {
-        return repository.findAllByUserStatisticsId(id).stream().map(mapper::toEntity).collect(Collectors.toList());
+        var res = repository.findAllByUserStatisticsId(id).stream().map(mapper::toEntity).collect(Collectors.toList());
+        return res;
     }
 }

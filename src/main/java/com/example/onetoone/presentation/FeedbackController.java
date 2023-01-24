@@ -4,7 +4,10 @@ import com.example.onetoone.core.feedback.commands.CreateFeedbackCommand;
 import com.example.onetoone.core.feedback.commands.GetByOneToOneAndRecipientIdCommand;
 import com.example.onetoone.core.feedback.commands.GetUserStatisticsCommand;
 import com.example.onetoone.core.feedback.commands.GetUserTechnologyStatisticsCommand;
+import com.example.onetoone.core.feedback.results.UserTechnologyStatisticsResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
+import com.example.onetoone.core.service.common.ResultModelList;
+import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.FeedbackViewMapper;
 import com.example.onetoone.presentation.mapper.UsersStatisticsViewMapper;
 import com.example.onetoone.presentation.mapper.UsersTechnologyStatisticsViewMapper;
@@ -16,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -60,11 +64,13 @@ public class FeedbackController {
     }
 
     @GetMapping("/{userId}/technology-statistics")
-    public UserTechnologyStatisticsView getUserTechnologyStatistics(@PathVariable Long userId){
+    public ListView<UserTechnologyStatisticsView> getUserTechnologyStatistics(@PathVariable Long userId){
 
-        return technologyStatisticsViewMapper.toView(commandBus.execute(GetUserTechnologyStatisticsCommand
+        ResultModelList<UserTechnologyStatisticsResult> resultList = commandBus.execute(GetUserTechnologyStatisticsCommand
                 .builder()
                 .id(userId)
-                .build()));
+                .build());
+
+        return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(technologyStatisticsViewMapper::toView).collect(Collectors.toList()));
     }
 }

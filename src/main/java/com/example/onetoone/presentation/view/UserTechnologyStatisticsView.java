@@ -6,4 +6,9 @@ import lombok.Value;
 @Value
 @Builder
 public class UserTechnologyStatisticsView {
+    Long id;
+    UserStatisticsView userStatistics;
+    TechnologyView technology;
+    int questionCount;
+    int totalPoint;
 }
