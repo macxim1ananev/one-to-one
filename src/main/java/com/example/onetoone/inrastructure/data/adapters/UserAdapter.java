@@ -25,4 +25,9 @@ public class UserAdapter implements Users {
     public Optional<User> get(long id) {
         return repository.findById(id).map(mapper::toEntity);
     }
+
+    @Override
+    public Optional<User> loadUserByLogin(String email) {
+        return repository.findByEmail(email).map(mapper::toEntity);
+    }
 }
