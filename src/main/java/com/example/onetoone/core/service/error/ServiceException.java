@@ -15,6 +15,7 @@ public class ServiceException extends RuntimeException {
     int errorCode;
 
     public ServiceException(Exception exception, Object... args) {
+        super(exception.message);
         this.errorCode = exception.getCode();
     }
 
