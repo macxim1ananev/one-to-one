@@ -23,8 +23,10 @@ public class AcceptOneToOneInteractor implements Interactor<AcceptOneToOneComman
     public OneToOneResult execute(AcceptOneToOneCommand command) {
         log.info("Executing command {}", command);
 
-        var entity = oneToOnes.get(command.getOneToOneId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND));
-        var opponent = users.get(command.getOpponentId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND));
+        var entity = oneToOnes.get(command.getOneToOneId())
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND, command.getOneToOneId()));
+        var opponent = users.get(command.getOpponentId())
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND, command.getOpponentId()));
 
         entity.validate(command.getOpponentId());
         entity.setOpponent(opponent);

@@ -22,7 +22,7 @@ public class GetQuestionInteractor implements Interactor<GetQuestionCommand, Que
         log.info("Executing command {}", command);
 
         var entity = questions.getById(command.getId())
-                .orElseThrow(()-> new ServiceException(ServiceException.Exception.QUESTION_NOT_FOUND));
+                .orElseThrow(()-> new ServiceException(ServiceException.Exception.QUESTION_NOT_FOUND, command.getId()));
 
         return mapper.toResult(entity);
     }

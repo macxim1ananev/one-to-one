@@ -23,9 +23,9 @@ public class UpdateQuestionInteractor implements Interactor<UpdateQuestionComman
         log.info("Executing command {}", command);
 
         var technology = technologies.get(command.getTechnologyId())
-                .orElseThrow(() -> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND));
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND, command.getTechnologyId()));
         var question = questions.getById(command.getId())
-                .orElseThrow(() -> new ServiceException(ServiceException.Exception.QUESTION_NOT_FOUND));
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.QUESTION_NOT_FOUND, command.getId()));
 
         question.setQuestion(command.getQuestion());
         question.setAnswer(command.getAnswer());

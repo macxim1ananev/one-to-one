@@ -24,9 +24,9 @@ public class CreateOneToOneInteractor implements Interactor<CreateOneToOneComman
         log.info("Executing command {}", command);
 
         var technology = technologies.get(command.getTechnologyId())
-                .orElseThrow(()-> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND));
+                .orElseThrow(()-> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND, command.getTechnologyId()));
         var initiator = users.get(command.getInitiatorId())
-                .orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND));
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND, command.getInitiatorId()));
         var entity = mapper.toEntity(command, initiator, technology);
 
         return mapper.toResult(oneToOnes.put(entity));

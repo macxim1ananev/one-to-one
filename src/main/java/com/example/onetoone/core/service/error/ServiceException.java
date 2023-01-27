@@ -1,5 +1,6 @@
 package com.example.onetoone.core.service.error;
 
+import com.example.onetoone.core.service.common.StaticMessageSource;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Value;
@@ -15,30 +16,30 @@ public class ServiceException extends RuntimeException {
     int errorCode;
 
     public ServiceException(Exception exception, Object... args) {
-        super(exception.message);
+        super(StaticMessageSource.getMessage(exception.getLabel(), args));
         this.errorCode = exception.getCode();
     }
 
     @Getter
     public static enum Exception {
-        USER_NOT_FOUND(1, "User not found"),
-        ONE_TO_ONE_NOT_FOUND(2, "One to pne not found"),
-        ONE_TO_ONE_NOT_VALID(3, "One to one not valid, you can't create one to one with yourself"),
-        FEEDBACK_NOT_VALID(4, "User can't write feedback for yourself"),
-        FEEDBACK_NOT_CREATE(5, "Feedback not created" ),
-        ONE_TO_ONE_CLOSE_IMPOSSIBLE(6, "Only one to one author can close one to one"),
-        QUESTION_NOT_FOUND(7, "Question not found"),
-        TECHNOLOGY_NOT_FOUND(8, "Technology not found"),
-        USER_STATISTICS_NOT_FOUND(9, "User statistics not found" );
+        USER_NOT_FOUND(1, "onetoone.exception.user.not.found"),
+        ONE_TO_ONE_NOT_FOUND(2, "onetoone.exception.onetoone.not.found"),
+        ONE_TO_ONE_NOT_VALID(3, "onetoone.exception.onetoone.not.valid"),
+        FEEDBACK_NOT_VALID(4, "onetoone.exception.feedback.not.valid"),
+        FEEDBACK_NOT_CREATE(5, "onetoone.exception.feedback.not.create" ),
+        ONE_TO_ONE_CLOSE_IMPOSSIBLE(6, "onetoone.exception.onetoone.close.impossible"),
+        QUESTION_NOT_FOUND(7, "onetoone.exception.question.not.found"),
+        TECHNOLOGY_NOT_FOUND(8, "onetoone.exception.technology.not.found"),
+        USER_STATISTICS_NOT_FOUND(9, "onetoone.exception.user-statistics.not.found" );
 
 
-        Exception(int code, String message) {
+        Exception(int code, String label) {
             this.code = code;
-            this.message = message;
+            this.label = label;
         }
 
         private final int code;
-        private final String message;
+        private final String label;
     }
 
     public static Optional<Exception> fromString(Integer code){

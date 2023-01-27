@@ -23,7 +23,7 @@ public class GetOneToOneInteractor implements Interactor<GetOneToOneCommand, One
         log.info("Executing command {}", command);
 
         var entity = oneToOnes.get(command.getId())
-                .orElseThrow(()-> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND));
+                .orElseThrow(()-> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND, command.getId()));
         return mapper.toResult(entity);
     }
 }

@@ -22,7 +22,7 @@ public class GetUserInteractor implements Interactor<GetUserCommand, UserResult>
         log.info("Executing command {}", command);
 
         var entity = users.get(command.getId()).orElseThrow(
-                () -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND));
+                () -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND, command.getId()));
 
         return mapper.toResult(entity);
     }

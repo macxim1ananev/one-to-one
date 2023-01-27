@@ -23,7 +23,7 @@ public class GetTechnologyInteractor implements Interactor<GetTechnologyCommand,
         log.info("Executing command {}", command);
 
         var entity = technologies.get(command.getId())
-                .orElseThrow(()-> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND));
+                .orElseThrow(()-> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND, command.getId()));
         return mapper.toResult(entity);
     }
 }

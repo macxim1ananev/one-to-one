@@ -27,7 +27,7 @@ public class GetByOneToOneAndRecipientIdInteractor implements Interactor<GetByOn
         log.info("Executing command {}", command);
 
         var feedback = feedbacks.getByOneToOneIdAndRecipientId(command.getOneToOneId(), command.getRecipientId())
-                .orElseThrow(() -> new ServiceException(ServiceException.Exception.FEEDBACK_NOT_CREATE));
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.FEEDBACK_NOT_CREATE, command.getOneToOneId()));
 
         List<UserAnswer> answerList = userAnswers.getAllByFeedbackId(feedback.getId());
 

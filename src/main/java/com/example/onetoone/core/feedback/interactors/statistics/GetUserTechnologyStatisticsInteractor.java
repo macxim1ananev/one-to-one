@@ -30,7 +30,7 @@ public class GetUserTechnologyStatisticsInteractor
         log.info("Executing command {}", command);
 
         var userStatistics = usersStatistics.get(command.getId())
-                .orElseThrow(()-> new ServiceException(ServiceException.Exception.USER_STATISTICS_NOT_FOUND));
+                .orElseThrow(()-> new ServiceException(ServiceException.Exception.USER_STATISTICS_NOT_FOUND, command.getId()));
         var list= usersTechnologyStatistics.getById(userStatistics.getId());
         var entityList = new EntityList<>(list.size(), list);
 

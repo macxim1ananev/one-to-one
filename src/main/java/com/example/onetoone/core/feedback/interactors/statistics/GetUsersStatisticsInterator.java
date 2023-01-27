@@ -23,7 +23,7 @@ public class GetUsersStatisticsInterator implements Interactor<GetUserStatistics
         log.info("Executing command {}", command);
 
         var entity = usersStatistics.get(command.getId())
-                .orElseThrow(()-> new ServiceException(ServiceException.Exception.USER_STATISTICS_NOT_FOUND));
+                .orElseThrow(()-> new ServiceException(ServiceException.Exception.USER_STATISTICS_NOT_FOUND, command.getId()));
 
         return mapper.toResult(entity);
     }

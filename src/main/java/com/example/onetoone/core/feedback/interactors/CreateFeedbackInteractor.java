@@ -41,9 +41,12 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
     public FeedbackResult execute(CreateFeedbackCommand command) {
         log.info("Executing command {}", command);
 
-        var author = users.get(command.getAuthorId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND));
-        var recipient = users.get(command.getRecipientId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND));
-        var oneToOne = oneToOnes.get(command.getOneToOneId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND));
+        var author = users.get(command.getAuthorId())
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND, command.getAuthorId()));
+        var recipient = users.get(command.getRecipientId())
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND, command.getRecipientId()));
+        var oneToOne = oneToOnes.get(command.getOneToOneId())
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND, command.getOneToOneId()));
 
         var entity = mapper.toEntity(command, author, recipient, oneToOne);
         entity.isValid();
@@ -104,7 +107,7 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
                     uts = new UserTechnologyStatistics();
                     uts.setUserStatistics(userStatistics);
                     uts.setTechnology(technologies.get(technologyId).orElseThrow(
-                            ()-> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND)));
+                            ()-> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND, technologyId)));
                     uts.incrementQuestionCount();
                     uts.plusTotalPoint(ua.getResponseLevel());
                     map.put(technologyId, uts);
@@ -131,7 +134,7 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
                     newUts.setUserStatistics(userStatistics);
                     newUts.setQuestionCount(1);
                     newUts.setTechnology(technologies.get(technologyId).orElseThrow(
-                            () -> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND)));
+                            () -> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND, technologyId)));
                     newUts.setTotalPoint(ua.getResponseLevel());
                     statistics.add(newUts);
                 }

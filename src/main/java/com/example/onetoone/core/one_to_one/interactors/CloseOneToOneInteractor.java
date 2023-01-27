@@ -22,7 +22,8 @@ public class CloseOneToOneInteractor implements Interactor<CloseOneToOneCommand,
     public OneToOneResult execute(CloseOneToOneCommand command) {
         log.info("Executing command {}", command);
 
-        var oneToOne = oneToOnes.get(command.getId()).orElseThrow(() -> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND));
+        var oneToOne = oneToOnes.get(command.getId())
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND, command.getId()));
         if (oneToOne.getInitiator().getId().equals(command.getAuthorId())){
             oneToOne.setStatus(OneToOneStatus.CLOSED);
             return mapper.toResult(oneToOnes.put(oneToOne));
