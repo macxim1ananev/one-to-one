@@ -9,6 +9,18 @@ spring:
     username: ${DB_USERNAME:one_to_one}
     password: ${DB_PASSWORD:onetoone}
 
+  mail:
+    host: smtp.yandex.ru
+    username: ${emailSenderLogin.local}
+    password: ${emailSenderPassword.local}
+    port: 465
+    protocol: smtps
+    properties:
+      ssl:
+        enable: true
+      smtp:
+        auth: true
+
   security:
     basic:
       enabled: false

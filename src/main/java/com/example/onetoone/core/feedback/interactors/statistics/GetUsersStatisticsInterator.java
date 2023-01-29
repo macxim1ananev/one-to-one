@@ -5,7 +5,7 @@ import com.example.onetoone.core.feedback.results.statistics.UserStatisticsResul
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.UsersStatistics;
-import com.example.onetoone.inrastructure.data.mappers.UsersStatisticsMapper;
+import com.example.onetoone.inrastructure.input.data.mappers.UsersStatisticsMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
