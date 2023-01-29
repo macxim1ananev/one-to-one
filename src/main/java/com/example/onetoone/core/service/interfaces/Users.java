@@ -9,5 +9,5 @@ public interface Users {
 
     Optional<User> get(long id);
 
-    Optional<User> loadUserByLogin(String email);
+    Optional<User> loadUserByEmail(String email);
 }
