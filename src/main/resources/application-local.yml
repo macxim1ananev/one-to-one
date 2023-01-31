@@ -14,12 +14,13 @@ spring:
     username: ${emailSenderLogin.local}
     password: ${emailSenderPassword.local}
     port: 465
-    protocol: smtps
+    protocol: smtp
     properties:
       ssl:
         enable: true
       smtp:
         auth: true
+
 
   security:
     basic:
