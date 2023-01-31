@@ -3,6 +3,7 @@ package com.example.onetoone.presentation;
 import com.example.onetoone.core.auth.command.RefreshJwtTokenCommand;
 import com.example.onetoone.core.auth.command.UserAuthorizationCommand;
 import com.example.onetoone.core.service.command_bus.CommandBus;
+import com.example.onetoone.presentation.mapper.AuthorizationViewMapper;
 import com.example.onetoone.presentation.request.RefreshJwtTokenRequest;
 import com.example.onetoone.presentation.request.UserAuthorizationRequest;
 import com.example.onetoone.presentation.view.JwtTokenView;
@@ -11,11 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 @Slf4j
-@RestController("/v1/auth")
+@RestController
+@RequestMapping("/v1/auth")
 @RequiredArgsConstructor
 public class AuthorizationController {
 
     private final CommandBus commandBus;
+    private final AuthorizationViewMapper mapper;
 
 
     @PostMapping
@@ -23,11 +26,11 @@ public class AuthorizationController {
     public JwtTokenView oneTimeAuthorization(@RequestBody UserAuthorizationRequest request) {
         log.info("Request to receive a jwt token");
 
-        return commandBus.execute(UserAuthorizationCommand
+        return mapper.toView(commandBus.execute(UserAuthorizationCommand
                 .builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
-                .build());
+                .build()));
     }
 
     @PostMapping("/token")

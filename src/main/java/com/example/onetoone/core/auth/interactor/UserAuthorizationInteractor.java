@@ -27,11 +27,11 @@ public class UserAuthorizationInteractor implements Interactor<UserAuthorization
     public UserAuthorizationResult execute(UserAuthorizationCommand command) {
         log.info("Executing command {}", command);
 
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(command.getEmail(), command.getPassword()));
         var user = users.loadUserByEmail(command.getEmail())
                 .orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_BY_EMAIL_NOT_FOUND, command.getEmail()));
 
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(command.getEmail(), command.getPassword()));
         String jwt = jwtUtils.generateAccessToken(user);
         String refreshJwt = jwtUtils.generateRefreshToken(user);
 
