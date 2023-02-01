@@ -1,6 +1,7 @@
 package com.example.onetoone.inrastructure.data.filters;
 
 import com.example.onetoone.config.security.JwtTokenUtil;
+import com.example.onetoone.core.service.error.ServiceException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtTokenUtil jwtTokenUtil;
     private final UserDetailsService userDetailsService;
-    private static final String NOT_TOKEN = "This is not a refresh token";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -43,7 +43,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         } catch (ExpiredJwtException ex) {
             boolean isRefreshToken = Boolean.parseBoolean(request.getHeader("isRefreshToken"));
             String requestURL = request.getRequestURL().toString();
-            if (isRefreshToken && requestURL.contains("token")) {
+            if (isRefreshToken && requestURL.contains("refresh")) {
                 allowForRefreshToken(ex, request);
             } else
                 request.setAttribute("exception", ex);
@@ -65,6 +65,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
-        return null;
+        throw  new ServiceException(ServiceException.Exception.NOT_TOKEN);
     }
 }
