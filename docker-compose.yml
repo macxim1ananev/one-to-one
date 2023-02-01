@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  db:
+    container_name: one_to_one_pg_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: one_to_one
+      POSTGRES_PASSWORD: onetoone
+      POSTGRES_DB: one_to_one
+    ports:
+      - "5432:5432"
+  pgadmin:
+    container_name: one_to_one_pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: mentorstudent@yandex.ru
+      PGADMIN_DEFAULT_PASSWORD: onetoone
+    ports:
+      - "5050:80"

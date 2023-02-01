@@ -4,6 +4,9 @@ server:
     context-path: ${SERVLET_CONTEXT_PATH:/one-to-one/api}
 
 spring:
+  flyway:
+    baseline-on-migrate: true
+    enabled: true
   datasource:
     url: jdbc:postgresql://localhost:5432/one_to_one
     username: ${DB_USERNAME:one_to_one}
@@ -19,4 +22,7 @@ spring:
     exclude[1]: org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
   jpa:
     generate-ddl: false
-    #    show-sql: true
+    show-sql: true
+logging:
+  level:
+    root: info
