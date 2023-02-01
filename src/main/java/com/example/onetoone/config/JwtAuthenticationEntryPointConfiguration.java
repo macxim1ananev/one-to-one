@@ -1,4 +1,4 @@
-package com.example.onetoone.config.security;
+package com.example.onetoone.config;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

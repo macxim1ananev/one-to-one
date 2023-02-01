@@ -1,5 +1,7 @@
-package com.example.onetoone.config.security;
+package com.example.onetoone.config;
 
+import com.example.onetoone.config.security.JwtTokenUtil;
+import com.example.onetoone.config.security.UserDetailServiceImpl;
 import com.example.onetoone.inrastructure.data.filters.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -53,13 +55,11 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/v1/auth/**").permitAll()
+                .authorizeRequests().antMatchers("/v1/auth/**", "/v1/user/register/**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
-
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 }

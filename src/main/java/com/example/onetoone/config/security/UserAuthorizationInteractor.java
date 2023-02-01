@@ -1,6 +1,5 @@
-package com.example.onetoone.core.auth.interactor;
+package com.example.onetoone.config.security;
 
-import com.example.onetoone.config.security.JwtTokenUtil;
 import com.example.onetoone.core.auth.UserAuthorizationMapper;
 import com.example.onetoone.core.auth.command.UserAuthorizationCommand;
 import com.example.onetoone.core.auth.result.UserAuthorizationResult;

@@ -16,10 +16,10 @@ import java.util.Date;
 @Service
 public class JwtTokenUtil {
 
-    private String jwtAccessSecret;
-    private String jwtRefreshSecret;
-    private Integer jwtExpirationAccessTokenInMin;
-    private Integer jwtExpirationRefreshTokenInMin;
+    private final String jwtAccessSecret;
+    private final String jwtRefreshSecret;
+    private final Integer jwtExpirationAccessTokenInMin;
+    private final Integer jwtExpirationRefreshTokenInMin;
 
     public JwtTokenUtil(@Value("${jwt.secret.access}") String jwtAccessSecret,
                         @Value("${jwt.secret.refresh}") String jwtRefreshSecret,
@@ -67,16 +67,16 @@ public class JwtTokenUtil {
         return validateToken(token, jwtAccessSecret);
     }
 
-    public boolean validateRefreshToken(@NonNull String token) {
+    public boolean isValidRefreshToken(@NonNull String token) {
         return validateToken(token, jwtRefreshSecret);
     }
 
-    public String getLoginFromToken(String token) {
+    public String getEmailFromToken(String token) {
         Claims claims = Jwts.parser().setSigningKey(jwtAccessSecret).parseClaimsJws(token).getBody();
         return claims.getSubject();
     }
 
-    public String getLoginFromRefreshToken(String token) {
+    public String getEmailFromRefreshToken(String token) {
         Claims claims = Jwts.parser().setSigningKey(jwtRefreshSecret).parseClaimsJws(token).getBody();
         return claims.getSubject();
     }
