@@ -16,9 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @RequiredArgsConstructor
 @Configuration
-@EnableGlobalMethodSecurity(        prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
     private final UserDetailServiceImpl userDetailsService;
@@ -55,7 +56,11 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/v1/auth/**", "/v1/user/register/**").permitAll()
+                .authorizeRequests()
+                .antMatchers(
+                        "/v1/auth/jwt/**",
+                        "/v1/auth/jwt/refresh/**",
+                        "/v1/user/register/**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
