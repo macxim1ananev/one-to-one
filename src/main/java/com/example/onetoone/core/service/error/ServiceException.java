@@ -30,7 +30,10 @@ public class ServiceException extends RuntimeException {
         ONE_TO_ONE_CLOSE_IMPOSSIBLE(6, "onetoone.exception.onetoone.close.impossible"),
         QUESTION_NOT_FOUND(7, "onetoone.exception.question.not.found"),
         TECHNOLOGY_NOT_FOUND(8, "onetoone.exception.technology.not.found"),
-        USER_STATISTICS_NOT_FOUND(9, "onetoone.exception.user-statistics.not.found" );
+        USER_STATISTICS_NOT_FOUND(9, "onetoone.exception.user-statistics.not.found" ),
+        USER_BY_EMAIL_NOT_FOUND(10, "onetoone.exception.user.by.email.not.found" ),
+        TOKEN_INVALID_MESS(11, "onetoone.exception.jwt.token.invalid" ),
+        NOT_TOKEN(12, "onetoone.exception.not.jwt.token");
 
 
         Exception(int code, String label) {

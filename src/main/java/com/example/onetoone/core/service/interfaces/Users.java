@@ -8,4 +8,6 @@ public interface Users {
     User put(User entity);
 
     Optional<User> get(long id);
+
+    Optional<User> loadUserByEmail(String email);
 }

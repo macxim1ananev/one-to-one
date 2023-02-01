@@ -21,7 +21,7 @@ public class UserController {
     private final CommandBus commandBus;
     private final UserViewMapper mapper;
 
-    @PostMapping()
+    @PostMapping("/register")
     public UserView create(@Valid @RequestBody CreateUserRequest request){
         log.info("Request for crate user");
 
