@@ -32,7 +32,8 @@ public class ServiceException extends RuntimeException {
         TECHNOLOGY_NOT_FOUND(8, "onetoone.exception.technology.not.found"),
         USER_STATISTICS_NOT_FOUND(9, "onetoone.exception.user-statistics.not.found" ),
         VERIFICATION_TOKEN_HAS_EXPIRED(10, "onetoone.exception.user.verification.token.expired" ),
-        INVALID_TOKEN_FOR_CONFIRM_REGISTRATION_USER(11, "onetoone.exception.user.verification.token.invalid" );
+        INVALID_TOKEN_FOR_CONFIRM_REGISTRATION_USER(11, "onetoone.exception.user.verification.token.invalid" ),
+        USER_BY_EMAIL_NOT_FOUND(10, "onetoone.exception.user.by.email.not.found" );
 
 
         Exception(int code, String label) {

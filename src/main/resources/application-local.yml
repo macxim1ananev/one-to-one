@@ -27,9 +27,19 @@ spring:
       enabled: false
     management:
       security: false
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri:
   autoconfigure:
-    exclude[0]: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration,
-    exclude[1]: org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration
   jpa:
     generate-ddl: false
     #    show-sql: true
+
+jwt:
+  secret:
+    access: g54ges5tW$%tw45TEgsegrfdrfer
+    refresh: 5w4gew5g4G$G4gsasgfDGSDG6regS
+  expiration:
+    access: 10
+    refresh: 30
