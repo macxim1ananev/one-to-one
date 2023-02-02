@@ -6,7 +6,7 @@ import lombok.NonNull;
 @Data
 public class AcceptOneToOneRequest {
     @NonNull
-    private long opponentId;
+    private Long opponentId;
     @NonNull
-    private long oneToOneId;
+    private Long oneToOneId;
 }

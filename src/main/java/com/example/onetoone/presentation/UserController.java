@@ -3,11 +3,15 @@ package com.example.onetoone.presentation;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.user.commands.CreateUserCommand;
 import com.example.onetoone.core.user.commands.GetUserCommand;
+import com.example.onetoone.core.user.results.UserResult;
+import com.example.onetoone.inrastructure.output.email.OnRegistrationCompleteEvent;
+import com.example.onetoone.inrastructure.output.email.VerificationService;
 import com.example.onetoone.presentation.mapper.UserViewMapper;
 import com.example.onetoone.presentation.request.CreateUserRequest;
 import com.example.onetoone.presentation.view.UserView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,18 +24,30 @@ import javax.validation.Valid;
 public class UserController {
     private final CommandBus commandBus;
     private final UserViewMapper mapper;
+    private final ApplicationEventPublisher eventPublisher;
+    private final VerificationService verificationService;
 
     @PostMapping("/register")
     public UserView create(@Valid @RequestBody CreateUserRequest request){
         log.info("Request for crate user");
 
-        return mapper.toView(commandBus.execute(CreateUserCommand.builder()
+        UserResult userResult = commandBus.execute(CreateUserCommand.builder()
                 .login(request.getLogin())
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .name(request.getName())
                 .surName(request.getSurName())
-                .build()));
+                .build());
+        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userResult));
+
+        return mapper.toView(userResult);
+    }
+
+    @GetMapping(path = "/register/confirm")
+    public String confirmUserRegistration(@RequestParam String token) {
+        log.info("Request for confirm user registration");
+
+        return verificationService.confirmationUserRegistration(token);
     }
 
     @GetMapping("/{id}")

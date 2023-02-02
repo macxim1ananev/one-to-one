@@ -8,7 +8,7 @@ import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.UsersStatistics;
 import com.example.onetoone.core.service.interfaces.UsersTechnologyStatistics;
-import com.example.onetoone.inrastructure.data.mappers.FullUsersStatisticsMapper;
+import com.example.onetoone.inrastructure.input.data.mappers.FullUsersStatisticsMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

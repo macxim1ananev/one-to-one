@@ -12,4 +12,5 @@ public class UserResult {
     String password;
     String name;
     String surName;
+    String status;
 }

@@ -11,4 +11,5 @@ public class UserView {
     String email;
     String name;
     String surName;
+    String status;
 }
