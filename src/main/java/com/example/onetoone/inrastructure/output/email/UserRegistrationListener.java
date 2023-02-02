@@ -26,7 +26,7 @@ public class UserRegistrationListener implements ApplicationListener<OnRegistrat
         String recipientAddress = event.getEmail();
         String subject = "Registration Confirmation";
         String confirmationUrl
-                = "/register/confirm/?token=" + token;
+                = "/one-to-one/api/v1/user/register/confirm/?token=" + token;
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);

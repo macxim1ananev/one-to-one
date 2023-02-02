@@ -31,7 +31,7 @@ public class VerificationServiceImpl implements VerificationService {
 
     @Override
     @Transactional
-    public MessageResponse confirmationUserRegistration(String token) {
+    public String confirmationUserRegistration(String token) {
         VerificationToken verificationToken = getVerificationToken(token);
         if (LocalDateTime.now().isAfter(verificationToken.getExpiryDate())){
             throw new ServiceException(ServiceException.Exception.VERIFICATION_TOKEN_HAS_EXPIRED);
@@ -41,7 +41,7 @@ public class VerificationServiceImpl implements VerificationService {
 
         user.setStatus(UserStatus.ACTIVATED);
         users.put(user);
-        return new MessageResponse(Message.CONFIRM_REGISTRATION_SUCCESSFULLY);
+        return Message.CONFIRM_REGISTRATION_SUCCESSFULLY;
     }
 
     private VerificationToken getVerificationToken(String token) {

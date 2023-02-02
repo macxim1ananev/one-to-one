@@ -23,6 +23,6 @@ public class VerificationTokensAdapter implements VerificationTokens {
 
     @Override
     public Optional<VerificationToken> getUserVerificationToken(String token) {
-        return Optional.empty();
+        return repository.getUserVerificationToken(token).map(mapper::toEntity);
     }
 }

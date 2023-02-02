@@ -5,6 +5,7 @@ import com.example.onetoone.core.user.commands.CreateUserCommand;
 import com.example.onetoone.core.user.commands.GetUserCommand;
 import com.example.onetoone.core.user.results.UserResult;
 import com.example.onetoone.inrastructure.output.email.OnRegistrationCompleteEvent;
+import com.example.onetoone.inrastructure.output.email.VerificationService;
 import com.example.onetoone.presentation.mapper.UserViewMapper;
 import com.example.onetoone.presentation.request.CreateUserRequest;
 import com.example.onetoone.presentation.view.UserView;
@@ -24,8 +25,9 @@ public class UserController {
     private final CommandBus commandBus;
     private final UserViewMapper mapper;
     private final ApplicationEventPublisher eventPublisher;
+    private final VerificationService verificationService;
 
-    @PostMapping()
+    @PostMapping("/register")
     public UserView create(@Valid @RequestBody CreateUserRequest request){
         log.info("Request for crate user");
 
@@ -39,6 +41,13 @@ public class UserController {
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userResult));
 
         return mapper.toView(userResult);
+    }
+
+    @GetMapping(path = "/register/confirm")
+    public String confirmUserRegistration(@RequestParam String token) {
+        log.info("Request for confirm user registration");
+
+        return verificationService.confirmationUserRegistration(token);
     }
 
     @GetMapping("/{id}")
