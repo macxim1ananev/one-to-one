@@ -7,20 +7,18 @@ CREATE SEQUENCE users_id_seq
 
 CREATE TABLE users(
                       id      BIGINT DEFAULT nextval('users_id_seq'::regclass),
-                      login VARCHAR(128),
                       email VARCHAR(128),
                       password VARCHAR(256) NOT NULL,
                       name VARCHAR(64) NOT NULL,
                       sur_name VARCHAR(64) NOT NULL,
                       status VARCHAR(64) NOT NULL,
                       CONSTRAINT users_pkey PRIMARY KEY (id),
-                      CONSTRAINT uq_login UNIQUE (login),
                       CONSTRAINT uq_email UNIQUE (email)
 );
 
 INSERT INTO users
-VALUES (nextval('users_id_seq'::regclass), 'maxim', 'maxim@mail.ru', 'maxim-password', 'Maxim', 'Ananev', 'ACTIVATED'),
-       (nextval('users_id_seq'::regclass), 'petr', 'petr@mail.ru', 'petr-password', 'Petr', 'Petrov', 'ACTIVATED');
+VALUES (nextval('users_id_seq'::regclass), 'maxim@mail.ru', 'maxim-password', 'Maxim', 'Ananev', 'ACTIVATED'),
+       (nextval('users_id_seq'::regclass), 'petr@mail.ru', 'petr-password', 'Petr', 'Petrov', 'ACTIVATED');
 
 
 CREATE SEQUENCE verification_token_id_seq

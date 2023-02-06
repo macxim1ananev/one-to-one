@@ -7,7 +7,6 @@ import lombok.Value;
 @Value
 @Builder
 public class CreateUserCommand implements Command {
-    String login;
     String email;
     String password;
     String name;

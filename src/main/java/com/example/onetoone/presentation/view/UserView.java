@@ -7,7 +7,6 @@ import lombok.Value;
 @Builder
 public class UserView {
     Long id;
-    String login;
     String email;
     String name;
     String surName;

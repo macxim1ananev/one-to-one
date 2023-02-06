@@ -32,7 +32,6 @@ public class UserController {
         log.info("Request for crate user");
 
         UserResult userResult = commandBus.execute(CreateUserCommand.builder()
-                .login(request.getLogin())
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .name(request.getName())
