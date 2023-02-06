@@ -16,6 +16,8 @@ public class UserRegistrationListener implements ApplicationListener<OnRegistrat
 
     private final MailSenderService mailSenderService;
     private final VerificationService verificationService;
+    @Value("${server.ip}")
+    private String ip;
     @Value("${server.port}")
     private String port;
 
@@ -28,7 +30,7 @@ public class UserRegistrationListener implements ApplicationListener<OnRegistrat
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
         String token = UUID.randomUUID().toString();
         verificationService.createVerificationToken(event.getUserId(), token);
-        String ip = InetAddress.getLocalHost().getHostAddress();
+
 
         String recipientAddress = event.getEmail();
         String subject = "Registration Confirmation";
