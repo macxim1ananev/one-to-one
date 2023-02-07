@@ -18,6 +18,7 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/v1/user")
 @RequiredArgsConstructor
 public class UserController {
