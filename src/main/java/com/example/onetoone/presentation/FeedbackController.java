@@ -19,13 +19,13 @@ import com.example.onetoone.presentation.view.FullUserStatisticsView;
 import com.example.onetoone.presentation.view.UserStatisticsView;
 import com.example.onetoone.presentation.view.UserTechnologyStatisticsView;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
-
+@Slf4j
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/v1/user/one-to-one/feedback")
 @RequiredArgsConstructor
 public class FeedbackController {
@@ -36,6 +36,7 @@ public class FeedbackController {
 
     @PostMapping("/create")
     public FeedbackView create(@Valid @RequestBody CreateFeedbackRequest request) {
+        log.info("Request to send feedback");
 
         return mapper.toView(commandBus.execute(CreateFeedbackCommand
                 .builder()
@@ -49,6 +50,7 @@ public class FeedbackController {
 
     @GetMapping("/{recipientId}/{oneToOneId}")
     public FeedbackView getByOneToOneAndRecipientId(@PathVariable Long recipientId, @PathVariable Long oneToOneId) {
+        log.info("Request get feedback");
 
         return mapper.toView(commandBus.execute(GetByOneToOneAndRecipientIdCommand
                 .builder()
@@ -59,6 +61,7 @@ public class FeedbackController {
 
     @GetMapping("/{userId}/statistics")
     public UserStatisticsView getUserStatistics(@PathVariable Long userId){
+        log.info("Request get user statistics");
 
         return statisticsViewMapper.toView(commandBus.execute(GetUserStatisticsCommand
                 .builder()
@@ -68,6 +71,7 @@ public class FeedbackController {
 
     @GetMapping("/{userId}/full-statistics")
     public ListView<FullUserStatisticsView> getFullUserStatistics(@PathVariable Long userId){
+        log.info("Request get full user statistics");
 
         ResultModelList<FullUserStatisticsResult> resultList = commandBus.execute(GetFullUserStatisticsCommand
                 .builder()
@@ -82,6 +86,7 @@ public class FeedbackController {
 
     @GetMapping("/{userId}/technology-statistics")
     public ListView<UserTechnologyStatisticsView> getUserTechnologyStatistics(@PathVariable Long userId){
+        log.info("Request get user technology statistics");
 
         ResultModelList<UserTechnologyStatisticsResult> resultList = commandBus.execute(GetUserTechnologyStatisticsCommand
                         .builder()

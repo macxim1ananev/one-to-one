@@ -18,7 +18,6 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/v1/user")
 @RequiredArgsConstructor
 public class UserController {
