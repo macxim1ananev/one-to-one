@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import static com.example.onetoone.presentation.WebUtils.getCriteria;
 @Slf4j
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(value = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 @RequestMapping("/v1/one-to-one")
 @RequiredArgsConstructor
 public class OneToOneController {

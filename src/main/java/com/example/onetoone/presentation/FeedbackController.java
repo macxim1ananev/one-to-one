@@ -26,7 +26,7 @@ import javax.validation.Valid;
 import java.util.stream.Collectors;
 @Slf4j
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(value = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 @RequestMapping("/v1/user/one-to-one/feedback")
 @RequiredArgsConstructor
 public class FeedbackController {

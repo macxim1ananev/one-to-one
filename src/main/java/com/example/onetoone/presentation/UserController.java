@@ -18,7 +18,7 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(value = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 @RequestMapping("/v1/user")
 @RequiredArgsConstructor
 public class UserController {

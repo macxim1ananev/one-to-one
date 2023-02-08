@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(value = "http://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 @RequestMapping("/v1/auth")
 @RequiredArgsConstructor
 public class AuthorizationController {
