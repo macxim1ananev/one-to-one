@@ -23,24 +23,26 @@ spring:
       "mail.smtp.ssl.enable": true
       "mail.smtp.ssl.protocols": TLSv1.2
 
-#  security:
-#    basic:
-#      enabled: false
-#    management:
-#      security: false
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          jwk-set-uri:
-#  autoconfigure:
+  security:
+    cors:
+      allowedOrigins: ${CORS_ALLOWED_ORIGINS:https://localhost:808, https://localhost:3000}
+    basic:
+      enabled: false
+    management:
+      security: false
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri:
+  autoconfigure:
   jpa:
     generate-ddl: false
     #    show-sql: true
-#
-#jwt:
-#  secret:
-#    access: g54ges5tW$%tw45TEgsegrfdrfer
-#    refresh: 5w4gew5g4G$G4gsasgfDGSDG6regS
-#  expiration:
-#    access: 10
-#    refresh: 30
+
+jwt:
+  secret:
+    access: g54ges5tW$%tw45TEgsegrfdrfer
+    refresh: 5w4gew5g4G$G4gsasgfDGSDG6regS
+  expiration:
+    access: 10
+    refresh: 30

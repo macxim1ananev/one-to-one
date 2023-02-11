@@ -25,7 +25,6 @@ import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/v1/user/one-to-one/feedback")
 @RequiredArgsConstructor
 public class FeedbackController {
