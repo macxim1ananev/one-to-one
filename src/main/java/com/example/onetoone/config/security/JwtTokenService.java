@@ -5,7 +5,7 @@ import com.example.onetoone.presentation.request.UserAuthorizationRequest;
 import com.example.onetoone.presentation.view.JwtTokenView;
 
 public interface JwtTokenService {
-    JwtTokenView authenticate(UserAuthorizationRequest request);
+    JwtTokenResult authenticate(UserAuthorizationRequest request);
 
-    JwtTokenView refreshAccessToken(RefreshJwtTokenRequest request);
+    JwtTokenResult refreshAccessToken(String refreshJwt);
 }
