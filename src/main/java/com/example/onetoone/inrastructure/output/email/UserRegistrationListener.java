@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
-import java.net.InetAddress;
 import java.util.UUID;
 
 @RequiredArgsConstructor

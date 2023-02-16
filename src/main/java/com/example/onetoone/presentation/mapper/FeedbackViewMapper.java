@@ -23,6 +23,7 @@ public interface FeedbackViewMapper {
 
 
     @Mapping(target = "question", source = "question.question")
+    @Mapping(target = "answer", source = "question.answer")
     @Mapping(target = "responseLevel", source = "responseLevel")
     UserAnswerView toUserAnswerView (UserAnswerRequestModel requestModel);
 

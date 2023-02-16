@@ -21,7 +21,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private final JwtTokenUtil jwtUtils;
 
 
-    public JwtTokenView authenticate(UserAuthorizationRequest request) {
+    public JwtTokenResult authenticate(UserAuthorizationRequest request) {
         log.info("Authenticate and get jwt token");
 
         authenticationManager.authenticate(
@@ -32,28 +32,32 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         String accessToken = jwtUtils.generateAccessToken(user);
         String refreshToken = jwtUtils.generateRefreshToken(user);
 
-        return JwtTokenView
+        return JwtTokenResult
                 .builder()
                 .jwtToken(accessToken)
                 .refreshToken(refreshToken)
+                .email(user.getEmail())
+                .id(user.getId())
                 .build();
     }
 
-    public JwtTokenView refreshAccessToken(RefreshJwtTokenRequest request) {
+    public JwtTokenResult refreshAccessToken(String refreshJwt) {
         log.info("Getting a new access token");
 
-        String email = jwtUtils.getEmailFromRefreshToken(request.getRefreshToken());
+        String email = jwtUtils.getEmailFromRefreshToken(refreshJwt);
 
-        if (jwtUtils.isValidRefreshToken(request.getRefreshToken())) {
+        if (jwtUtils.isValidRefreshToken(refreshJwt)) {
             var user = users.loadUserByEmail(email)
                     .orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_BY_EMAIL_NOT_FOUND, email));
 
             String newAccessToken = jwtUtils.generateAccessToken(user);
             String newRefreshToken = jwtUtils.generateRefreshToken(user);
-            return JwtTokenView
+            return JwtTokenResult
                     .builder()
                     .jwtToken(newAccessToken)
                     .refreshToken(newRefreshToken)
+                    .email(user.getEmail())
+                    .id(user.getId())
                     .build();
         }
         throw new ServiceException(ServiceException.Exception.TOKEN_INVALID_MESS);

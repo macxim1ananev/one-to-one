@@ -7,6 +7,7 @@ import lombok.Value;
 @Builder
 public class UserAnswerView {
     String question;
+    String answer;
     String responseLevel;
     String comment;
 }
