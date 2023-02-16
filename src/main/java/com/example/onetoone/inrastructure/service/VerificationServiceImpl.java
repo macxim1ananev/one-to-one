@@ -1,4 +1,4 @@
-package com.example.onetoone.inrastructure.output.email;
+package com.example.onetoone.inrastructure.service;
 
 import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.Users;
@@ -6,6 +6,7 @@ import com.example.onetoone.core.service.interfaces.VerificationTokens;
 import com.example.onetoone.core.user.entities.UserStatus;
 import com.example.onetoone.core.user.entities.VerificationToken;
 import com.example.onetoone.inrastructure.output.data.mappers.VerificationTokenMapper;
+import com.example.onetoone.inrastructure.output.email.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.example.onetoone.inrastructure.output.email;
+package com.example.onetoone.inrastructure.events.registration;
 
 import com.example.onetoone.core.user.results.UserResult;
 import lombok.Getter;

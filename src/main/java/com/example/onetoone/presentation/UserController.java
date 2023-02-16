@@ -4,7 +4,8 @@ import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.user.commands.CreateUserCommand;
 import com.example.onetoone.core.user.commands.GetUserCommand;
 import com.example.onetoone.core.user.results.UserResult;
-import com.example.onetoone.inrastructure.output.email.VerificationService;
+import com.example.onetoone.inrastructure.events.registration.OnRegistrationCompleteEvent;
+import com.example.onetoone.inrastructure.service.VerificationService;
 import com.example.onetoone.presentation.mapper.UserViewMapper;
 import com.example.onetoone.presentation.request.CreateUserRequest;
 import com.example.onetoone.presentation.view.UserView;
@@ -35,7 +36,7 @@ public class UserController {
                 .name(request.getName())
                 .surName(request.getSurName())
                 .build());
-        //TODO Временное отключение рассылки eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userResult));
+         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userResult));
 
         return mapper.toView(userResult);
     }
