@@ -44,5 +44,5 @@ jwt:
     access: g54ges5tW$%tw45TEgsegrfdrfer
     refresh: 5w4gew5g4G$G4gsasgfDGSDG6regS
   expiration:
-    access: 1
-    refresh: 3
+    access: 10
+    refresh: 30
