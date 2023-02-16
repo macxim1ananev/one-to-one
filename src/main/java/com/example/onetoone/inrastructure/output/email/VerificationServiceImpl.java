@@ -5,7 +5,7 @@ import com.example.onetoone.core.service.interfaces.Users;
 import com.example.onetoone.core.service.interfaces.VerificationTokens;
 import com.example.onetoone.core.user.entities.UserStatus;
 import com.example.onetoone.core.user.entities.VerificationToken;
-import com.example.onetoone.inrastructure.input.data.mappers.VerificationTokenMapper;
+import com.example.onetoone.inrastructure.output.data.mappers.VerificationTokenMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
