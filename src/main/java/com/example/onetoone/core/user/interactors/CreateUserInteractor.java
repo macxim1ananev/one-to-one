@@ -8,7 +8,6 @@ import com.example.onetoone.core.user.commands.CreateUserCommand;
 import com.example.onetoone.core.user.results.UserResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.postgresql.shaded.com.ongres.scram.common.exception.ScramServerErrorException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
