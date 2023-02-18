@@ -3,11 +3,13 @@ package com.example.onetoone.presentation;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.user.commands.CreateUserCommand;
 import com.example.onetoone.core.user.commands.GetUserCommand;
+import com.example.onetoone.core.user.commands.PreRegistrationUserCommand;
 import com.example.onetoone.core.user.results.UserResult;
 import com.example.onetoone.inrastructure.events.registration.OnRegistrationCompleteEvent;
 import com.example.onetoone.inrastructure.service.VerificationService;
 import com.example.onetoone.presentation.mapper.UserViewMapper;
 import com.example.onetoone.presentation.request.CreateUserRequest;
+import com.example.onetoone.presentation.request.PreRegistrationUserRequest;
 import com.example.onetoone.presentation.view.UserView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +29,7 @@ public class UserController {
     private final VerificationService verificationService;
 
     @PostMapping("/register")
-    public UserView create(@Valid @RequestBody CreateUserRequest request){
+    public UserView create(@Valid @RequestBody CreateUserRequest request) {
         log.info("Request for crate user");
 
         UserResult userResult = commandBus.execute(CreateUserCommand.builder()
@@ -36,7 +38,7 @@ public class UserController {
                 .name(request.getName())
                 .surName(request.getSurName())
                 .build());
-         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userResult));
+        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userResult));
 
         return mapper.toView(userResult);
     }
@@ -48,8 +50,18 @@ public class UserController {
         return verificationService.confirmationUserRegistration(token);
     }
 
+    @PostMapping("/preregister")
+    public UserView preRegistration(@Valid @RequestBody PreRegistrationUserRequest request) {
+        log.info("Request for preregistration user");
+
+        return mapper.toViewFromPreRegistrar(commandBus.execute(PreRegistrationUserCommand
+                .builder()
+                .email(request.getEmail())
+                .build()));
+    }
+
     @GetMapping("/{id}")
-    public UserView get(@PathVariable Long id){
+    public UserView get(@PathVariable Long id) {
         log.info("Request for get user by id");
 
         return mapper.toView(commandBus.execute(GetUserCommand.builder()
