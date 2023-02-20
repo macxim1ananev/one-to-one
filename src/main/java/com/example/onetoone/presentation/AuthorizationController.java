@@ -25,6 +25,7 @@ public class AuthorizationController {
         var result = jwtTokenService.authenticate(request);
         ResponseCookie jwtCookie = ResponseCookie
                 .from("refresh-jwt", result.getRefreshToken())
+                .httpOnly(true)
                 .build();
 
         return ResponseEntity.ok()
