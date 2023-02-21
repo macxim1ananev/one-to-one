@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import static com.example.onetoone.presentation.WebUtils.getCriteria;
 @Slf4j
 @RestController
-@RequestMapping("/v1/user/{userId}/question")
+@RequestMapping("/v1/user/question")
 @RequiredArgsConstructor
 public class QuestionController {
 
