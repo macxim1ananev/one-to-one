@@ -1,7 +1,6 @@
 package com.example.onetoone.presentation;
 
 import com.example.onetoone.config.security.JwtTokenService;
-import com.example.onetoone.presentation.request.RefreshJwtTokenRequest;
 import com.example.onetoone.presentation.request.UserAuthorizationRequest;
 import com.example.onetoone.presentation.view.JwtTokenView;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +25,7 @@ public class AuthorizationController {
         var result = jwtTokenService.authenticate(request);
         ResponseCookie jwtCookie = ResponseCookie
                 .from("refresh-jwt", result.getRefreshToken())
+                .httpOnly(true)
                 .build();
 
         return ResponseEntity.ok()

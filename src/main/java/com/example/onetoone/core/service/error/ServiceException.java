@@ -34,7 +34,8 @@ public class ServiceException extends RuntimeException {
         VERIFICATION_TOKEN_HAS_EXPIRED(10, "onetoone.exception.user.verification.token.expired" ),
         INVALID_TOKEN_FOR_CONFIRM_REGISTRATION_USER(11, "onetoone.exception.user.verification.token.invalid" ),
         USER_BY_EMAIL_NOT_FOUND(12, "onetoone.exception.user.by.email.not.found" ),
-        TOKEN_INVALID_MESS(13, "onetoone.exception.jwt.token.invalid");
+        TOKEN_INVALID_MESS(13, "onetoone.exception.jwt.token.invalid"),
+        USER_BY_EMAIL_ALREADY_REGISTERED(14,"onetoone.exception.user.by.email.already.registered" );
 
 
         Exception(int code, String label) {
