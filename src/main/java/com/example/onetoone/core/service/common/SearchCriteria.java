@@ -9,7 +9,6 @@ public class SearchCriteria {
     private final String key;
     private final String operation;
     private final Object value;
-    private final boolean isOrOperation;
 
     public static class SearchCriteriaBuilder {
 

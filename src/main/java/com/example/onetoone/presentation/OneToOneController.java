@@ -89,4 +89,17 @@ public class OneToOneController {
 
         return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(mapper::toView).collect(Collectors.toList()));
     }
+
+    //TODO надо использовать search criteria, для этого надо доабавить логику в построение запроса.
+    @GetMapping("/user/{id}")
+    public ListView<OneToOneView> getAllUserOneToOne(@PathVariable Long id){
+        log.info("Request for get all user one to one");
+
+        ResultModelList<OneToOneResult> resultList  = commandBus.execute(GetAllUserOneToOneCommand
+                .builder()
+                .id(id)
+                .build());
+
+        return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(mapper::toView).collect(Collectors.toList()));
+    }
 }

@@ -16,7 +16,6 @@ public class ListFilter {
     String sortBy;
     String direction;
     List<SearchCriteria> criteria;
-    boolean isOrOperation;
     Class<?> type;
 
     public static String getDirection(String sort) {
