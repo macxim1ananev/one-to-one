@@ -38,7 +38,7 @@ public class AuthorizationController {
     }
 
     @GetMapping("jwt/refresh")
-    public ResponseEntity<JwtTokenView> refreshJwtToken(@RequestHeader("refresh-jwt") String refreshJwt) {
+    public ResponseEntity<JwtTokenView> refreshJwtToken(@CookieValue("refresh-jwt") String refreshJwt) {
         log.info("Request to update a jwt token");
 
         var result = jwtTokenService.refreshAccessToken(refreshJwt);
