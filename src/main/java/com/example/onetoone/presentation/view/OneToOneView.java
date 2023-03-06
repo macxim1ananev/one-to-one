@@ -12,6 +12,8 @@ public class OneToOneView {
     Long opponentId;
     TechnologyView technology;
     LocalDateTime dateTime;
+    String initiatorFeedback;
+    String opponentFeedback;
     String level;
     String status;
     String comment;

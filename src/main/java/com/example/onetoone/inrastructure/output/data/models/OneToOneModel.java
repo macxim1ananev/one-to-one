@@ -21,5 +21,7 @@ public class OneToOneModel {
     private LocalDateTime dateTime;
     private Integer levelId;
     private Integer statusId;
+    private Integer initiatorFeedbackStatusId;
+    private Integer opponentFeedbackStatusId;
     private String comment;
 }

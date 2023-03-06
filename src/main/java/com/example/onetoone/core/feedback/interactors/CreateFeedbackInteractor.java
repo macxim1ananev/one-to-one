@@ -8,6 +8,8 @@ import com.example.onetoone.core.feedback.entities.UserAnswer;
 import com.example.onetoone.core.feedback.entities.statistics.UserStatistics;
 import com.example.onetoone.core.feedback.entities.statistics.UserTechnologyStatistics;
 import com.example.onetoone.core.feedback.results.FeedbackResult;
+import com.example.onetoone.core.one_to_one.entities.FeedbackStatus;
+import com.example.onetoone.core.one_to_one.entities.OneToOne;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.*;
@@ -50,13 +52,22 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
 
         var entity = mapper.toEntity(command, author, recipient, oneToOne);
         entity.isValid();
+        setFeedbackStatus(oneToOne, author);
         var feedback = getFeedback(entity);
         var answers = toUserAnswer(command.getQuestions());
         var entityList = saveUserAnswer(answers, feedback);
-
+        oneToOnes.put(oneToOne);
         var userStatistics = saveStatistics(updateStatistics(recipient, entityList));
         saveUserTechnologyStatistics(updateUserTechnologyStatistics(entityList, userStatistics));
         return mapper.toResult(feedback, entityList);
+    }
+
+    private void setFeedbackStatus(OneToOne oneToOne, User author) {
+        if (author.getId()==oneToOne.getInitiator().getId()){
+            oneToOne.setInitiatorFeedback(FeedbackStatus.WRITE);
+        } else {
+            oneToOne.setOpponentFeedback(FeedbackStatus.WRITE);
+        }
     }
 
     private void saveUserTechnologyStatistics(List<UserTechnologyStatistics> statistics) {
