@@ -17,9 +17,13 @@ public interface OneToOneModelMapper {
     @Mapping(target = "id", source = "id", nullValuePropertyMappingStrategy =NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "statusId", source = "status.id")
     @Mapping(target = "levelId", source = "level.id")
+    @Mapping(target = "initiatorFeedbackStatusId", source = "initiatorFeedback.id")
+    @Mapping(target = "opponentFeedbackStatusId", source = "opponentFeedback.id")
     OneToOneModel toModel(OneToOne entity);
 
     @Mapping(target = "status", expression = "java(OneToOneStatus.fromId(model.getStatusId()).orElse(null))")
     @Mapping(target = "level", expression = "java(OneToOneLevel.fromId(model.getLevelId()).orElse(null))")
+    @Mapping(target = "initiatorFeedback", expression = "java(FeedbackStatus.fromId(model.getInitiatorFeedbackStatusId()).orElse(null))")
+    @Mapping(target = "opponentFeedback", expression = "java(FeedbackStatus.fromId(model.getOpponentFeedbackStatusId()).orElse(null))")
     OneToOne toEntity(OneToOneModel model);
 }

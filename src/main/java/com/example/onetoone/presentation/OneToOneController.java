@@ -59,7 +59,7 @@ public class OneToOneController {
                 .oneToOneId(request.getOneToOneId())
                 .build()));
     }
-
+    @Deprecated
     @PutMapping("/{id}/close")
     public OneToOneView close(@PathVariable long id, @Valid @RequestBody CloseOneToOneRequest request){
         log.info("Request for close one to one");

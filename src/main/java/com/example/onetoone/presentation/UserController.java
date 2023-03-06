@@ -38,7 +38,7 @@ public class UserController {
                 .name(request.getName())
                 .surName(request.getSurName())
                 .build());
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userResult));
+//        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userResult));
 
         return mapper.toView(userResult);
     }
