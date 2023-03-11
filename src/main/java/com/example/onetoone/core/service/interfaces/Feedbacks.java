@@ -11,4 +11,6 @@ public interface Feedbacks {
     Optional<Feedback> get(Long id);
 
     Optional<Feedback> getByOneToOneIdAndRecipientId(Long oneToOneId, Long recipientId);
+
+    Optional<Feedback> getByOneToOneIdAndAuthorId(long oneToOneId, long authorId);
 }

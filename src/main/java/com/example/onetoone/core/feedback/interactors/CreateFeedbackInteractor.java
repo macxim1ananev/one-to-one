@@ -43,6 +43,11 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
     public FeedbackResult execute(CreateFeedbackCommand command) {
         log.info("Executing command {}", command);
 
+        feedbacks.getByOneToOneIdAndAuthorId(command.getOneToOneId(), command.getAuthorId()).ifPresent(
+                feedback-> {
+                    throw new ServiceException(ServiceException.Exception.FEEDBACK_ALREADY_HAS_BEEN_WRITTEN, feedback.getId());
+                });
+
         var author = users.get(command.getAuthorId())
                 .orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND, command.getAuthorId()));
         var recipient = users.get(command.getRecipientId())

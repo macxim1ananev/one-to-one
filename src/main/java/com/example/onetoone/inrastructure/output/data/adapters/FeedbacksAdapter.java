@@ -29,4 +29,9 @@ public class FeedbacksAdapter implements Feedbacks {
     public Optional<Feedback> getByOneToOneIdAndRecipientId(Long oneToOneId, Long recipientId) {
         return repository.getByOneToOneIdAndRecipientId(oneToOneId, recipientId).map(mapper::toEntity);
     }
+
+    @Override
+    public Optional<Feedback> getByOneToOneIdAndAuthorId(long oneToOneId, long authorId) {
+        return repository.getByOneToOneIdAndAuthorId(oneToOneId, authorId).map(mapper::toEntity);
+    }
 }
