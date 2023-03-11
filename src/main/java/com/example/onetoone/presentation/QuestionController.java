@@ -4,6 +4,7 @@ import com.example.onetoone.core.question.commands.*;
 import com.example.onetoone.core.question.results.QuestionResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
+import com.example.onetoone.core.service.common.SearchCriteria;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.QuestionViewMapper;
 import com.example.onetoone.presentation.request.CreateQuestionRequest;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.example.onetoone.presentation.WebUtils.getCriteria;
@@ -61,7 +63,8 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ListView<QuestionView> getAll(@RequestParam(required = false, defaultValue = "0") int page,
+    public ListView<QuestionView> getAll(@PathVariable Long userId,
+                                         @RequestParam(required = false, defaultValue = "0") int page,
                                          @RequestParam(required = false, defaultValue = "10") int size,
                                          @RequestParam(required = false, defaultValue = "id,desc") String sort,
                                          @RequestParam(required = false, value = "search") String search){
@@ -69,6 +72,7 @@ public class QuestionController {
         log.info("Request for get all questions");
 
        var searchCriteria = getCriteria(search);
+       addUserIdCriteria(userId, searchCriteria);
        ResultModelList<QuestionResult> resultList = commandBus.execute(GetFilteredAndSortedQuestionListCommand
                .builder()
                .page(page)
@@ -78,5 +82,9 @@ public class QuestionController {
                .build());
 
         return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(mapper::toView).collect(Collectors.toList()));
+    }
+
+    private void addUserIdCriteria(long userId, Set<SearchCriteria> searchCriteria) {
+        searchCriteria.add(SearchCriteria.builder().key("userId").operation(":").value(userId).build());
     }
 }

@@ -6,6 +6,9 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import javax.persistence.criteria.*;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("unchecked")
 public class GenericSpecification<T> implements Specification<T> {
@@ -32,11 +35,22 @@ public class GenericSpecification<T> implements Specification<T> {
             case "<:":
                 return criteriaBuilder.lessThanOrEqualTo(getPath(root), getValue());
             case "!:":
-                return criteriaBuilder.notEqual(getPath(root), getValue());
+                if (getPath(root).getJavaType() == String.class) {
+                    return criteriaBuilder.notLike(criteriaBuilder.lower(getPath(root)), "%" + getValue().toString().toLowerCase() + "%");
+                } else if (getValue().toString().equals("null")) {
+                    return getPath(root).getJavaType() == List.class || getPath(root).getJavaType() == Set.class ?
+                            criteriaBuilder.isNotEmpty(getPath(root)) :
+                            criteriaBuilder.isNotNull(getPath(root));
+                } else {
+                    return criteriaBuilder.notEqual(getPath(root), getValue());
+                }
             case ":":
                 if (getPath(root).getJavaType() == String.class) {
-                    return criteriaBuilder.like(
-                            getPath(root), "%" + getValue() + "%");
+                    return criteriaBuilder.like(criteriaBuilder.lower(getPath(root)), "%" + getValue().toString().toLowerCase() + "%");
+                } else if (getValue().toString().equals("null")) {
+                    return getPath(root).getJavaType() == List.class || getPath(root).getJavaType() == Set.class ?
+                            criteriaBuilder.isEmpty(getPath(root)) :
+                            criteriaBuilder.isNull(getPath(root));
                 } else {
                     return criteriaBuilder.equal(getPath(root), getValue());
                 }
@@ -70,16 +84,38 @@ public class GenericSpecification<T> implements Specification<T> {
         if (field.contains(".")) {
             return root.join(field.split("\\.")[0]).get(field.split("\\.")[1]);
         }
+        var expr = root.get(field);
         return root.get(field);
     }
 
     private Field searchField(String name) {
-        var allFields = ArrayUtils.addAll(type.getDeclaredFields(), type.getSuperclass().getDeclaredFields());
+        var fields = name.split("\\.");
+        Field field = null;
+        Class<?> fieldType = type;
+        for (String s : fields) {
+            field = searchField(s, fieldType);
+            fieldType = field.getType();
+        }
+        return field;
+    }
+
+    private Field searchField(String name, Class<?> type) {
+        var allFields = getAllFields(type);
         for (Field field : allFields) {
             if (field.getName().equals(name)) {
                 return field;
             }
         }
         return null;
+    }
+
+    List<Field> getAllFields(Class<?> type) {
+        if (type == null) {
+            return new ArrayList<>();
+        }
+
+        List<Field> result = getAllFields(type.getSuperclass());
+        result.addAll(List.of(type.getDeclaredFields()));
+        return result;
     }
 }

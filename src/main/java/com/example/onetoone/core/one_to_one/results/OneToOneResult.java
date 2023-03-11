@@ -16,5 +16,7 @@ public class OneToOneResult {
     String level;
     LocalDateTime dateTime;
     String status;
+    String initiatorFeedback;
+    String opponentFeedback;
     String comment;
 }

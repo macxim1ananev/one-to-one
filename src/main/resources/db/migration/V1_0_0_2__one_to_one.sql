@@ -14,10 +14,8 @@ CREATE TABLE one_to_one
     level_id      INTEGER NOT NULL,
     date_time     TIMESTAMP,
     status_id     INTEGER,
+    initiator_feedback_status_id INTEGER,
+    opponent_feedback_status_id INTEGER,
     comment       VARCHAR(512),
         CONSTRAINT one_to_one_pkey PRIMARY KEY (id)
 );
-
-INSERT INTO one_to_one
-VALUES (nextval('one_to_one_id_seq'::regclass), 1, 2, 1, 1, '2022-12-12 20:41:03.000000', 3, 'comment'),
-       (nextval('one_to_one_id_seq'::regclass), 2, 1, 2, 2, '2022-11-12 20:41:03.000000', 3, 'comment');

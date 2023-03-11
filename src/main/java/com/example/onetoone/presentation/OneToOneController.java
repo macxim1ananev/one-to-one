@@ -59,7 +59,7 @@ public class OneToOneController {
                 .oneToOneId(request.getOneToOneId())
                 .build()));
     }
-
+    @Deprecated
     @PutMapping("/{id}/close")
     public OneToOneView close(@PathVariable long id, @Valid @RequestBody CloseOneToOneRequest request){
         log.info("Request for close one to one");
@@ -85,6 +85,19 @@ public class OneToOneController {
                 .sort(sort)
                 .size(size)
                 .criteria(searchCriteria)
+                .build());
+
+        return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(mapper::toView).collect(Collectors.toList()));
+    }
+
+    //TODO надо использовать search criteria, для этого надо доабавить логику в построение запроса.
+    @GetMapping("/user/{id}")
+    public ListView<OneToOneView> getAllUserOneToOne(@PathVariable Long id){
+        log.info("Request for get all user one to one");
+
+        ResultModelList<OneToOneResult> resultList  = commandBus.execute(GetAllUserOneToOneCommand
+                .builder()
+                .id(id)
                 .build());
 
         return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(mapper::toView).collect(Collectors.toList()));

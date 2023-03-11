@@ -1,6 +1,7 @@
 package com.example.onetoone.core.one_to_one;
 
 import com.example.onetoone.core.one_to_one.commands.CreateOneToOneCommand;
+import com.example.onetoone.core.one_to_one.entities.FeedbackStatus;
 import com.example.onetoone.core.one_to_one.entities.OneToOne;
 import com.example.onetoone.core.one_to_one.entities.OneToOneLevel;
 import com.example.onetoone.core.one_to_one.entities.OneToOneStatus;
@@ -15,7 +16,7 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        imports = {OneToOneStatus.class, OneToOneLevel.class}
+        imports = {OneToOneStatus.class, OneToOneLevel.class, FeedbackStatus.class}
 )
 public interface OneToOneMapper {
     @Mapping(target = "id", ignore = true)
@@ -25,6 +26,8 @@ public interface OneToOneMapper {
     @Mapping(target = "status", expression = "java(OneToOneStatus.OPEN)")
     @Mapping(target = "comment", source = "command.comment")
     @Mapping(target = "level", expression = "java(OneToOneLevel.fromId(command.getLevelId()).orElse(null))")
+    @Mapping(target = "initiatorFeedback", expression = "java(FeedbackStatus.NO_WRITE)")
+    @Mapping(target = "opponentFeedback", expression = "java(FeedbackStatus.NO_WRITE)")
     OneToOne toEntity(CreateOneToOneCommand command, User initiator, Technology technology);
 
     @Mapping(target = "initiatorId", source = "initiator.id")
