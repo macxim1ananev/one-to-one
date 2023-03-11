@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface FeedbackRepository extends JpaRepository<FeedbackModel, Long> {
     Optional<FeedbackModel> getByOneToOneIdAndRecipientId(Long oneToOneId, Long recipientId);
+    Optional<FeedbackModel> getByOneToOneIdAndAuthorId(long oneToOneId, long authorId);
 }
