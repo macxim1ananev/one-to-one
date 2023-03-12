@@ -55,6 +55,10 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
         var oneToOne = oneToOnes.get(command.getOneToOneId())
                 .orElseThrow(() -> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND, command.getOneToOneId()));
 
+        log.error(author.toString());
+        log.error("================================================================");
+        log.error(recipient.toString());
+
         var entity = mapper.toEntity(command, author, recipient, oneToOne);
         entity.isValid();
         setFeedbackStatus(oneToOne, author);
