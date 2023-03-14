@@ -55,9 +55,6 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
         var oneToOne = oneToOnes.get(command.getOneToOneId())
                 .orElseThrow(() -> new ServiceException(ServiceException.Exception.ONE_TO_ONE_NOT_FOUND, command.getOneToOneId()));
 
-        log.error(author.toString());
-        log.error("================================================================");
-        log.error(recipient.toString());
 
         var entity = mapper.toEntity(command, author, recipient, oneToOne);
         entity.isValid();
@@ -156,7 +153,7 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
                     newUts.setTechnology(technologies.get(technologyId).orElseThrow(
                             () -> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND, technologyId)));
                     newUts.setTotalPoint(ua.getResponseLevel());
-                    statistics.add(newUts);
+                    map.put(newUts.getId(), newUts);
                 }
             }
             return map.values().stream().toList();
