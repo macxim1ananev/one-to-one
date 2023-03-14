@@ -153,7 +153,7 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
                     newUts.setTechnology(technologies.get(technologyId).orElseThrow(
                             () -> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND, technologyId)));
                     newUts.setTotalPoint(ua.getResponseLevel());
-                    map.put(newUts.getId(), newUts);
+                    map.put(newUts.getTechnology().getId(), newUts);
                 }
             }
             return map.values().stream().toList();
