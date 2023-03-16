@@ -1,5 +1,6 @@
 package com.example.onetoone.presentation.mapper;
 
+import com.example.onetoone.core.feedback.UserAnswerMapper;
 import com.example.onetoone.core.feedback.commands.UserAnswerRequestModel;
 import com.example.onetoone.core.feedback.results.FeedbackResult;
 import com.example.onetoone.presentation.view.FeedbackView;
@@ -11,7 +12,8 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        imports = {TechnologyViewMapper.class, UserAnswerMapper.class}
 )
 public interface FeedbackViewMapper {
 
@@ -25,6 +27,7 @@ public interface FeedbackViewMapper {
     @Mapping(target = "question", source = "question.question")
     @Mapping(target = "answer", source = "question.answer")
     @Mapping(target = "responseLevel", source = "responseLevel")
+    @Mapping(target = "technology", source = "question.technology.name")
     UserAnswerView toUserAnswerView (UserAnswerRequestModel requestModel);
 
     @Named("setQuestions")

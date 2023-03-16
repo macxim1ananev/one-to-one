@@ -8,6 +8,7 @@ import lombok.Value;
 public class UserAnswerView {
     String question;
     String answer;
+    String technology;
     String responseLevel;
     String comment;
 }

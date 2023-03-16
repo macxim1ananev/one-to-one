@@ -5,6 +5,8 @@ import com.example.onetoone.core.feedback.entities.Feedback;
 import com.example.onetoone.core.feedback.entities.UserAnswer;
 import com.example.onetoone.core.feedback.results.FeedbackResult;
 import com.example.onetoone.core.one_to_one.entities.OneToOne;
+import com.example.onetoone.core.technology.TechnologyMapper;
+import com.example.onetoone.core.technology.entities.Technology;
 import com.example.onetoone.core.user.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,7 +18,7 @@ import java.util.List;
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        imports = {UserAnswerMapper.class},
+        imports = {UserAnswerMapper.class, Technology.class, TechnologyMapper.class},
         uses = {UserAnswerMapper.class}
 )
 public interface FeedbackMapper {
