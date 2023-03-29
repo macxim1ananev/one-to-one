@@ -12,7 +12,6 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface TechnologyMapper {
-    @Mapping(target = "name", expression = "java(command.getName().toUpperCase())")
     Technology toEntity(AddTechnologyCommand command);
     TechnologyResult toResult(Technology technology);
 }
