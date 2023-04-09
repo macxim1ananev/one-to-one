@@ -9,6 +9,7 @@ import com.example.onetoone.presentation.mapper.OneToOneViewMapper;
 import com.example.onetoone.presentation.request.AcceptOneToOneRequest;
 import com.example.onetoone.presentation.request.CloseOneToOneRequest;
 import com.example.onetoone.presentation.request.CreateOneToOneRequest;
+import com.example.onetoone.presentation.request.UpdateOneToOneRequest;
 import com.example.onetoone.presentation.view.OneToOneView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,20 @@ public class OneToOneController {
                 .builder()
                 .id(id)
                 .build()));
+    }
+
+    @PutMapping("/{id}")
+    public OneToOneView update(@Valid @RequestBody UpdateOneToOneRequest request){
+        log.info("Request for update one to one");
+
+        return mapper.toView(commandBus.execute(UpdateOneToOneCommand.builder()
+                .id(request.getId())
+                .technologyId(request.getTechnologyId())
+                .levelId(request.getLevelId())
+                .dateTime(request.getDateTime())
+                .comment(request.getComment())
+                .build()));
+
     }
 
     @PutMapping()
