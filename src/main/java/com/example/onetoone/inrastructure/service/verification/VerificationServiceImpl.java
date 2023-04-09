@@ -1,4 +1,4 @@
-package com.example.onetoone.inrastructure.service;
+package com.example.onetoone.inrastructure.service.verification;
 
 import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.Users;

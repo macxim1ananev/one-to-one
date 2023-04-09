@@ -2,7 +2,7 @@ package com.example.onetoone.inrastructure.events.registration;
 
 import com.example.onetoone.inrastructure.output.email.MailSenderService;
 import com.example.onetoone.inrastructure.output.email.Message;
-import com.example.onetoone.inrastructure.service.VerificationService;
+import com.example.onetoone.inrastructure.service.verification.VerificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
