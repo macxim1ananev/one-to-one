@@ -58,7 +58,7 @@ public class FeedbackController {
                 .recipientId(recipientId)
                 .build()));
     }
-
+    @Deprecated
     @GetMapping("/{userId}/statistics")
     public UserStatisticsView getUserStatistics(@PathVariable Long userId){
         log.info("Request for get user statistics");
@@ -68,7 +68,7 @@ public class FeedbackController {
                 .id(userId)
                 .build()));
     }
-
+    @Deprecated
     @GetMapping("/{userId}/full-statistics")
     public ListView<FullUserStatisticsView> getFullUserStatistics(@PathVariable Long userId){
         log.info("Request for get full user statistics");
@@ -83,7 +83,7 @@ public class FeedbackController {
                 .map(fullStatisticsViewMapper::toView)
                 .collect(Collectors.toList()));
     }
-
+    @Deprecated
     @GetMapping("/{userId}/technology-statistics")
     public ListView<UserTechnologyStatisticsView> getUserTechnologyStatistics(@PathVariable Long userId){
         log.info("Request for get user technology statistics");
