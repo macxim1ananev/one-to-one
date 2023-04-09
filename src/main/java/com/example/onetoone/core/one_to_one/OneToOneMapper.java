@@ -1,6 +1,7 @@
 package com.example.onetoone.core.one_to_one;
 
 import com.example.onetoone.core.one_to_one.commands.CreateOneToOneCommand;
+import com.example.onetoone.core.one_to_one.commands.UpdateOneToOneCommand;
 import com.example.onetoone.core.one_to_one.entities.FeedbackStatus;
 import com.example.onetoone.core.one_to_one.entities.OneToOne;
 import com.example.onetoone.core.one_to_one.entities.OneToOneLevel;
@@ -8,10 +9,7 @@ import com.example.onetoone.core.one_to_one.entities.OneToOneStatus;
 import com.example.onetoone.core.one_to_one.results.OneToOneResult;
 import com.example.onetoone.core.technology.entities.Technology;
 import com.example.onetoone.core.user.entities.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -35,4 +33,8 @@ public interface OneToOneMapper {
     @Mapping(target = "status", source = "status")
     @Mapping(target = "level", source = "level")
     OneToOneResult toResult(OneToOne entity);
+
+    @Mapping(target = "technology", source = "technology")
+    @Mapping(target = "id", ignore = true)
+    void updateEntity(@MappingTarget OneToOne entity, UpdateOneToOneCommand command, Technology technology);
 }
