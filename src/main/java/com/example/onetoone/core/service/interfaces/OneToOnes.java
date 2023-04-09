@@ -16,4 +16,6 @@ public interface OneToOnes {
     Integer getCountByUserId(Long id);
 
     EntityList<OneToOne> getAllUserOneToOne(Long id);
+
+    void delete(OneToOne oneToOne);
 }

@@ -38,6 +38,11 @@ public class OneToOneAdapter extends FilteringAndSortingAdapter<OneToOneModel> i
     }
 
     @Override
+    public void delete(OneToOne oneToOne) {
+        repository.delete(mapper.toModel(oneToOne));
+    }
+
+    @Override
     public EntityList<OneToOne> getAllUserOneToOne(Long id) {
         var list = repository.findAllByInitiatorIdOrOpponentId(id, id);
         return new EntityList<>(list.size(), list.stream().map(mapper::toEntity).toList());

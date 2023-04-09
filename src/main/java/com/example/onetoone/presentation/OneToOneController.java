@@ -13,6 +13,8 @@ import com.example.onetoone.presentation.request.UpdateOneToOneRequest;
 import com.example.onetoone.presentation.view.OneToOneView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -84,6 +86,17 @@ public class OneToOneController {
                 .authorId(request.getAuthorId())
                 .opponentId(request.getOpponentId())
                 .build()));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable long id){
+        log.info("Request for delete one to one");
+
+        commandBus.execute(DeleteOneToOneCommand
+                .builder()
+                .id(id)
+                .build());
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping
