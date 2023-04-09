@@ -5,6 +5,7 @@ import com.example.onetoone.core.feedback.results.statistics.UserStatisticsResul
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.presentation.common.ListView;
+import com.example.onetoone.presentation.mapper.FullUsersStatisticsViewMapper;
 import com.example.onetoone.presentation.mapper.UsersStatisticsViewMapper;
 import com.example.onetoone.presentation.view.UserStatisticsView;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +21,14 @@ import static com.example.onetoone.presentation.WebUtils.getCriteria;
 
 @Slf4j
 @RestController
-@RequestMapping("/v1/")
+@RequestMapping("/v1/statistics")
 @RequiredArgsConstructor
-public class TmpUserStatisticController {
+public class StatisticController {
     private final CommandBus commandBus;
     private final UsersStatisticsViewMapper statisticsViewMapper;
+    private final FullUsersStatisticsViewMapper fullStatisticsViewMapper;
 
-    @GetMapping("statistics/")
+    @GetMapping
     public ListView<UserStatisticsView> getAllUserStatistics(@RequestParam(required = false, defaultValue = "0") int page,
                                                              @RequestParam(required = false, defaultValue = "10") int size,
                                                              @RequestParam(required = false, defaultValue = "id,desc") String sort,
