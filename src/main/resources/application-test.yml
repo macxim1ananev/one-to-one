@@ -22,9 +22,6 @@ spring:
       "mail.smtp.starttls.enable": true
       "mail.smtp.ssl.enable": true
       "mail.smtp.ssl.protocols": TLSv1.2
-  cors:
-    allowedOrigins: ${CORS_ALLOWED_ORIGINS:*}
-
   security:
     ignored=/**:
     basic:
@@ -40,6 +37,9 @@ spring:
   jpa:
     generate-ddl: false
     #    show-sql: true
+  graphql:
+    cors:
+      allowed-origins: *
 
 jwt:
   secret:
