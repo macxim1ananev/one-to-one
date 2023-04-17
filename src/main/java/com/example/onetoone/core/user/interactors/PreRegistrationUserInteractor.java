@@ -7,7 +7,6 @@ import com.example.onetoone.core.user.commands.PreRegistrationUserCommand;
 import com.example.onetoone.core.user.results.PreRegistrationUserResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -18,7 +17,6 @@ import java.util.Random;
 public class PreRegistrationUserInteractor implements Interactor<PreRegistrationUserCommand, PreRegistrationUserResult> {
     private final Users users;
     private final UserMapper mapper;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public PreRegistrationUserResult execute(PreRegistrationUserCommand command) {
@@ -32,7 +30,7 @@ public class PreRegistrationUserInteractor implements Interactor<PreRegistration
             var entity = mapper.toEntity(command);
             entity.setName("Неизвестный");
             entity.setSurName("Программист");
-            entity.setPassword(passwordEncoder.encode(temporaryPassword));
+            entity.setPassword(temporaryPassword);
             return mapper.toPreRegistrationUserResult(users.put(entity));
         }
     }
