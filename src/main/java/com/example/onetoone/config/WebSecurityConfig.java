@@ -65,7 +65,7 @@ public class WebSecurityConfig {
                 .antMatchers(
                         "/v1/auth/jwt/**",
                         "/v1/auth/jwt/refresh/**",
-                        "/v1/user/register/**").permitAll().requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                        "/v1/user/register/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
