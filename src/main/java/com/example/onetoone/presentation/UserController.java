@@ -20,6 +20,7 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequestMapping("/v1/user")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class UserController {
     private final CommandBus commandBus;

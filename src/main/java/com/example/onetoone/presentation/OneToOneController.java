@@ -24,6 +24,7 @@ import static com.example.onetoone.presentation.WebUtils.getCriteria;
 @Slf4j
 @RestController
 @RequestMapping("/v1/one-to-one")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class OneToOneController {
 

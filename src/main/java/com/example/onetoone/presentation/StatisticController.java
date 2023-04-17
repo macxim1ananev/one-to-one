@@ -26,6 +26,7 @@ import static com.example.onetoone.presentation.WebUtils.getCriteria;
 @Slf4j
 @RestController
 @RequestMapping("/v1/statistics")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class StatisticController {
     private final CommandBus commandBus;

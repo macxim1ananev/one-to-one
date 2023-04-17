@@ -1,8 +1,8 @@
 package com.example.onetoone.config;
 
+import com.example.onetoone.config.security.JwtRequestFilter;
 import com.example.onetoone.config.security.JwtTokenUtil;
 import com.example.onetoone.config.security.UserDetailServiceImpl;
-import com.example.onetoone.config.security.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,12 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 
 @RequiredArgsConstructor
 @Configuration
@@ -35,7 +30,7 @@ public class WebSecurityConfig {
     private final UserDetailServiceImpl userDetailsService;
     private final JwtAuthenticationEntryPointConfiguration unauthorizedHandler;
     private final JwtTokenUtil jwtTokenUtil;
-    @Value("${spring.cors.allowedOrigins}")
+//    @Value("${spring.cors.allowedOrigins}")
     private String[] corsAllowedOrigins;
 
     @Bean
@@ -66,7 +61,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.csrf().disable().cors().and().authorizeHttpRequests()
+        http.csrf().disable().cors().disable().authorizeHttpRequests()
                 .antMatchers(
                         "/v1/auth/jwt/**",
                         "/v1/auth/jwt/refresh/**",
@@ -85,16 +80,5 @@ public class WebSecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs/**");
-    }
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(corsAllowedOrigins));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "X-Auth-Token", "Authorization"));
-        configuration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
     }
 }

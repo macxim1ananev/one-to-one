@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("/v1/user/one-to-one/feedback")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class FeedbackController {
     private final FeedbackViewMapper mapper;

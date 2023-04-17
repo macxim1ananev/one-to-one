@@ -37,8 +37,6 @@ spring:
   jpa:
     generate-ddl: false
     #    show-sql: true
-  cors:
-    allowedOrigins: ${CORS_ALLOWED_ORIGINS:http://51.250.55.231:8080, http://51.250.55.231:3000}
 jwt:
   secret:
     access: g54ges5tW$%tw45TEgsegrfdrfer
