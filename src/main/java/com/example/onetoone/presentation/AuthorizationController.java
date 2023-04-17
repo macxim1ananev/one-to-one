@@ -21,7 +21,6 @@ public class AuthorizationController {
         log.info("Request to receive a jwt token");
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE)
                 .body(JwtTokenView.builder()
                         .jwtToken("TEST")
                         .email("maksim.ananev.1994@mail.ru")
@@ -34,7 +33,6 @@ public class AuthorizationController {
         log.info("Request to update a jwt token");
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE)
                 .body(JwtTokenView.builder()
                         .jwtToken("TEST")
                         .email("maksim.ananev.1994@mail.ru")
