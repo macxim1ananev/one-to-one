@@ -37,8 +37,10 @@ public class ServiceException extends RuntimeException {
         TOKEN_INVALID_MESS(13, "onetoone.exception.jwt.token.invalid"),
         USER_BY_EMAIL_ALREADY_REGISTERED(14,"onetoone.exception.user.by.email.already.registered" ),
         FEEDBACK_ALREADY_HAS_BEEN_WRITTEN(15, "onetoone.exception.feedback.has.been.written"),
-        ACCEPTED_ONE_TO_ONE_CANNOT_BE_CHANGED(16, "onetoone.exception.onetoone.connat.be.changed"),
-        ACCEPTED_ONE_TO_ONE_CANNOT_BE_DELETED(17, "onetoone.exception.onetoone.connat.be.deleted");
+        ACCEPTED_ONE_TO_ONE_CANNOT_BE_CHANGED(16, "onetoone.exception.onetoone.cannat.be.changed"),
+        ACCEPTED_ONE_TO_ONE_CANNOT_BE_DELETED(17, "onetoone.exception.onetoone.cannat.be.deleted"),
+        USER_PERMISSION_NOT_FOUND(18, "onetoone.exception.onetoone.user.permissoin.not.found"),
+        USER_ROLE_NOT_FOUND(19, "onetoone.exception.onetoone.user.role.not.found" );
 
 
         Exception(int code, String label) {
