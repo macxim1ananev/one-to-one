@@ -1,4 +1,4 @@
-package com.example.onetoone.inrastructure.output.data.mappers;
+package com.example.onetoone.core.feedback;
 
 import com.example.onetoone.core.feedback.entities.statistics.UserStatistics;
 import com.example.onetoone.core.feedback.results.statistics.UserStatisticsResult;
