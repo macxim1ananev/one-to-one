@@ -12,7 +12,6 @@ import java.util.Set;
 )
 public interface UserRoleModelMapper extends BaseModelMapper<UserRole, UserRoleModel>{
 
-    @Mapping(target = "groups", ignore = true)
     @Mapping(target = "permissions", ignore = true)
     UserRoleModel toModel(UserRole entity);
 
