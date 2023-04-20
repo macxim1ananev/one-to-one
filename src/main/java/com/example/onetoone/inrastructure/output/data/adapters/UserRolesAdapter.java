@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -36,10 +35,5 @@ public class UserRolesAdapter extends FilteringAndSortingAdapter<UserRoleModel> 
     @Override
     public Optional<UserRole> findByCode(String code) {
         return repository.findByCode(code).map(mapper::toEntity);
-    }
-
-    @Override
-    public Set<UserRole> findByGroupName(String groupName) {
-        return mapper.toEntity(repository.findByGroupsName(groupName));
     }
 }

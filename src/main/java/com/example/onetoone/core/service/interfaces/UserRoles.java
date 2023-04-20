@@ -5,7 +5,6 @@ import com.example.onetoone.core.service.common.ListFilter;
 import com.example.onetoone.core.user.entities.UserRole;
 
 import java.util.Optional;
-import java.util.Set;
 
 public interface UserRoles {
 
@@ -15,5 +14,4 @@ public interface UserRoles {
 
     Optional<UserRole> findByCode(String code);
 
-    Set<UserRole> findByGroupName(String groupName);
 }

@@ -7,13 +7,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
-import java.util.Set;
 
 public interface UserRoleRepository extends JpaRepository<UserRoleModel, Long> {
 
     Page<UserRoleModel> findAll(Specification<UserRoleModel> specification, Pageable pageable);
 
     Optional<UserRoleModel> findByCode(String code);
-
-    Set<UserRoleModel> findByGroupsName(String groupName);
 }

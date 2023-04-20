@@ -1,11 +1,10 @@
 package com.example.onetoone.inrastructure.output.data.mappers;
 
+import com.example.onetoone.core.feedback.UsersStatisticsMapper;
 import com.example.onetoone.core.feedback.entities.statistics.UserTechnologyStatistics;
 import com.example.onetoone.core.feedback.results.statistics.FullUserStatisticsResult;
-import com.example.onetoone.core.feedback.results.statistics.UserTechnologyStatisticsResult;
 import com.example.onetoone.inrastructure.output.data.models.UserTechnologyStatisticsModel;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
@@ -14,13 +13,8 @@ import org.mapstruct.ReportingPolicy;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         imports = {UsersStatisticsMapper.class}
 )
-public interface FullUsersStatisticsMapper {
+public interface UsersTechnologyStatisticsModelMapper {
     UserTechnologyStatisticsModel toModel(UserTechnologyStatistics statistics);
 
     UserTechnologyStatistics toEntity(UserTechnologyStatisticsModel model);
-
-    FullUserStatisticsResult toFullUserStatisticsResult(UserTechnologyStatistics statistics);
-
-    @Mapping(target = "user", source = "userStatistics.user")
-    UserTechnologyStatisticsResult toTechnologyStatisticsResult(UserTechnologyStatistics userTechnologyStatistics);
 }
