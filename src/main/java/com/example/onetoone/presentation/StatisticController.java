@@ -1,9 +1,6 @@
 package com.example.onetoone.presentation;
 
-import com.example.onetoone.core.feedback.commands.statistics.GetFilteredAndSortedUserStatisticsListCommand;
-import com.example.onetoone.core.feedback.commands.statistics.GetFullUserStatisticsCommand;
-import com.example.onetoone.core.feedback.commands.statistics.GetUserStatisticsCommand;
-import com.example.onetoone.core.feedback.commands.statistics.GetUserTechnologyStatisticsCommand;
+import com.example.onetoone.core.feedback.commands.statistics.*;
 import com.example.onetoone.core.feedback.results.statistics.FullUserStatisticsResult;
 import com.example.onetoone.core.feedback.results.statistics.UserStatisticsResult;
 import com.example.onetoone.core.feedback.results.statistics.UserTechnologyStatisticsResult;
@@ -53,7 +50,7 @@ public class StatisticController {
     }
 
     @GetMapping("/{userId}")
-    public UserStatisticsView getUserStatistics(@PathVariable Long userId){
+    public UserStatisticsView getUserStatistics(@PathVariable Long userId) {
         log.info("Request for get user statistics");
 
         return statisticsViewMapper.toView(commandBus.execute(GetUserStatisticsCommand
@@ -63,7 +60,7 @@ public class StatisticController {
     }
 
     @GetMapping("/{userId}/full-statistics")
-    public ListView<FullUserStatisticsView> getFullUserStatistics(@PathVariable Long userId){
+    public ListView<FullUserStatisticsView> getFullUserStatistics(@PathVariable Long userId) {
         log.info("Request for get full user statistics");
 
         ResultModelList<FullUserStatisticsResult> resultList = commandBus.execute(GetFullUserStatisticsCommand
@@ -78,7 +75,7 @@ public class StatisticController {
     }
 
     @GetMapping("/{userId}/technology-statistics")
-    public ListView<UserTechnologyStatisticsView> getUserTechnologyStatistics(@PathVariable Long userId){
+    public ListView<UserTechnologyStatisticsView> getUserTechnologyStatistics(@PathVariable Long userId) {
         log.info("Request for get user technology statistics");
 
         ResultModelList<UserTechnologyStatisticsResult> resultList = commandBus.execute(GetUserTechnologyStatisticsCommand
@@ -91,25 +88,25 @@ public class StatisticController {
                 .map(fullStatisticsViewMapper::toTechnologyStatisticsView)
                 .collect(Collectors.toList()));
     }
-/**
- * TODO
- @GetMapping("/technology-statistics") public ListView<UserTechnologyStatisticsView> getAllUserTechnologyStatistics(@RequestParam(required = false, defaultValue = "0") int page,
- @RequestParam(required = false, defaultValue = "10") int size,
- @RequestParam(required = false, defaultValue = "id,desc") String sort,
- @RequestParam(required = false, value = "search") String search) {
- log.info("Request for get all user technology statistics");
 
- var searchCriteria = getCriteria(search);
- ResultModelList<UserTechnologyStatisticsResult> resultList = commandBus.execute(GetFilteredAndSortedUserTechnologyStatisticsListCommand
- .builder()
- .page(page)
- .sort(sort)
- .size(size)
- .criteria(searchCriteria)
- .build());
+    @GetMapping("/technology-statistics")
+    public ListView<UserTechnologyStatisticsView> getAllUserTechnologyStatistics(@RequestParam(required = false, defaultValue = "0") int page,
+                                                                                 @RequestParam(required = false, defaultValue = "10") int size,
+                                                                                 @RequestParam(required = false, defaultValue = "id,desc") String sort,
+                                                                                 @RequestParam(required = false, value = "search") String search) {
 
- return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(fullStatisticsViewMapper::toTechnologyStatisticsView).collect(Collectors.toList()));
+        log.info("Request for get all user technology statistics");
 
- }
- */
+        var searchCriteria = getCriteria(search);
+        ResultModelList<UserTechnologyStatisticsResult> resultList = commandBus.execute(GetFilteredAndSortedUserTechnologyStatisticsListCommand
+                .builder()
+                .page(page)
+                .sort(sort)
+                .size(size)
+                .criteria(searchCriteria)
+                .build());
+
+        return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(fullStatisticsViewMapper::toTechnologyStatisticsView).collect(Collectors.toList()));
+
+    }
 }
