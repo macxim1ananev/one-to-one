@@ -14,6 +14,7 @@ import org.mapstruct.ReportingPolicy;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         imports = {UserMapper.class})
 public interface UserTechnologyStatisticMapper {
+    @Mapping(target = "user", source = "userStatistics.user")
     UserTechnologyStatisticsResult toResult(UserTechnologyStatistics userTechnologyStatistics);
 
     @Mapping(target = "user", source = "userStatistics.user")
