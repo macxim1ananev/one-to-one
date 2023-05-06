@@ -2,6 +2,7 @@ package com.example.onetoone.inrastructure.output.data.adapters;
 
 import com.example.onetoone.core.service.common.EntityList;
 import com.example.onetoone.core.service.common.ListFilter;
+import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.UserRoles;
 import com.example.onetoone.core.user.entities.UserRole;
 import com.example.onetoone.inrastructure.output.data.FilteringAndSortingAdapter;
@@ -35,5 +36,11 @@ public class UserRolesAdapter extends FilteringAndSortingAdapter<UserRoleModel> 
     @Override
     public Optional<UserRole> findByCode(String code) {
         return repository.findByCode(code).map(mapper::toEntity);
+    }
+
+    @Override
+    public UserRole getSimpleUserRole() {
+        return repository.findByCode("user").map(mapper::toEntity).orElseThrow(
+                ()-> new ServiceException(ServiceException.Exception.USER_ROLE_NOT_FOUND, "user"));
     }
 }

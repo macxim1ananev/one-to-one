@@ -12,7 +12,6 @@ import com.example.onetoone.presentation.request.PreRegistrationUserRequest;
 import com.example.onetoone.presentation.view.UserView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,7 +23,7 @@ import javax.validation.Valid;
 public class UserController {
     private final CommandBus commandBus;
     private final UserViewMapper mapper;
-    private final ApplicationEventPublisher eventPublisher;
+
     private final VerificationService verificationService;
 
     @PostMapping("/register")
@@ -37,7 +36,6 @@ public class UserController {
                 .name(request.getName())
                 .surName(request.getSurName())
                 .build());
-//        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userResult));
 
         return mapper.toView(userResult);
     }

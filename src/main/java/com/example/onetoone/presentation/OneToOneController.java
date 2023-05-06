@@ -4,6 +4,7 @@ import com.example.onetoone.core.one_to_one.commands.*;
 import com.example.onetoone.core.one_to_one.results.OneToOneResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
+import com.example.onetoone.core.user.entities.Permissions;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.OneToOneViewMapper;
 import com.example.onetoone.presentation.request.AcceptOneToOneRequest;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,7 +32,8 @@ public class OneToOneController {
     private final CommandBus commandBus;
     private final OneToOneViewMapper mapper;
 
-    @PostMapping()
+    @PostMapping
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.CREATE_ONE_TO_ONE + "')")
     public OneToOneView create(@Valid @RequestBody CreateOneToOneRequest request){
         log.info("Request for crate one to one");
 
