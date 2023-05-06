@@ -23,7 +23,6 @@ import javax.validation.Valid;
 public class UserController {
     private final CommandBus commandBus;
     private final UserViewMapper mapper;
-
     private final VerificationService verificationService;
 
     @PostMapping("/register")

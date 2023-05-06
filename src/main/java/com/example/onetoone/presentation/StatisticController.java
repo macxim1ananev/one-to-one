@@ -6,6 +6,7 @@ import com.example.onetoone.core.feedback.results.statistics.UserStatisticsResul
 import com.example.onetoone.core.feedback.results.statistics.UserTechnologyStatisticsResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
+import com.example.onetoone.core.user.entities.Permissions;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.FullUsersStatisticsViewMapper;
 import com.example.onetoone.presentation.mapper.UsersStatisticsViewMapper;
@@ -14,6 +15,7 @@ import com.example.onetoone.presentation.view.UserStatisticsView;
 import com.example.onetoone.presentation.view.UserTechnologyStatisticsView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
@@ -30,6 +32,7 @@ public class StatisticController {
     private final FullUsersStatisticsViewMapper fullStatisticsViewMapper;
 
     @GetMapping
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_ALL_USER_STATISTICS + "')")
     public ListView<UserStatisticsView> getAllUserStatistics(@RequestParam(required = false, defaultValue = "0") int page,
                                                              @RequestParam(required = false, defaultValue = "10") int size,
                                                              @RequestParam(required = false, defaultValue = "id,desc") String sort,

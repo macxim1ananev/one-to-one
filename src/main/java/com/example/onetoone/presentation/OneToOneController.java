@@ -47,6 +47,7 @@ public class OneToOneController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_ONE_TO_ONE + "')")
     public OneToOneView get(@PathVariable Long id){
         log.info("Request for get one to one");
 

@@ -10,5 +10,5 @@ public class User {
     private String name;
     private String surName;
     private UserStatus status;
-    private UserRole roles;
+    private UserRole role;
 }

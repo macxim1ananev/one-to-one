@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "users")
+@Table(name = "users", schema = "public")
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -40,7 +40,7 @@ public class UserRolesAdapter extends FilteringAndSortingAdapter<UserRoleModel> 
 
     @Override
     public UserRole getSimpleUserRole() {
-        return repository.findByCode("user").map(mapper::toEntity).orElseThrow(
-                ()-> new ServiceException(ServiceException.Exception.USER_ROLE_NOT_FOUND, "user"));
+        return repository.findByCode("USER").map(mapper::toEntity).orElseThrow(
+                ()-> new ServiceException(ServiceException.Exception.USER_ROLE_NOT_FOUND, "USER"));
     }
 }

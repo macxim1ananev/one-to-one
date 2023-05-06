@@ -48,7 +48,7 @@ CREATE TABLE users(
                       name VARCHAR(64) NOT NULL,
                       sur_name VARCHAR(64) NOT NULL,
                       status VARCHAR(64) NOT NULL,
-                      role BIGINT NOT NULL REFERENCES user_roles(id),
+                      role_id BIGINT NOT NULL REFERENCES user_roles(id),
                       CONSTRAINT users_pkey PRIMARY KEY (id),
                       CONSTRAINT uq_email UNIQUE (email)
 );

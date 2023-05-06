@@ -26,13 +26,14 @@ public class CreateUserInteractor implements Interactor<CreateUserCommand, UserR
     @Override
     public UserResult execute(CreateUserCommand command) {
         log.info("Executing command {}", command);
+
         var user = users.loadUserByEmail(command.getEmail());
         if (user.isPresent()) {
             throw new ServiceException(ServiceException.Exception.USER_BY_EMAIL_ALREADY_REGISTERED, command.getEmail());
         } else {
             var entity = mapper.toEntity(command);
             entity.setPassword(passwordEncoder.encode(command.getPassword()));
-            entity.setRoles(userRoles.getSimpleUserRole());
+            entity.setRole(userRoles.getSimpleUserRole());
             return mapper.toResult(users.put(entity));
         }
     }
