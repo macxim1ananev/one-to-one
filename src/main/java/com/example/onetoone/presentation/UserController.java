@@ -4,6 +4,7 @@ import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.user.commands.CreateUserCommand;
 import com.example.onetoone.core.user.commands.GetUserCommand;
 import com.example.onetoone.core.user.commands.PreRegistrationUserCommand;
+import com.example.onetoone.core.user.entities.Permissions;
 import com.example.onetoone.core.user.results.UserResult;
 import com.example.onetoone.inrastructure.service.verification.VerificationService;
 import com.example.onetoone.presentation.mapper.UserViewMapper;
@@ -12,6 +13,7 @@ import com.example.onetoone.presentation.request.PreRegistrationUserRequest;
 import com.example.onetoone.presentation.view.UserView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -57,6 +59,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_USER + "')")
     public UserView get(@PathVariable Long id) {
         log.info("Request for get user by id");
 

@@ -9,6 +9,7 @@ import com.example.onetoone.core.feedback.results.statistics.FullUserStatisticsR
 import com.example.onetoone.core.feedback.results.statistics.UserTechnologyStatisticsResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
+import com.example.onetoone.core.user.entities.Permissions;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.FeedbackViewMapper;
 import com.example.onetoone.presentation.mapper.FullUsersStatisticsViewMapper;
@@ -20,6 +21,7 @@ import com.example.onetoone.presentation.view.UserStatisticsView;
 import com.example.onetoone.presentation.view.UserTechnologyStatisticsView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,6 +37,7 @@ public class FeedbackController {
     private final FullUsersStatisticsViewMapper fullStatisticsViewMapper;
 
     @PostMapping("/create")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.CREATE_FEEDBACK + "')")
     public FeedbackView create(@Valid @RequestBody CreateFeedbackRequest request) {
         log.info("Request for create feedback");
 
@@ -49,6 +52,7 @@ public class FeedbackController {
     }
 
     @GetMapping("/{recipientId}/{oneToOneId}")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_FEEDBACK_BY_ONE_TO_ONE_AND_RECIPIENT_ID + "')")
     public FeedbackView getByOneToOneAndRecipientId(@PathVariable Long recipientId, @PathVariable Long oneToOneId) {
         log.info("Request to receive all feedbacks written for the user");
 
@@ -60,6 +64,7 @@ public class FeedbackController {
     }
     @Deprecated
     @GetMapping("/{userId}/statistics")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_USER_STATISTICS + "')")
     public UserStatisticsView getUserStatistics(@PathVariable Long userId){
         log.info("Request for get user statistics");
 
@@ -70,6 +75,7 @@ public class FeedbackController {
     }
     @Deprecated
     @GetMapping("/{userId}/full-statistics")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_FULL_USER_STATISTICS + "')")
     public ListView<FullUserStatisticsView> getFullUserStatistics(@PathVariable Long userId){
         log.info("Request for get full user statistics");
 
@@ -85,6 +91,7 @@ public class FeedbackController {
     }
     @Deprecated
     @GetMapping("/{userId}/technology-statistics")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_USER_TECHNOLOGY_STATISTICS + "')")
     public ListView<UserTechnologyStatisticsView> getUserTechnologyStatistics(@PathVariable Long userId){
         log.info("Request for get user technology statistics");
 

@@ -53,6 +53,7 @@ public class StatisticController {
     }
 
     @GetMapping("/{userId}")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_USER_STATISTICS + "')")
     public UserStatisticsView getUserStatistics(@PathVariable Long userId) {
         log.info("Request for get user statistics");
 
@@ -63,6 +64,7 @@ public class StatisticController {
     }
 
     @GetMapping("/{userId}/full-statistics")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_FULL_USER_STATISTICS + "')")
     public ListView<FullUserStatisticsView> getFullUserStatistics(@PathVariable Long userId) {
         log.info("Request for get full user statistics");
 
@@ -78,6 +80,7 @@ public class StatisticController {
     }
 
     @GetMapping("/{userId}/technology-statistics")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_USER_TECHNOLOGY_STATISTICS + "')")
     public ListView<UserTechnologyStatisticsView> getUserTechnologyStatistics(@PathVariable Long userId) {
         log.info("Request for get user technology statistics");
 
@@ -93,6 +96,7 @@ public class StatisticController {
     }
 
     @GetMapping("/technology-statistics")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_ALL_USER_TECHNOLOGY_STATISTICS + "')")
     public ListView<UserTechnologyStatisticsView> getAllUserTechnologyStatistics(@RequestParam(required = false, defaultValue = "0") int page,
                                                                                  @RequestParam(required = false, defaultValue = "10") int size,
                                                                                  @RequestParam(required = false, defaultValue = "id,desc") String sort,
