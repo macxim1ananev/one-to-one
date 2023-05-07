@@ -8,8 +8,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
+import java.util.Collection;
 
 
 @Component("securityManager")
@@ -18,11 +17,9 @@ public class SecurityManagerAdapter implements SecurityManager {
 
     @Override
     public boolean hasPermission(String permission) {
-        return Optional.ofNullable(SecurityContextHolder.getContext())
-                .map(SecurityContext::getAuthentication)
-                .map(Authentication::getAuthorities)
-                .stream()
-                .map(details -> (GrantedAuthority) details)
-                .anyMatch(auth -> auth.getAuthority().equals(permission));
+        SecurityContext cxt = SecurityContextHolder.getContext();
+        Authentication authentication = cxt.getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        return authorities.stream().anyMatch(auth -> auth.getAuthority().equals(permission));
     }
 }
