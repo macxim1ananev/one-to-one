@@ -14,4 +14,5 @@ public interface UserRoles {
 
     Optional<UserRole> findByCode(String code);
 
+    UserRole getSimpleUserRole();
 }

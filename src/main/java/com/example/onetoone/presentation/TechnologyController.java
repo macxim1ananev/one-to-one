@@ -6,12 +6,14 @@ import com.example.onetoone.core.technology.commands.AddTechnologyCommand;
 import com.example.onetoone.core.technology.commands.GetFilteredAndSortedTechnologyListCommand;
 import com.example.onetoone.core.technology.commands.GetTechnologyCommand;
 import com.example.onetoone.core.technology.results.TechnologyResult;
+import com.example.onetoone.core.user.entities.Permissions;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.TechnologyViewMapper;
 import com.example.onetoone.presentation.request.AddTechnologyRequest;
 import com.example.onetoone.presentation.view.TechnologyView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,6 +29,7 @@ public class TechnologyController {
     private final CommandBus commandBus;
 
     @PostMapping
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.ADD_TECHNOLOGY + "')")
     public TechnologyView add(@Valid @RequestBody AddTechnologyRequest request){
         log.info("Request for crate technology");
 
@@ -37,6 +40,7 @@ public class TechnologyController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_TECHNOLOGY + "')")
     public TechnologyView get(@PathVariable Long id){
         log.info("Request for get technology");
 
@@ -47,6 +51,7 @@ public class TechnologyController {
     }
 
     @GetMapping
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_ALL_TECHNOLOGY + "')")
     public ListView<TechnologyView> getAll(@RequestParam(required = false, defaultValue = "0") int page,
                                            @RequestParam(required = false, defaultValue = "10") int size,
                                            @RequestParam(required = false, defaultValue = "id,desc") String sort,

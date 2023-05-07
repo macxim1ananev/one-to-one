@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode(exclude = {"permissions"})
 @ToString(exclude = {"permissions"})
-@Table(name = "user_roles")
+@Table(name = "user_roles", schema = "public")
 public class UserRoleModel implements Serializable {
 
     @Id

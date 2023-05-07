@@ -4,6 +4,7 @@ import com.example.onetoone.core.one_to_one.commands.*;
 import com.example.onetoone.core.one_to_one.results.OneToOneResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
+import com.example.onetoone.core.user.entities.Permissions;
 import com.example.onetoone.presentation.common.ListView;
 import com.example.onetoone.presentation.mapper.OneToOneViewMapper;
 import com.example.onetoone.presentation.request.AcceptOneToOneRequest;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,7 +32,8 @@ public class OneToOneController {
     private final CommandBus commandBus;
     private final OneToOneViewMapper mapper;
 
-    @PostMapping()
+    @PostMapping
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.CREATE_ONE_TO_ONE + "')")
     public OneToOneView create(@Valid @RequestBody CreateOneToOneRequest request){
         log.info("Request for crate one to one");
 
@@ -44,6 +47,7 @@ public class OneToOneController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_ONE_TO_ONE + "')")
     public OneToOneView get(@PathVariable Long id){
         log.info("Request for get one to one");
 
@@ -54,6 +58,7 @@ public class OneToOneController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.UPDATE_ONE_TO_ONE + "')")
     public OneToOneView update(@Valid @RequestBody UpdateOneToOneRequest request){
         log.info("Request for update one to one");
 
@@ -68,6 +73,7 @@ public class OneToOneController {
     }
 
     @PutMapping()
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.ACCEPT_ONE_TO_ONE + "')")
     public OneToOneView accept(@Valid @RequestBody AcceptOneToOneRequest request){
         log.info("Request for accept one to one");
 
@@ -78,6 +84,7 @@ public class OneToOneController {
     }
     @Deprecated
     @PutMapping("/{id}/close")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.CLOSE_ONE_TO_ONE + "')")
     public OneToOneView close(@PathVariable long id, @Valid @RequestBody CloseOneToOneRequest request){
         log.info("Request for close one to one");
 
@@ -89,6 +96,7 @@ public class OneToOneController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.DELETE_ONE_TO_ONE + "')")
     public ResponseEntity<?> delete(@PathVariable long id){
         log.info("Request for delete one to one");
 
@@ -100,6 +108,7 @@ public class OneToOneController {
     }
 
     @GetMapping
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_ALL_ONE_TO_ONE + "')")
     public ListView<OneToOneView> getAll(@RequestParam(required = false, defaultValue = "0") int page,
                                          @RequestParam(required = false, defaultValue = "10") int size,
                                          @RequestParam(required = false, defaultValue = "id,desc") String sort,
@@ -118,8 +127,8 @@ public class OneToOneController {
         return new ListView<>(resultList.getTotalItems(), resultList.getItems().stream().map(mapper::toView).collect(Collectors.toList()));
     }
 
-    //TODO надо использовать search criteria, для этого надо доабавить логику в построение запроса.
     @GetMapping("/user/{id}")
+    @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.GET_ALL_USER_ONE_TO_ONE + "')")
     public ListView<OneToOneView> getAllUserOneToOne(@PathVariable Long id){
         log.info("Request for get all user one to one");
 

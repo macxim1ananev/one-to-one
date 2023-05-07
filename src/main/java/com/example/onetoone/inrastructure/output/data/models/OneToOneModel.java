@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "one_to_one")
+@Table(name = "one_to_one", schema = "public")
 public class OneToOneModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user_roles_permissions")
+@Table(name = "user_roles_permissions", schema = "public")
 public class UserRolePermissionModel implements Serializable {
 
     @EmbeddedId

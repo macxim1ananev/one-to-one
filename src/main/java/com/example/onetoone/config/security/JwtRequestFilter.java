@@ -1,6 +1,5 @@
 package com.example.onetoone.config.security;
 
-import com.example.onetoone.config.security.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
