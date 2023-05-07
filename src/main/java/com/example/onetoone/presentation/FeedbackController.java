@@ -5,8 +5,6 @@ import com.example.onetoone.core.feedback.commands.GetByOneToOneAndRecipientIdCo
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.user.entities.Permissions;
 import com.example.onetoone.presentation.mapper.FeedbackViewMapper;
-import com.example.onetoone.presentation.mapper.FullUsersStatisticsViewMapper;
-import com.example.onetoone.presentation.mapper.UsersStatisticsViewMapper;
 import com.example.onetoone.presentation.request.CreateFeedbackRequest;
 import com.example.onetoone.presentation.view.FeedbackView;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +21,6 @@ import javax.validation.Valid;
 public class FeedbackController {
     private final FeedbackViewMapper mapper;
     private final CommandBus commandBus;
-    private final UsersStatisticsViewMapper statisticsViewMapper;
-    private final FullUsersStatisticsViewMapper fullStatisticsViewMapper;
 
     @PostMapping("/create")
     @PreAuthorize("@securityManager.hasPermission('" + Permissions.Fields.CREATE_FEEDBACK + "')")
