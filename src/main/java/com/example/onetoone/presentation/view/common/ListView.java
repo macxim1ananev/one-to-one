@@ -1,4 +1,4 @@
-package com.example.onetoone.presentation.common;
+package com.example.onetoone.presentation.view.common;
 
 import lombok.Value;
 

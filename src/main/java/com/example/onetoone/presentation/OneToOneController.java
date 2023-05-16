@@ -5,7 +5,7 @@ import com.example.onetoone.core.one_to_one.results.OneToOneResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.core.user.entities.Permissions;
-import com.example.onetoone.presentation.common.ListView;
+import com.example.onetoone.presentation.view.common.ListView;
 import com.example.onetoone.presentation.mapper.OneToOneViewMapper;
 import com.example.onetoone.presentation.request.AcceptOneToOneRequest;
 import com.example.onetoone.presentation.request.CloseOneToOneRequest;

@@ -6,7 +6,7 @@ import com.example.onetoone.core.user.commands.GetFilteredAndSortedUserRolesList
 import com.example.onetoone.core.user.commands.GetUserRoleByCodeCommand;
 import com.example.onetoone.core.user.entities.Permissions;
 import com.example.onetoone.core.user.results.UserRoleResultModel;
-import com.example.onetoone.presentation.common.ListView;
+import com.example.onetoone.presentation.view.common.ListView;
 import com.example.onetoone.presentation.mapper.UserRoleViewMapper;
 import com.example.onetoone.presentation.view.UserRoleView;
 import lombok.RequiredArgsConstructor;
