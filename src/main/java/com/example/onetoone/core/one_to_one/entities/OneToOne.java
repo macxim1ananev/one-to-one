@@ -21,6 +21,7 @@ public class OneToOne {
     private FeedbackStatus opponentFeedback;
     private String comment;
 
+
     public boolean validate(long opponentId){
         if (initiator.getId() != opponentId){
             return true;
