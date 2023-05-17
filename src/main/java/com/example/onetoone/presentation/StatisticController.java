@@ -7,7 +7,7 @@ import com.example.onetoone.core.feedback.results.statistics.UserTechnologyStati
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.core.user.entities.Permissions;
-import com.example.onetoone.presentation.common.ListView;
+import com.example.onetoone.presentation.view.common.ListView;
 import com.example.onetoone.presentation.mapper.FullUsersStatisticsViewMapper;
 import com.example.onetoone.presentation.mapper.UsersStatisticsViewMapper;
 import com.example.onetoone.presentation.view.FullUserStatisticsView;

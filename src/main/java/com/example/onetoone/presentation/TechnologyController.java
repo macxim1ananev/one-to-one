@@ -7,7 +7,7 @@ import com.example.onetoone.core.technology.commands.GetFilteredAndSortedTechnol
 import com.example.onetoone.core.technology.commands.GetTechnologyCommand;
 import com.example.onetoone.core.technology.results.TechnologyResult;
 import com.example.onetoone.core.user.entities.Permissions;
-import com.example.onetoone.presentation.common.ListView;
+import com.example.onetoone.presentation.view.common.ListView;
 import com.example.onetoone.presentation.mapper.TechnologyViewMapper;
 import com.example.onetoone.presentation.request.AddTechnologyRequest;
 import com.example.onetoone.presentation.view.TechnologyView;
