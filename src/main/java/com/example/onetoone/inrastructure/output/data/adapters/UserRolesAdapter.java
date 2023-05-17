@@ -4,6 +4,7 @@ import com.example.onetoone.core.service.common.EntityList;
 import com.example.onetoone.core.service.common.ListFilter;
 import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.UserRoles;
+import com.example.onetoone.core.user.entities.Roles;
 import com.example.onetoone.core.user.entities.UserRole;
 import com.example.onetoone.inrastructure.output.data.FilteringAndSortingAdapter;
 import com.example.onetoone.inrastructure.output.data.mappers.UserRoleModelMapper;
@@ -40,7 +41,7 @@ public class UserRolesAdapter extends FilteringAndSortingAdapter<UserRoleModel> 
 
     @Override
     public UserRole getSimpleUserRole() {
-        return repository.findByCode("USER").map(mapper::toEntity).orElseThrow(
-                ()-> new ServiceException(ServiceException.Exception.USER_ROLE_NOT_FOUND, "USER"));
+        return repository.findByCode(Roles.USER.getAuthority()).map(mapper::toEntity).orElseThrow(
+                ()-> new ServiceException(ServiceException.Exception.USER_ROLE_NOT_FOUND, Roles.USER.getAuthority()));
     }
 }
