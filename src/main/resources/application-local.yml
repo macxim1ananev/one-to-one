@@ -50,3 +50,7 @@ springdoc:
     enabled: true
   swagger-ui.path: /swagger-ui.html
 
+telegram:
+  bot:
+    username: Test-interview
+    token: 6142549600:AAFVTnVizvJJcgEAqlFxfn185tLUEGxNFEs

@@ -40,7 +40,9 @@ public class ServiceException extends RuntimeException {
         ACCEPTED_ONE_TO_ONE_CANNOT_BE_CHANGED(16, "onetoone.exception.onetoone.cannat.be.changed"),
         ACCEPTED_ONE_TO_ONE_CANNOT_BE_DELETED(17, "onetoone.exception.onetoone.cannat.be.deleted"),
         USER_PERMISSION_NOT_FOUND(18, "onetoone.exception.onetoone.user.permissoin.not.found"),
-        USER_ROLE_NOT_FOUND(19, "onetoone.exception.onetoone.user.role.not.found" );
+        USER_ROLE_NOT_FOUND(19, "onetoone.exception.onetoone.user.role.not.found" ),
+        USER_BY_TELEGRAM_NAME_ALREADY_REGISTERED(20, "onetoone.exception.user.by.telegram.name.already.registered"),
+        USER_BY_TELEGGRAM_ID_NOT_FOUND(21, "onetoone.exception.user.by.telegram.id.not.found");
 
 
         Exception(int code, String label) {

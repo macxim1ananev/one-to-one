@@ -13,6 +13,8 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
+    private String telegramUserName;
+    private Long telegramUserId;
     private String password;
     private String name;
     private String surName;

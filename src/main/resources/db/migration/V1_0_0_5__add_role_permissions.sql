@@ -46,7 +46,7 @@ INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_pe
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_USER_TECHNOLOGY_STATISTICS';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_ALL_USER_TECHNOLOGY_STATISTICS';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'ADD_LIST_QUESTIONS';
-INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_QUESTION,';
+INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_QUESTION';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'UPDATE_QUESTION';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_ALL_QUESTIONS';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'ADD_TECHNOLOGY';
@@ -73,7 +73,7 @@ INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_pe
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'GET_FULL_USER_STATISTICS';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'GET_USER_TECHNOLOGY_STATISTICS';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'ADD_LIST_QUESTIONS';
-INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'GET_QUESTION,';
+INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'GET_QUESTION';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'UPDATE_QUESTION';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'GET_ALL_QUESTIONS';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'ADD_TECHNOLOGY';
