@@ -1,6 +1,7 @@
 package com.example.onetoone.inrastructure.output.data.adapters;
 
 import com.example.onetoone.core.one_to_one.entities.OneToOne;
+import com.example.onetoone.core.one_to_one.entities.OneToOneStatus;
 import com.example.onetoone.core.service.common.EntityList;
 import com.example.onetoone.core.service.common.ListFilter;
 import com.example.onetoone.core.service.interfaces.OneToOnes;
@@ -56,6 +57,12 @@ public class OneToOneAdapter extends FilteringAndSortingAdapter<OneToOneModel> i
     @Override
     public EntityList<OneToOne> getAllOpen(Integer statusId) {
         var list = repository.findAllByStatusIdOrderByDateTimeAsc(statusId);
+        return new EntityList<>(list.size(), list.stream().map(mapper::toEntity).toList());
+    }
+
+    @Override
+    public EntityList<OneToOne> getAllUserOpenOneToOne(Long userId) {
+        var list = repository.findAllByInitiatorIdAndStatusId(userId, OneToOneStatus.OPEN.getId());
         return new EntityList<>(list.size(), list.stream().map(mapper::toEntity).toList());
     }
 }

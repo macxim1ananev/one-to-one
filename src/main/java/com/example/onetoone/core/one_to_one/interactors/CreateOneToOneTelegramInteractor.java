@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import static com.example.onetoone.core.one_to_one.entities.OneToOneStatus.OPEN;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -34,12 +36,23 @@ public class CreateOneToOneTelegramInteractor implements Interactor<CreateOneToO
         var initiator = users.getByTelegramUserId(command.getTelegramUserId())
                 .orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND, command.getTelegramUserId()));
         var entity = mapper.toEntity(command, initiator, technology);
-        var listEntity = oneToOnes.getAllOpen(OneToOneStatus.OPEN.getId());
+        if (checkAlreadyOpenUserOneToOne(initiator.getId())){
+            return OneToOneTelegramResult.builder()
+                    .status("OPEN")
+                    .build();
+        }
+        var listEntity = oneToOnes.getAllOpen(OPEN.getId());
 
         if (listEntity.getTotalItems()>0){
             return mapper.toTelegramResult(acceptAlreadyOpen(listEntity, initiator), initiator.getTelegramUserName());
         }
         return mapper.toTelegramResult(oneToOnes.put(entity), StringUtils.EMPTY);
+    }
+
+    private boolean checkAlreadyOpenUserOneToOne(Long userId) {
+        var list = oneToOnes.getAllUserOpenOneToOne(userId);
+        return list.getTotalItems() > 0;
+
     }
 
     private OneToOne acceptAlreadyOpen(EntityList<OneToOne> listEntity, User opponent) {

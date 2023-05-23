@@ -16,4 +16,6 @@ public interface OneToOneRepository extends JpaRepository<OneToOneModel, Long> {
 
     List<OneToOneModel> findAllByInitiatorIdOrOpponentId(Long initiatorId, Long opponentId);
     List<OneToOneModel> findAllByStatusIdOrderByDateTimeAsc(Integer statusId);
+
+    List<OneToOneModel> findAllByInitiatorIdAndStatusId(Long initiatorId, Integer statusId);
 }
