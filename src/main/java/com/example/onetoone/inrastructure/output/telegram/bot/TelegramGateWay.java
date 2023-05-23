@@ -1,7 +1,9 @@
 package com.example.onetoone.inrastructure.output.telegram.bot;
 
 import com.example.onetoone.core.one_to_one.commands.CreateOneToOneTelegramCommand;
+import com.example.onetoone.core.one_to_one.entities.OneToOneStatus;
 import com.example.onetoone.core.one_to_one.results.OneToOneResult;
+import com.example.onetoone.core.one_to_one.results.OneToOneTelegramResult;
 import com.example.onetoone.core.user.commands.UserRegistrationCommand;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.user.results.UserRegistrationResult;
@@ -23,8 +25,9 @@ import java.time.LocalDateTime;
 @Component
 @RequiredArgsConstructor
 public class TelegramGateWay extends TelegramLongPollingBot implements LongPollingBot {
-    private static final String WELCOME_REGISTER_MESSAGE = "Здравствуйте, $s! Вы успешно зарегистрировались, теперь вы можете найти пару для тестового собеседования";
-    public static final String ONE_TO_ONE_CREATE_MESSAGE = "Здавствуйте, %s! Вы успешно создали заявку на тестовое интервью, когда найдется пара, мы отправим вам уведомление в этом чате.";
+    private static final String WELCOME_REGISTER_MESSAGE = "Здравствуйте, %s! Вы успешно зарегистрировались, теперь вы можете найти пару для тестового собеседования";
+    public static final String ONE_TO_ONE_CREATE_MESSAGE = "Здравствуйте, %s! Вы успешно создали заявку на тестовое интервью, когда найдется пара, мы отправим вам уведомление в этом чате.";
+    public static final String ONE_TO_ONE_CLOSED_MESSAGE = "Здравствуйте, %s! Вы успешно создали заявку на тестовое интервью, вот ваш оппонент по собеседованию %s";
     private final CommandBus commandBus;
     @Value("${telegram.bot.username}")
     private String userName;
@@ -51,15 +54,17 @@ public class TelegramGateWay extends TelegramLongPollingBot implements LongPolli
     private void botAnswerUtils(String receivedMessage, User user, Chat chat) {
         switch (receivedMessage){
             case "/register":
-                var res = registerCommand(user, chat);
-                sendAnswer(WELCOME_REGISTER_MESSAGE, chat.getId(),res.getTelegramUserName());
+                registerCommand(user, chat);
                 break;
             case "/create":
                 create(user, chat);
-                sendAnswer(ONE_TO_ONE_CREATE_MESSAGE, chat.getId(), user.getUserName());
                 break;
             case "/getall":
                 //getOneToOneList();
+                break;
+            case "accept":
+                //acceptOneToone
+                break;
             default: break;
         }
     }
@@ -78,8 +83,8 @@ public class TelegramGateWay extends TelegramLongPollingBot implements LongPolli
         return token;
     }
 
-    private UserRegistrationResult registerCommand(User user, Chat chat){
-        return commandBus.execute(UserRegistrationCommand.builder()
+    private void registerCommand(User user, Chat chat){
+        var res = commandBus.execute(UserRegistrationCommand.builder()
                 .telegramUserName(user.getUserName())
                 .telegramUserId(user.getId())
                 .telegramChatId(chat.getId())
@@ -87,10 +92,12 @@ public class TelegramGateWay extends TelegramLongPollingBot implements LongPolli
                 .password("password")
                 .surName(user.getLastName())
                 .build());
+
+        sendAnswer(String.format(WELCOME_REGISTER_MESSAGE,user.getUserName()), chat.getId());
     }
 
-    private OneToOneResult create(User user, Chat chat){
-        return commandBus.execute(CreateOneToOneTelegramCommand
+    private void create(User user, Chat chat){
+        OneToOneTelegramResult res = commandBus.execute(CreateOneToOneTelegramCommand
                 .builder()
                         .dateTime(LocalDateTime.now())
                         .levelId(1)
@@ -98,12 +105,18 @@ public class TelegramGateWay extends TelegramLongPollingBot implements LongPolli
                         .technologyId(7L)
 
                 .build());
+
+        if (res.getStatus().equals(OneToOneStatus.CLOSED.name())){
+            sendAnswer(String.format(ONE_TO_ONE_CLOSED_MESSAGE, user.getUserName(), res.getUserName()), chat.getId());
+        } else {
+            sendAnswer(String.format(ONE_TO_ONE_CREATE_MESSAGE,user.getUserName()), chat.getId());
+        }
     }
 
-    private void sendAnswer(String message, Long chatId, String userName ){
+    private void sendAnswer(String message, Long chatId){
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText(String.format(message, userName));
+        sendMessage.setText(message);
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {

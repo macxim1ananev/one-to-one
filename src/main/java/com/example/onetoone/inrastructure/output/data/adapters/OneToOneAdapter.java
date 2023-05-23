@@ -52,4 +52,10 @@ public class OneToOneAdapter extends FilteringAndSortingAdapter<OneToOneModel> i
     public Integer getCountByUserId(Long id) {
         return repository.countByOpponentId(id);
     }
+
+    @Override
+    public EntityList<OneToOne> getAllOpen(Integer statusId) {
+        var list = repository.findAllByStatusIdOrderByDateTimeAsc(statusId);
+        return new EntityList<>(list.size(), list.stream().map(mapper::toEntity).toList());
+    }
 }

@@ -44,11 +44,12 @@ CREATE SEQUENCE users_id_seq
 CREATE TABLE users(
                       id      BIGINT DEFAULT nextval('users_id_seq'::regclass),
                       email VARCHAR(128),
-                      telegram_user_name VARCHAR(128) NOT NULL,
+                      telegram_user_name VARCHAR(128),
+                      telegram_chat_id BIGINT,
                       telegram_user_id BIGINT NOT NULL,
                       password VARCHAR(256) NOT NULL,
-                      name VARCHAR(64) NOT NULL,
-                      sur_name VARCHAR(64) NOT NULL,
+                      name VARCHAR(64),
+                      sur_name VARCHAR(64),
                       status VARCHAR(64) NOT NULL,
                       role_id BIGINT NOT NULL REFERENCES user_roles(id),
                       CONSTRAINT users_pkey PRIMARY KEY (id),
@@ -56,19 +57,6 @@ CREATE TABLE users(
                       CONSTRAINT uq_telegram_user_id UNIQUE (telegram_user_id)
 );
 
-CREATE SEQUENCE telegram_user_chat_id_seq
-    INCREMENT 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    START 1
-    CACHE 1;
-
-CREATE TABLE telegram_chat(
-                              id      BIGINT DEFAULT nextval('telegram_user_chat_id_seq'::regclass),
-                              telegram_chat_id BIGINT NOT NULL,
-                              telegram_user_id BIGINT NOT NULL,
-                              CONSTRAINT  telegram_chat_pkey PRIMARY KEY (id)
-);
 
 CREATE SEQUENCE verification_token_id_seq
     INCREMENT 1

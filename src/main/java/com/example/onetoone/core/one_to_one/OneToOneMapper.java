@@ -8,6 +8,7 @@ import com.example.onetoone.core.one_to_one.entities.OneToOne;
 import com.example.onetoone.core.one_to_one.entities.OneToOneLevel;
 import com.example.onetoone.core.one_to_one.entities.OneToOneStatus;
 import com.example.onetoone.core.one_to_one.results.OneToOneResult;
+import com.example.onetoone.core.one_to_one.results.OneToOneTelegramResult;
 import com.example.onetoone.core.technology.entities.Technology;
 import com.example.onetoone.core.user.entities.User;
 import org.mapstruct.*;
@@ -34,6 +35,12 @@ public interface OneToOneMapper {
     @Mapping(target = "status", source = "status")
     @Mapping(target = "level", source = "level")
     OneToOneResult toResult(OneToOne entity);
+    @Mapping(target = "initiatorId", source = "entity.initiator.id")
+    @Mapping(target = "opponentId", source = "entity.opponent.id")
+    @Mapping(target = "status", source = "entity.status")
+    @Mapping(target = "level", source = "entity.level")
+    @Mapping(target = "userName", source = "telegramUserName")
+    OneToOneTelegramResult toTelegramResult(OneToOne entity, String telegramUserName);
 
     @Mapping(target = "technology", source = "technology")
     @Mapping(target = "id", ignore = true)

@@ -2,10 +2,8 @@ package com.example.onetoone.core.user.interactors;
 
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
-import com.example.onetoone.core.service.interfaces.TelegramChats;
 import com.example.onetoone.core.service.interfaces.UserRoles;
 import com.example.onetoone.core.service.interfaces.Users;
-import com.example.onetoone.core.telegramchat.TelegramChatMapper;
 import com.example.onetoone.core.user.UserMapper;
 import com.example.onetoone.core.user.commands.UserRegistrationCommand;
 import com.example.onetoone.core.user.results.UserRegistrationResult;
@@ -22,8 +20,6 @@ public class UserRegistrationInteractor implements Interactor<UserRegistrationCo
     private final UserMapper mapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRoles userRoles;
-    private final TelegramChats telegramChats;
-    private final TelegramChatMapper telegramChatMapper;
 
     @Override
     public UserRegistrationResult execute(UserRegistrationCommand command) {
@@ -35,7 +31,6 @@ public class UserRegistrationInteractor implements Interactor<UserRegistrationCo
             var entity = mapper.toEntity(command);
             entity.setPassword(passwordEncoder.encode(command.getPassword()));
             entity.setRole(userRoles.getSimpleUserRole());
-            telegramChats.put(telegramChatMapper.toEntity(command));
             return mapper.toUserRegistrationResult(users.put(entity));
         }
     }
