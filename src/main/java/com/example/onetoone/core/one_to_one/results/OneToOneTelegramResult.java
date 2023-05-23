@@ -18,5 +18,6 @@ public class OneToOneTelegramResult {
     String initiatorFeedback;
     String opponentFeedback;
     String comment;
-    String userName;
+    String initiatorUserName;
+    String opponentUserName;
 }

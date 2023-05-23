@@ -44,9 +44,9 @@ public class CreateOneToOneTelegramInteractor implements Interactor<CreateOneToO
         var listEntity = oneToOnes.getAllOpen(OPEN.getId());
 
         if (listEntity.getTotalItems()>0){
-            return mapper.toTelegramResult(acceptAlreadyOpen(listEntity, initiator), initiator.getTelegramUserName());
+            return mapper.toTelegramResult(acceptAlreadyOpen(listEntity, initiator));
         }
-        return mapper.toTelegramResult(oneToOnes.put(entity), StringUtils.EMPTY);
+        return mapper.toTelegramResult(oneToOnes.put(entity));
     }
 
     private boolean checkAlreadyOpenUserOneToOne(Long userId) {

@@ -39,8 +39,9 @@ public interface OneToOneMapper {
     @Mapping(target = "opponentId", source = "entity.opponent.id")
     @Mapping(target = "status", source = "entity.status")
     @Mapping(target = "level", source = "entity.level")
-    @Mapping(target = "userName", source = "telegramUserName")
-    OneToOneTelegramResult toTelegramResult(OneToOne entity, String telegramUserName);
+    @Mapping(target = "initiatorUserName", source = "entity.initiator.telegramUserName")
+    @Mapping(target = "opponentUserName", source = "entity.opponent.telegramUserName")
+    OneToOneTelegramResult toTelegramResult(OneToOne entity);
 
     @Mapping(target = "technology", source = "technology")
     @Mapping(target = "id", ignore = true)

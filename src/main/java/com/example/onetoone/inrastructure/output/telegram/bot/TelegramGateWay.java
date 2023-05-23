@@ -25,9 +25,9 @@ import java.time.LocalDateTime;
 @Component
 @RequiredArgsConstructor
 public class TelegramGateWay extends TelegramLongPollingBot implements LongPollingBot {
-    private static final String WELCOME_REGISTER_MESSAGE = "Здравствуйте, %s! Вы успешно зарегистрировались, теперь вы можете найти пару для тестового собеседования";
-    public static final String ONE_TO_ONE_CREATE_MESSAGE = "Здравствуйте, %s! Вы успешно создали заявку на тестовое интервью, когда найдется пара, мы отправим вам уведомление в этом чате.";
-    public static final String ONE_TO_ONE_CLOSED_MESSAGE = "Здравствуйте, %s! Вы успешно создали заявку на тестовое интервью, вот ваш оппонент по собеседованию %s";
+    private static final String WELCOME_REGISTER_MESSAGE = "Здравствуйте, @%s! Вы успешно зарегистрировались, теперь вы можете найти пару для тестового собеседования";
+    public static final String ONE_TO_ONE_CREATE_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, когда найдется пара, мы отправим вам уведомление в этом чате.";
+    public static final String ONE_TO_ONE_CLOSED_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, вот ваш оппонент по собеседованию @%s";
     private final CommandBus commandBus;
     @Value("${telegram.bot.username}")
     private String userName;
@@ -107,7 +107,8 @@ public class TelegramGateWay extends TelegramLongPollingBot implements LongPolli
                 .build());
 
         if (res.getStatus().equals(OneToOneStatus.CLOSED.name())){
-            sendAnswer(String.format(ONE_TO_ONE_CLOSED_MESSAGE, user.getUserName(), res.getUserName()), chat.getId());
+            sendAnswer(String.format(ONE_TO_ONE_CLOSED_MESSAGE, user.getUserName(), res.getInitiatorUserName()), chat.getId());
+// отправка сообщения второму человеку            sendAnswer();
         } else {
             sendAnswer(String.format(ONE_TO_ONE_CREATE_MESSAGE,user.getUserName()), chat.getId());
         }
