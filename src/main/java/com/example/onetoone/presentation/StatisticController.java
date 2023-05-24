@@ -1,11 +1,11 @@
 package com.example.onetoone.presentation;
 
-import com.example.onetoone.core.feedback.commands.statistics.*;
-import com.example.onetoone.core.feedback.results.statistics.FullUserStatisticsResult;
-import com.example.onetoone.core.feedback.results.statistics.UserStatisticsResult;
-import com.example.onetoone.core.feedback.results.statistics.UserTechnologyStatisticsResult;
+import com.example.onetoone.core.statistics.results.FullUserStatisticsResult;
+import com.example.onetoone.core.statistics.results.UserStatisticsResult;
+import com.example.onetoone.core.statistics.results.UserTechnologyStatisticsResult;
 import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
+import com.example.onetoone.core.statistics.commands.*;
 import com.example.onetoone.core.user.entities.Permissions;
 import com.example.onetoone.presentation.view.common.ListView;
 import com.example.onetoone.presentation.mapper.FullUsersStatisticsViewMapper;

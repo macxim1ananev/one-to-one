@@ -1,4 +1,4 @@
-package com.example.onetoone.core.feedback.results.statistics;
+package com.example.onetoone.core.statistics.results;
 
 import com.example.onetoone.core.user.results.UserResult;
 import lombok.Builder;

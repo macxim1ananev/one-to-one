@@ -1,4 +1,4 @@
-package com.example.onetoone.core.feedback.entities.statistics;
+package com.example.onetoone.core.statistics.entities;
 
 import com.example.onetoone.core.user.entities.User;
 import lombok.Data;

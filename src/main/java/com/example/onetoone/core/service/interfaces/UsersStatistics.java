@@ -1,6 +1,6 @@
 package com.example.onetoone.core.service.interfaces;
 
-import com.example.onetoone.core.feedback.entities.statistics.UserStatistics;
+import com.example.onetoone.core.statistics.entities.UserStatistics;
 import com.example.onetoone.core.service.common.EntityList;
 import com.example.onetoone.core.service.common.ListFilter;
 
