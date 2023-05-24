@@ -1,6 +1,5 @@
 package com.example.onetoone.core.one_to_one.entities;
 
-import com.example.onetoone.core.feedback.entities.Feedback;
 import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.technology.entities.Technology;
 import com.example.onetoone.core.user.entities.User;

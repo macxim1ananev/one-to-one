@@ -26,8 +26,9 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class TelegramGateWay extends TelegramLongPollingBot implements LongPollingBot {
     private static final String WELCOME_REGISTER_MESSAGE = "Здравствуйте, @%s! Вы успешно зарегистрировались, теперь вы можете найти пару для тестового собеседования";
-    public static final String ONE_TO_ONE_CREATE_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, когда найдется пара, мы отправим вам уведомление в этом чате.";
-    public static final String ONE_TO_ONE_CLOSED_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, вот ваш оппонент по собеседованию @%s";
+    private static final String ONE_TO_ONE_CREATE_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, когда найдется пара, мы отправим вам уведомление в этом чате.";
+    private static final String ONE_TO_ONE_CLOSED_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, вот ваш оппонент по собеседованию @%s";
+    private static final String WE_NEED_USER_NAME = "Для корректной работы бота нам необходим доступ к вашему userName";
     private final CommandBus commandBus;
     @Value("${telegram.bot.username}")
     private String userName;
@@ -59,12 +60,6 @@ public class TelegramGateWay extends TelegramLongPollingBot implements LongPolli
             case "/create":
                 create(user, chat);
                 break;
-            case "/getall":
-                //getOneToOneList();
-                break;
-            case "accept":
-                //acceptOneToone
-                break;
             default: break;
         }
     }
@@ -84,6 +79,10 @@ public class TelegramGateWay extends TelegramLongPollingBot implements LongPolli
     }
 
     private void registerCommand(User user, Chat chat){
+        if (user.getUserName()==null){
+            sendAnswer(WE_NEED_USER_NAME, chat.getId());
+            return;
+        }
         var res = commandBus.execute(UserRegistrationCommand.builder()
                 .telegramUserName(user.getUserName())
                 .telegramUserId(user.getId())
