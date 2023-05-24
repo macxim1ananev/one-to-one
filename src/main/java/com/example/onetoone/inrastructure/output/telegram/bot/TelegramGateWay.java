@@ -107,8 +107,8 @@ public class TelegramGateWay extends TelegramLongPollingBot implements LongPolli
                 .build());
 
         if (res.getStatus().equals(OneToOneStatus.CLOSED.name())){
-            sendAnswer(String.format(ONE_TO_ONE_CLOSED_MESSAGE, user.getUserName(), res.getInitiatorUserName()), chat.getId());
-// отправка сообщения второму человеку            sendAnswer();
+            sendAnswer(String.format(ONE_TO_ONE_CLOSED_MESSAGE, user.getUserName(), res.getInitiatorUserName()), res.getOpponentChatId());
+            sendAnswer(String.format(ONE_TO_ONE_CLOSED_MESSAGE, res.getInitiatorUserName(), user.getUserName()), res.getInitiatorChatId());
         } else {
             sendAnswer(String.format(ONE_TO_ONE_CREATE_MESSAGE,user.getUserName()), chat.getId());
         }
