@@ -18,4 +18,8 @@ public interface OneToOnes {
     EntityList<OneToOne> getAllUserOneToOne(Long id);
 
     void delete(OneToOne oneToOne);
+
+    EntityList<OneToOne> getAllOpen(Integer statusId);
+
+    EntityList<OneToOne> getAllUserOpenOneToOne(Long userId);
 }

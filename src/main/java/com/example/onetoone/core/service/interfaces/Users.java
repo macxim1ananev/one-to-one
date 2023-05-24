@@ -10,4 +10,6 @@ public interface Users {
     Optional<User> get(long id);
 
     Optional<User> loadUserByEmail(String email);
+
+    Optional<User> getByTelegramUserId(Long telegramUserId);
 }
