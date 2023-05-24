@@ -2,11 +2,11 @@ package com.example.onetoone.inrastructure.output.telegram.bot;
 
 import com.example.onetoone.core.one_to_one.commands.CreateOneToOneTelegramCommand;
 import com.example.onetoone.core.one_to_one.entities.OneToOneStatus;
-import com.example.onetoone.core.one_to_one.results.OneToOneResult;
 import com.example.onetoone.core.one_to_one.results.OneToOneTelegramResult;
-import com.example.onetoone.core.user.commands.UserRegistrationCommand;
 import com.example.onetoone.core.service.command_bus.CommandBus;
-import com.example.onetoone.core.user.results.UserRegistrationResult;
+import com.example.onetoone.core.service.error.ServiceException;
+import com.example.onetoone.core.service.interfaces.Users;
+import com.example.onetoone.core.user.commands.UserRegistrationCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -29,7 +29,9 @@ public class TelegramGateWay extends TelegramLongPollingBot implements LongPolli
     private static final String ONE_TO_ONE_CREATE_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, когда найдется пара, мы отправим вам уведомление в этом чате.";
     private static final String ONE_TO_ONE_CLOSED_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, вот ваш оппонент по собеседованию @%s";
     private static final String WE_NEED_USER_NAME = "Для корректной работы бота нам необходим доступ к вашему userName";
+    private static final String USER_ALREADY_REGISTERED = "Вы уже зарегестрировались! Для поиска нажмите /create";
     private final CommandBus commandBus;
+    private final Users users;
     @Value("${telegram.bot.username}")
     private String userName;
     @Value("${telegram.bot.token}")
@@ -79,8 +81,14 @@ public class TelegramGateWay extends TelegramLongPollingBot implements LongPolli
     }
 
     private void registerCommand(User user, Chat chat){
+
         if (user.getUserName()==null){
             sendAnswer(WE_NEED_USER_NAME, chat.getId());
+            return;
+        }
+        var userEntity = users.getByTelegramUserId(user.getId());
+        if (userEntity.isPresent()) {
+            sendAnswer(USER_ALREADY_REGISTERED, chat.getId());
             return;
         }
         var res = commandBus.execute(UserRegistrationCommand.builder()

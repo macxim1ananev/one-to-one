@@ -24,14 +24,9 @@ public class UserRegistrationInteractor implements Interactor<UserRegistrationCo
     @Override
     public UserRegistrationResult execute(UserRegistrationCommand command) {
         log.info("Executing command {}", command);
-        var user = users.getByTelegramUserId(command.getTelegramUserId());
-        if (user.isPresent()) {
-            throw new ServiceException(ServiceException.Exception.USER_BY_EMAIL_ALREADY_REGISTERED, command.getTelegramUserName());
-        } else {
-            var entity = mapper.toEntity(command);
-            entity.setPassword(passwordEncoder.encode(command.getPassword()));
-            entity.setRole(userRoles.getSimpleUserRole());
-            return mapper.toUserRegistrationResult(users.put(entity));
-        }
+        var entity = mapper.toEntity(command);
+        entity.setPassword(passwordEncoder.encode(command.getPassword()));
+        entity.setRole(userRoles.getSimpleUserRole());
+        return mapper.toUserRegistrationResult(users.put(entity));
     }
 }
