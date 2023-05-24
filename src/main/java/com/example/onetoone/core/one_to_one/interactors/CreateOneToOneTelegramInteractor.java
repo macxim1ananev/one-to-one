@@ -14,7 +14,6 @@ import com.example.onetoone.core.service.interfaces.Users;
 import com.example.onetoone.core.user.entities.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import static com.example.onetoone.core.one_to_one.entities.OneToOneStatus.OPEN;
@@ -27,32 +26,22 @@ public class CreateOneToOneTelegramInteractor implements Interactor<CreateOneToO
     private final Users users;
     private final Technologies technologies;
     private final OneToOneMapper mapper;
+
     @Override
     public OneToOneTelegramResult execute(CreateOneToOneTelegramCommand command) {
         log.info("Executing command {}", command);
 
         var technology = technologies.get(command.getTechnologyId())
-                .orElseThrow(()-> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND, command.getTechnologyId()));
+                .orElseThrow(() -> new ServiceException(ServiceException.Exception.TECHNOLOGY_NOT_FOUND, command.getTechnologyId()));
         var initiator = users.getByTelegramUserId(command.getTelegramUserId())
                 .orElseThrow(() -> new ServiceException(ServiceException.Exception.USER_NOT_FOUND, command.getTelegramUserId()));
         var entity = mapper.toEntity(command, initiator, technology);
-        if (checkAlreadyOpenUserOneToOne(initiator.getId())){
-            return OneToOneTelegramResult.builder()
-                    .status("OPEN")
-                    .build();
-        }
         var listEntity = oneToOnes.getAllOpen(OPEN.getId());
 
-        if (listEntity.getTotalItems()>0){
+        if (listEntity.getTotalItems() > 0) {
             return mapper.toTelegramResult(acceptAlreadyOpen(listEntity, initiator));
         }
         return mapper.toTelegramResult(oneToOnes.put(entity));
-    }
-
-    private boolean checkAlreadyOpenUserOneToOne(Long userId) {
-        var list = oneToOnes.getAllUserOpenOneToOne(userId);
-        return list.getTotalItems() > 0;
-
     }
 
     private OneToOne acceptAlreadyOpen(EntityList<OneToOne> listEntity, User opponent) {
