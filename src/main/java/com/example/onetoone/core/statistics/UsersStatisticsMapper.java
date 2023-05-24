@@ -1,7 +1,7 @@
-package com.example.onetoone.core.feedback;
+package com.example.onetoone.core.statistics;
 
-import com.example.onetoone.core.feedback.entities.statistics.UserStatistics;
-import com.example.onetoone.core.feedback.results.statistics.UserStatisticsResult;
+import com.example.onetoone.core.statistics.entities.UserStatistics;
+import com.example.onetoone.core.statistics.results.UserStatisticsResult;
 import com.example.onetoone.core.user.UserMapper;
 import com.example.onetoone.inrastructure.output.data.models.UsersStatisticsModel;
 import org.mapstruct.Mapper;
