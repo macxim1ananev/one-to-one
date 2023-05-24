@@ -5,6 +5,7 @@ import com.example.onetoone.inrastructure.output.data.models.UsersStatisticsMode
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,6 +16,7 @@ public interface UsersTechnologyStatisticsRepository extends JpaRepository<UserT
             nativeQuery = true)
     List<UserTechnologyStatisticsModel> findAllByUserStatisticsId(Long userStatisticsId);
 
+    @EntityGraph(attributePaths = { "userStatistics", "technology", "userStatistics.user"})
     Page<UserTechnologyStatisticsModel> findAll(Specification<UserTechnologyStatisticsModel> specification,
                                        Pageable pageable);
 }
