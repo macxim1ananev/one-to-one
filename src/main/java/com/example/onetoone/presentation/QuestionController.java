@@ -6,7 +6,7 @@ import com.example.onetoone.core.service.command_bus.CommandBus;
 import com.example.onetoone.core.service.common.ResultModelList;
 import com.example.onetoone.core.service.common.SearchCriteria;
 import com.example.onetoone.core.user.entities.Permissions;
-import com.example.onetoone.presentation.common.ListView;
+import com.example.onetoone.presentation.view.common.ListView;
 import com.example.onetoone.presentation.mapper.QuestionViewMapper;
 import com.example.onetoone.presentation.request.CreateQuestionRequest;
 import com.example.onetoone.presentation.view.QuestionListView;

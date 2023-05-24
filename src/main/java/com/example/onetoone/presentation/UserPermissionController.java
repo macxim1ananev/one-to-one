@@ -6,7 +6,7 @@ import com.example.onetoone.core.user.commands.GetFilteredAndSortedUserPermissio
 import com.example.onetoone.core.user.commands.GetUserPermissionByCodeCommand;
 import com.example.onetoone.core.user.entities.Permissions;
 import com.example.onetoone.core.user.results.UserPermissionResultModel;
-import com.example.onetoone.presentation.common.ListView;
+import com.example.onetoone.presentation.view.common.ListView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

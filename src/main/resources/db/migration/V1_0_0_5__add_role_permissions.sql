@@ -52,7 +52,7 @@ INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_pe
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'ADD_TECHNOLOGY';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_TECHNOLOGY';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_ALL_TECHNOLOGY';
-INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_USER,';
+INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_USER';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_ALL_USER_PERMISSION';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_USER_PERMISSION';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'ADMIN' AND up.code = 'GET_ALL_USER_ROLE';
@@ -79,4 +79,4 @@ INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_pe
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'ADD_TECHNOLOGY';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'GET_TECHNOLOGY';
 INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'GET_ALL_TECHNOLOGY';
-INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'GET_USER,';
+INSERT INTO user_roles_permissions SELECT ur.id,up.id FROM user_roles ur,user_permissions up WHERE ur.code = 'USER' AND up.code = 'GET_USER';
