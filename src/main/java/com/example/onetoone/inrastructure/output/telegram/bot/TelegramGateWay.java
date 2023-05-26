@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 public class TelegramGateWay extends TelegramLongPollingBot implements LongPollingBot {
     private static final String WELCOME_REGISTER_MESSAGE = "Здравствуйте, @%s! Вы успешно зарегистрировались, теперь вы можете найти пару для тестового собеседования";
     private static final String ONE_TO_ONE_CREATE_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, когда найдется пара, мы отправим вам уведомление в этом чате.";
-    private static final String ONE_TO_ONE_CLOSED_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, вот ваш оппонент по собеседованию @%s";
+    private static final String ONE_TO_ONE_CLOSED_MESSAGE = "Здравствуйте, @%s! Вы успешно создали заявку на тестовое интервью, скорее напишите своему оппоненту  @%s и договоритесь о месте и времени встречи.";
     private static final String WE_NEED_USER_NAME = "Для корректной работы бота нам необходим доступ к вашему userName";
     private static final String USER_ALREADY_REGISTERED = "Вы уже зарегистрировались! Для поиска нажмите /create";
     private static final String YOU_NEED_REGISTERED = "Вы должны зарегистрироваться перед поиском, воспользуйтесь /register";
