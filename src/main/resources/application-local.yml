@@ -12,8 +12,8 @@ spring:
 
   mail:
     host: smtp.yandex.ru
-    username: ${emailSenderLogin.local}
-    password: ${emailSenderPassword.local}
+    username: ${EMAIL_SENDER_LOGIN}
+    password: ${EMAIL_SENDER_PASSWORD}
     port: 465
     protocol: smtp
     properties:
