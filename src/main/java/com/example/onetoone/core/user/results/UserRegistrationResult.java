@@ -8,8 +8,6 @@ import lombok.Value;
 public class UserRegistrationResult {
     Long id;
     String email;
-    String telegramUserName;
-    Long telegramUserId;
     String name;
     String surName;
     String status;

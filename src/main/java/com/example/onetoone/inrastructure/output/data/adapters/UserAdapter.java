@@ -30,9 +30,4 @@ public class UserAdapter implements Users {
     public Optional<User> loadUserByEmail(String email) {
         return repository.findByEmail(email).map(mapper::toEntity);
     }
-
-    @Override
-    public Optional<User> getByTelegramUserId(Long telegramUserId) {
-        return repository.findByTelegramUserId(telegramUserId).map(mapper::toEntity);
-    }
 }
