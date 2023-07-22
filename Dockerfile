@@ -1,10 +1,13 @@
-FROM gradle:jdk17
+FROM gradle:jdk17 AS GRADLEW_BUILD
 
-COPY ./ ./
+WORKDIR /app
+
+COPY ./ /app
 
 RUN ./gradlew build -x test
 
-RUN ./gradlew flywayMigrate
+FROM openjdk:17
 
-CMD ["java", "-jar", "build/libs/one-to-one-0.0.1-SNAPSHOT.jar"]
+COPY --from=GRADLEW_BUILD /app/build/libs/one-to-one-0.0.1-SNAPSHOT.jar /app/one-to-one.jar
 
+CMD ["java", "-jar", "/app/one-to-one.jar"]
