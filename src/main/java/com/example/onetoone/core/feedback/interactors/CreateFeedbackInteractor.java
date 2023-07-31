@@ -12,6 +12,7 @@ import com.example.onetoone.core.one_to_one.entities.FeedbackStatus;
 import com.example.onetoone.core.one_to_one.entities.OneToOne;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
+import com.example.onetoone.core.service.events.UserAnswerEvent;
 import com.example.onetoone.core.service.interfaces.*;
 import com.example.onetoone.core.user.entities.User;
 import com.example.onetoone.presentation.request.UserAnswerRequest;
@@ -38,6 +39,7 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
     private final UsersTechnologyStatistics usersTechnologyStatistics;
     private final Technologies technologies;
     private final UserAnswerMapper userAnswerMapper;
+    private final KafkaGateway kafkaGateway;
 
     @Override
     public FeedbackResult execute(CreateFeedbackCommand command) {
@@ -62,6 +64,7 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
         var feedback = getFeedback(entity);
         var answers = toUserAnswer(command.getQuestions());
         var entityList = saveUserAnswer(answers, feedback);
+        kafkaGateway.sendUserAnswerEvent(new UserAnswerEvent(entityList));
         oneToOnes.put(oneToOne);
         var userStatistics = saveStatistics(updateStatistics(recipient, entityList));
         saveUserTechnologyStatistics(updateUserTechnologyStatistics(entityList, userStatistics));

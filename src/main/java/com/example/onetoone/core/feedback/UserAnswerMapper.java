@@ -1,6 +1,7 @@
 package com.example.onetoone.core.feedback;
 
 import com.example.onetoone.core.feedback.entities.UserAnswer;
+import com.example.onetoone.core.service.events.UserAnswerEvent;
 import com.example.onetoone.core.technology.TechnologyMapper;
 import com.example.onetoone.presentation.request.UserAnswerRequest;
 import org.mapstruct.Mapper;

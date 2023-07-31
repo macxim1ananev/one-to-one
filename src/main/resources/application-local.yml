@@ -34,17 +34,19 @@ spring:
         jwt:
           jwk-set-uri:
   autoconfigure:
-  jpa:
-    generate-ddl: false
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        generate_statistics: true
-#logging:
-#  level:
-#    org:
-#      hibernate:
-#        stat: INFO
+    jpa:
+      generate-ddl: false
+
+  kafka:
+    bootstrap-server: ${KAFKA_SERVER:kafka:29092, kafka2:29093}
+    producer:
+      one-to-one:
+        id: one-to-one-producer
+    topics:
+      user-answer:
+        name: user-answer-topic
+        key: user-answer-topic-key
+
 jwt:
   secret:
     access: g54ges5tW$%tw45TEgsegrfdrfer
