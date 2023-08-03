@@ -64,7 +64,7 @@ public class CreateFeedbackInteractor implements Interactor<CreateFeedbackComman
         var feedback = getFeedback(entity);
         var answers = toUserAnswer(command.getQuestions());
         var entityList = saveUserAnswer(answers, feedback);
-        kafkaGateway.sendUserAnswerEvent(new UserAnswerEvent(entityList));
+        kafkaGateway.sendUserAnswerEvent(new UserAnswerEvent(entityList, recipient));
         oneToOnes.put(oneToOne);
         var userStatistics = saveStatistics(updateStatistics(recipient, entityList));
         saveUserTechnologyStatistics(updateUserTechnologyStatistics(entityList, userStatistics));

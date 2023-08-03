@@ -13,6 +13,19 @@ services:
     volumes:
       - backed_volume:/var/lib/docker
 
+
+  statistics-app:
+    build: ~/check-me/statistics-generator/
+    container_name: statistics-generator-app
+    ports:
+      - 8088:8080
+    restart: on-failure
+    networks:
+      - one-to-one_network
+    volumes:
+      - statistics-generator_volume:/var/lib/docker
+
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
@@ -86,3 +99,5 @@ volumes:
     name: one-to-one_volumes
   backed_volume:
     name: backed_volume
+  statistics-generator_volume:
+    name: statistics-generator_volume
