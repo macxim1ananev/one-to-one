@@ -1,4 +1,4 @@
-package com.example.onetoone.core.feedback.commands.statistics;
+package com.example.onetoone.core.statistics.command;
 
 import com.example.onetoone.core.service.command_bus.Command;
 import lombok.Builder;

@@ -1,7 +1,7 @@
 package com.example.onetoone.presentation.mapper;
 
-import com.example.onetoone.core.feedback.results.statistics.FullUserStatisticsResult;
-import com.example.onetoone.core.feedback.results.statistics.UserTechnologyStatisticsResult;
+import com.example.onetoone.core.statistics.result.FullUserStatisticsResult;
+import com.example.onetoone.core.statistics.result.UserTechnologyStatisticsResult;
 import com.example.onetoone.presentation.view.FullUserStatisticsView;
 import com.example.onetoone.presentation.view.UserTechnologyStatisticsView;
 import org.mapstruct.Mapper;

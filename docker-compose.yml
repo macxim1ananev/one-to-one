@@ -5,6 +5,8 @@ services:
   app:
     build: ./
     container_name: backend-app
+    depends_on:
+      - kafka
     ports:
       - 8080:8080
     restart: on-failure
@@ -15,6 +17,8 @@ services:
 
 
   statistics-app:
+    depends_on:
+      - kafka
     build: ~/check-me/statistics-generator/
     container_name: statistics-generator-app
     ports:
@@ -49,26 +53,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
-    networks:
-      - one-to-one_network
-    volumes:
-      - one-to-one_volumes:/var/lib/docker
-
-  kafka2:
-    image: confluentinc/cp-kafka:latest
-    depends_on:
-      - zookeeper
-    ports:
-      - 29093:29092
-    hostname: kafka2
-    environment:
-      KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:29093
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     networks:
       - one-to-one_network
     volumes:
@@ -86,7 +71,6 @@ services:
       - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
     links:
       - kafka
-      - kafka2
       - zookeeper
     networks:
       - one-to-one_network

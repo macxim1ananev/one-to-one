@@ -1,11 +1,11 @@
 package com.example.onetoone.inrastructure.output.data.adapters;
 
-import com.example.onetoone.core.feedback.entities.statistics.UserStatistics;
+import com.example.onetoone.core.statistics.entity.UserStatistics;
 import com.example.onetoone.core.service.common.EntityList;
 import com.example.onetoone.core.service.common.ListFilter;
 import com.example.onetoone.core.service.interfaces.UsersStatistics;
 import com.example.onetoone.inrastructure.output.data.FilteringAndSortingAdapter;
-import com.example.onetoone.core.feedback.UsersStatisticsMapper;
+import com.example.onetoone.core.statistics.UsersStatisticsMapper;
 import com.example.onetoone.inrastructure.output.data.models.UsersStatisticsModel;
 import com.example.onetoone.inrastructure.output.data.repositories.UsersStatisticsRepository;
 import lombok.RequiredArgsConstructor;

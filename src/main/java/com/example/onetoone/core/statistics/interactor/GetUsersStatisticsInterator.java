@@ -1,11 +1,11 @@
-package com.example.onetoone.core.feedback.interactors.statistics;
+package com.example.onetoone.core.statistics.interactor;
 
-import com.example.onetoone.core.feedback.commands.statistics.GetUserStatisticsCommand;
-import com.example.onetoone.core.feedback.results.statistics.UserStatisticsResult;
+import com.example.onetoone.core.statistics.command.GetUserStatisticsCommand;
+import com.example.onetoone.core.statistics.result.UserStatisticsResult;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.error.ServiceException;
 import com.example.onetoone.core.service.interfaces.UsersStatistics;
-import com.example.onetoone.core.feedback.UsersStatisticsMapper;
+import com.example.onetoone.core.statistics.UsersStatisticsMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

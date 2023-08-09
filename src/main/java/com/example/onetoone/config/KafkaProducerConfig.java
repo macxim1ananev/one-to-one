@@ -1,6 +1,6 @@
 package com.example.onetoone.config;
 
-import com.example.onetoone.core.service.events.BaseEvent;
+import com.example.onetoone.core.service.events.UserAnswerEvent;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.config.TopicConfig;
@@ -16,14 +16,13 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Configuration
 public class KafkaProducerConfig {
 
     @Value("${spring.kafka.bootstrap-server}")
-    private List<String> kafkaServer;
+    private String kafkaServer;
     @Value("${spring.kafka.producer.one-to-one.id}")
     private String kafkaProducerId;
 
@@ -43,16 +42,17 @@ public class KafkaProducerConfig {
         props.put(ProducerConfig.METADATA_MAX_AGE_CONFIG, "100000");
         props.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, "100");
         props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+        props.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, Boolean.FALSE);
         return props;
     }
 
     @Bean
-    public ProducerFactory<String, BaseEvent> producerFactory() {
+    public ProducerFactory<String, UserAnswerEvent> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, BaseEvent> kafkaTemplate() {
+    public KafkaTemplate<String, UserAnswerEvent> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
@@ -68,10 +68,9 @@ public class KafkaProducerConfig {
         return new KafkaAdmin.NewTopics(
                 TopicBuilder
                         .name(userAnswerTopic)
-                        .partitions(2)
-                        .replicas(2)
-                        .configs(Map.of(TopicConfig.MIN_IN_SYNC_REPLICAS_CONFIG, "2",
-                                TopicConfig.MESSAGE_TIMESTAMP_TYPE_CONFIG, "LogAppendTime"))
+                        .partitions(1)
+                        .replicas(1)
+                        .configs(Map.of(TopicConfig.MESSAGE_TIMESTAMP_TYPE_CONFIG, "LogAppendTime"))
                         .build() );
     }
 }

@@ -38,7 +38,7 @@ spring:
       generate-ddl: false
 
   kafka:
-    bootstrap-server: ${KAFKA_SERVER:kafka:29092, kafka2:29093}
+    bootstrap-server: ${KAFKA_SERVER:kafka:29092}
     producer:
       one-to-one:
         id: one-to-one-producer

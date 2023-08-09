@@ -1,4 +1,4 @@
-package com.example.onetoone.core.feedback.entities.statistics;
+package com.example.onetoone.core.statistics.entity;
 
 import com.example.onetoone.core.technology.entities.Technology;
 import lombok.Data;

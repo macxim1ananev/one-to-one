@@ -1,8 +1,8 @@
-package com.example.onetoone.core.feedback.interactors.statistics;
+package com.example.onetoone.core.statistics.interactor;
 
-import com.example.onetoone.core.feedback.UserTechnologyStatisticMapper;
-import com.example.onetoone.core.feedback.commands.statistics.GetFilteredAndSortedUserTechnologyStatisticsListCommand;
-import com.example.onetoone.core.feedback.results.statistics.UserTechnologyStatisticsResult;
+import com.example.onetoone.core.statistics.UserTechnologyStatisticMapper;
+import com.example.onetoone.core.statistics.command.GetFilteredAndSortedUserTechnologyStatisticsListCommand;
+import com.example.onetoone.core.statistics.result.UserTechnologyStatisticsResult;
 import com.example.onetoone.core.service.common.GetListInteractor;
 import com.example.onetoone.core.service.common.Interactor;
 import com.example.onetoone.core.service.common.ResultModelList;

@@ -1,6 +1,6 @@
 package com.example.onetoone.presentation.mapper;
 
-import com.example.onetoone.core.feedback.results.statistics.UserStatisticsResult;
+import com.example.onetoone.core.statistics.result.UserStatisticsResult;
 import com.example.onetoone.presentation.view.UserStatisticsView;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
